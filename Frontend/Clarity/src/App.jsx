@@ -6,8 +6,9 @@ import { PlayNav } from "./Components/PlayNav/PlayNav"
 import { AutoNav } from "./Components/AutoNav/AutoNav"
 import { AgentsNav } from "./Components/AgentsNav/AgentsNav"
 import { ReportNav } from "./Components/ReportNav/ReportNav"
-import { Course } from "./Components/Course/Course"
 import { CourseNav } from "./Components/CourseNav/CourseNav"
+import { GeneratedNav } from "./Components/GeneratedNav/GeneratedNav"
+import { Library } from "./Components/Library/Library"
 
 function App() {
   return (
@@ -19,9 +20,10 @@ function App() {
         <Route path="/healthcare" element={<AutoNav />} />
         <Route path="/technology" element={<AutoNav />} />
         <Route path="/finance" element={<AutoNav />} />
+        <Route path="/data-library" element={<Library />} />
         <Route path="/report-builder" element={<ReportNav />} />
         <Route path="/generate-course" element={<CourseNav />} />
-        <Route path="/generated" element={<AgentsNav />} />
+        <Route path="/generated" element={<GeneratedNav />} />
         <Route path="/ai-analyst" element={<AgentsNav />} />
         <Route path="/virtual-analyst" element={<PlayNav />} />
         <Route path="/signup" element={<Signup />} />

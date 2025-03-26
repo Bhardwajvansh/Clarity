@@ -28,9 +28,133 @@ const COLORS = [
     '#DA70D6'
 ];
 
+// Static content for industry analysis sections
+const STATIC_CONTENT = {
+    dashboard: {
+        title: "Dashboard Overview",
+        content: (
+            <div className="p-6 bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10 rounded-lg shadow-md">
+                <h2 className="text-2xl font-bold mb-4 text-[#8A4FFF]">Automotive Dashboard</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white p-4 rounded-lg shadow-md">
+                        <h3 className="font-semibold text-[#6A5ACD] mb-2">Key Segments</h3>
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li>Electric Vehicles</li>
+                            <li>Autonomous Driving Technologies</li>
+                            <li>Connected Car Solutions</li>
+                            <li>Hybrid Powertrains</li>
+                        </ul>
+                    </div>
+                    <div className="bg-white p-4 rounded-lg shadow-md">
+                        <h3 className="font-semibold text-[#BA55D3] mb-2">Emerging Trends</h3>
+                        <p>The automotive industry is experiencing rapid transformation driven by electrification, autonomous technologies, and sustainable mobility solutions.</p>
+                    </div>
+                </div>
+            </div>
+        )
+    },
+    marketSize: {
+        title: "Market Size Analysis",
+        content: (
+            <div className="p-6 bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10 rounded-lg shadow-md">
+                <h2 className="text-2xl font-bold mb-4 text-[#6A5ACD]">Global Automotive Market Size</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white p-4 rounded-lg shadow-md">
+                        <h3 className="font-semibold text-[#9370DB] mb-2">Market Valuation</h3>
+                        <div className="text-2xl font-bold text-[#8A4FFF]">$2.95 Trillion</div>
+                        <p className="text-green-600">Expected CAGR: 7.5% (2023-2030)</p>
+                    </div>
+                    <div className="bg-white p-4 rounded-lg shadow-md">
+                        <h3 className="font-semibold text-[#BA55D3] mb-2">Regional Breakdown</h3>
+                        <ul className="space-y-2">
+                            <li>Asia-Pacific: 45% Market Share</li>
+                            <li>North America: 25% Market Share</li>
+                            <li>Europe: 20% Market Share</li>
+                            <li>Rest of World: 10% Market Share</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        )
+    },
+    revenueForecast: {
+        title: "Revenue Forecast",
+        content: (
+            <div className="p-6 bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10 rounded-lg shadow-md">
+                <h2 className="text-2xl font-bold mb-4 text-[#DA70D6]">Automotive Revenue Projections</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white p-4 rounded-lg shadow-md">
+                        <h3 className="font-semibold text-[#8A4FFF] mb-2">Segment Forecast</h3>
+                        <ul className="space-y-2">
+                            <li>Electric Vehicles: $957B by 2030</li>
+                            <li>Autonomous Vehicles: $556B by 2030</li>
+                            <li>Connected Car Tech: $225B by 2030</li>
+                        </ul>
+                    </div>
+                    <div className="bg-white p-4 rounded-lg shadow-md">
+                        <h3 className="font-semibold text-[#6A5ACD] mb-2">Revenue Growth Trajectory</h3>
+                        <div className="text-lg">
+                            <p>Steady YoY growth expected</p>
+                            <div className="mt-2 w-full bg-gray-200 rounded-full h-2.5">
+                                <div
+                                    className="bg-[#9370DB] h-2.5 rounded-full"
+                                    style={{ width: '75%' }}
+                                ></div>
+                            </div>
+                            <p className="text-sm text-gray-600 mt-1">Projected 7.5% Annual Growth</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    },
+    competitiveAnalysis: {
+        title: "Competitive Analysis",
+        content: (
+            <div className="p-6 bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10 rounded-lg shadow-md">
+                <h2 className="text-2xl font-bold mb-4 text-[#BA55D3]">Competitive Landscape</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white p-4 rounded-lg shadow-md">
+                        <h3 className="font-semibold text-[#9370DB] mb-2">Market Leaders</h3>
+                        <ul className="space-y-2">
+                            <li>Toyota: 12% Market Share</li>
+                            <li>Volkswagen: 10.5% Market Share</li>
+                            <li>Ford: 8.2% Market Share</li>
+                            <li>Tesla: 6.7% Market Share</li>
+                        </ul>
+                    </div>
+                    <div className="bg-white p-4 rounded-lg shadow-md">
+                        <h3 className="font-semibold text-[#6A5ACD] mb-2">Market Dynamics</h3>
+                        <p>Intense competition driven by technological innovation, electrification, and sustainability efforts.</p>
+                    </div>
+                </div>
+            </div>
+        )
+    },
+    categoryAlert: {
+        title: "Category Alerts",
+        content: (
+            <div className="p-6 bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10 rounded-lg shadow-md">
+                <h2 className="text-2xl font-bold mb-4 text-[#DA70D6]">Industry Category Alerts</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white p-4 rounded-lg shadow-md border-l-4 border-red-500">
+                        <h3 className="font-semibold text-red-600 mb-2">Supply Chain Disruption</h3>
+                        <p>Semiconductor shortages continue to impact production capabilities.</p>
+                    </div>
+                    <div className="bg-white p-4 rounded-lg shadow-md border-l-4 border-green-500">
+                        <h3 className="font-semibold text-green-600 mb-2">Emerging Opportunity</h3>
+                        <p>Growing market for electric and autonomous vehicle technologies.</p>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+};
+
 export const AutoNav = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [clarityDropdownOpen, setClarityDropdownOpen] = useState(false);
+    const [activeSection, setActiveSection] = useState('dashboard');
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -252,12 +376,49 @@ export const AutoNav = () => {
                     ${isExpanded ? 'md:ml-64' : 'md:ml-16'}
                 `}
             >
-                <div>
-                    <Parameters />
-                    <Market />
-                    <Specs />
-                    <Footer />
+                <div
+                    className="flex bg-gradient-to-r from-[#8A4FFF]/20 to-[#DA70D6]/20 p-4 space-x-4 shadow-sm"
+                >
+                    {Object.keys(STATIC_CONTENT).map((section) => (
+                        <button
+                            key={section}
+                            onClick={() => setActiveSection(section)}
+                            className={`
+                                px-4 
+                                py-2 
+                                rounded-md 
+                                transition-all 
+                                duration-300 
+                                text-sm 
+                                font-medium
+                                ${activeSection === section
+                                    ? `bg-gradient-to-r from-[${COLORS[0]}] to-[${COLORS[4]}] text-white shadow-lg`
+                                    : 'bg-white text-gray-700 hover:bg-gray-100 hover:shadow-md'}
+                            `}
+                        >
+                            {section === 'dashboard' ? 'Dashboard' :
+                                section === 'marketSize' ? 'Market Size' :
+                                    section === 'revenueForecast' ? 'Revenue Forecast' :
+                                        section === 'competitiveAnalysis' ? 'Competitive Analysis' :
+                                            'Category Alert'}
+                        </button>
+                    ))}
                 </div>
+
+                {/* Content Area */}
+                <div className="p-6">
+                    {activeSection === 'dashboard' ? (
+                        <>
+                            <Parameters />
+                            <Market />
+                            <Specs />
+                        </>
+                    ) : (
+                        STATIC_CONTENT[activeSection].content
+                    )}
+                </div>
+
+                <Footer />
             </div>
         </>
     );

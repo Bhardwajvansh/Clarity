@@ -6,6 +6,7 @@ import { PlayNav } from "./Components/PlayNav/PlayNav"
 import { AutoNav } from "./Components/AutoNav/AutoNav"
 import { AgentsNav } from "./Components/AgentsNav/AgentsNav"
 import { Report } from "./Components/Report/Report"
+import { ReportNav } from "./Components/ReportNav/ReportNav"
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route path="/healthcare" element={<AutoNav />} />
         <Route path="/technology" element={<AutoNav />} />
         <Route path="/finance" element={<AutoNav />} />
-        <Route path="/report-builder" element={<Report />} />
+        <Route path="/report-builder" element={<ReportNav />} />
         <Route path="/ai-analyst" element={<AgentsNav />} />
         <Route path="/virtual-analyst" element={<PlayNav />} />
         <Route path="/signup" element={<Signup />} />

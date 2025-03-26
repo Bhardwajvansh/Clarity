@@ -8,7 +8,7 @@ import { AgentsNav } from "./Components/AgentsNav/AgentsNav"
 import { ReportNav } from "./Components/ReportNav/ReportNav"
 import { CourseNav } from "./Components/CourseNav/CourseNav"
 import { GeneratedNav } from "./Components/GeneratedNav/GeneratedNav"
-import { Library } from "./Components/Library/Library"
+import { LibraryNav } from "./Components/LibraryNav/LibraryNav"
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Route path="/healthcare" element={<AutoNav />} />
         <Route path="/technology" element={<AutoNav />} />
         <Route path="/finance" element={<AutoNav />} />
-        <Route path="/data-library" element={<Library />} />
+        <Route path="/data-library" element={<LibraryNav />} />
         <Route path="/report-builder" element={<ReportNav />} />
         <Route path="/generate-course" element={<CourseNav />} />
         <Route path="/generated" element={<GeneratedNav />} />

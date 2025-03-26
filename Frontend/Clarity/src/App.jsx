@@ -21,6 +21,7 @@ function App() {
         <Route path="/finance" element={<AutoNav />} />
         <Route path="/report-builder" element={<ReportNav />} />
         <Route path="/generate-course" element={<CourseNav />} />
+        <Route path="/generated" element={<AgentsNav />} />
         <Route path="/ai-analyst" element={<AgentsNav />} />
         <Route path="/virtual-analyst" element={<PlayNav />} />
         <Route path="/signup" element={<Signup />} />

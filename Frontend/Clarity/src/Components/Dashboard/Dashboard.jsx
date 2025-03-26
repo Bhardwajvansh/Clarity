@@ -1,23 +1,9 @@
 import React from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { PieChart, Pie, Cell } from 'recharts';
+import { useNavigate } from 'react-router-dom'
+import { Clock, User, CreditCard, TrendingUp, Database, Activity, ArrowRight, Laptop } from 'lucide-react'
 
 export const Dashboard = () => {
-    const industryRevenueData = [
-        { name: 'Q1', Automobile: 450, Technology: 600, Healthcare: 350, Energy: 280, Finance: 400 },
-        { name: 'Q2', Automobile: 500, Technology: 650, Healthcare: 380, Energy: 320, Finance: 450 },
-        { name: 'Q3', Automobile: 480, Technology: 700, Healthcare: 420, Energy: 300, Finance: 430 },
-        { name: 'Q4', Automobile: 550, Technology: 750, Healthcare: 400, Energy: 350, Finance: 480 }
-    ];
-
-    const industryMarketShareData = [
-        { name: 'Technology', value: 35 },
-        { name: 'Healthcare', value: 25 },
-        { name: 'Automobile', value: 20 },
-        { name: 'Finance', value: 15 },
-        { name: 'Energy', value: 5 }
-    ];
-
+    const navigate = useNavigate();
     const COLORS = [
         '#8A4FFF',
         '#6A5ACD',
@@ -25,88 +11,136 @@ export const Dashboard = () => {
         '#BA55D3',
         '#DA70D6'
     ];
+
+    const timeSavedData = [
+        { hour: 0, saved: 0 },
+        { hour: 1, saved: 2 },
+        { hour: 2, saved: 5 },
+        { hour: 3, saved: 8 },
+        { hour: 4, saved: 12 },
+        { hour: 5, saved: 15 }
+    ];
+
+    const analyticsCards = [
+        {
+            icon: <Laptop size={32} />,
+            title: "Clarity",
+            description: "Interactive data exploration and conversational insights.",
+            route: "/automobile"
+        },
+        {
+            icon: <Database size={32} />,
+            title: "Data Library",
+            description: "Comprehensive collection of curated datasets for in-depth analysis.",
+            route: "/data-library"
+        },
+        {
+            icon: <Activity size={32} />,
+            title: "Report Builder",
+            description: "Create customized reports with intuitive drag-and-drop interface.",
+            route: "/report-builder"
+        },
+        {
+            icon: <TrendingUp size={32} />,
+            title: "AI Analyst",
+            description: "Advanced AI-powered insights and predictive analytics.",
+            route: "/ai-analyst"
+        },
+        {
+            icon: <User size={32} />,
+            title: "Virtual Analyst Assistant",
+            description: "Automated data interpretation and strategic recommendations.",
+            route: "/virtual-analyst"
+        },
+    ];
+
     return (
         <div>
             <div className="bg-gradient-to-tr from-purple-100 to-indigo-100 p-10 mx-auto relative overflow-hidden shadow-sm">
+                <h1 className="text-3xl font-bold" style={{ background: `linear-gradient(to right, ${COLORS[0]}, ${COLORS[3]})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    Clarity Dashboard
+                </h1>
+                <br />
                 <div className="absolute -top-20 -right-20 w-40 h-40 bg-purple-400 rounded-full opacity-20"></div>
                 <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-indigo-400 rounded-full opacity-20"></div>
 
                 <div className="relative z-10">
-                    <h1 className="text-3xl font-bold text-purple-700 lg:text-7xl mb-4">Welcome to Clarity</h1>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                        <div className="bg-white p-6 rounded-lg shadow-md">
-                            <h2 className="text-xl font-semibold text-purple-600 mb-4">Quarterly Industry Revenues</h2>
-                            <ResponsiveContainer width="100%" height={300}>
-                                <BarChart data={industryRevenueData}>
-                                    <CartesianGrid strokeDasharray="3 3" stroke="#E6E6FA" />
-                                    <XAxis dataKey="name" />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Legend />
-                                    <Bar dataKey="Automobile" fill={COLORS[0]} />
-                                    <Bar dataKey="Technology" fill={COLORS[1]} />
-                                    <Bar dataKey="Healthcare" fill={COLORS[2]} />
-                                    <Bar dataKey="Energy" fill={COLORS[3]} />
-                                    <Bar dataKey="Finance" fill={COLORS[4]} />
-                                </BarChart>
-                            </ResponsiveContainer>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        {/* User Information Box */}
+                        <div
+                            className="md:col-span-2 text-white p-6 rounded-lg shadow-md"
+                            style={{
+                                background: `linear-gradient(to right, ${COLORS[0]}, ${COLORS[3]})`
+                            }}
+                        >
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <div className="flex items-center mb-2">
+                                        <User className="mr-3" size={32} />
+                                        <h1 className="text-3xl font-bold">Welcome, John</h1>
+                                    </div>
+                                    <p className="text-sm mb-4">Mar 24, 2025 18:28 PM</p>
+                                    <div className="bg-white bg-opacity-20 inline-block px-3 py-1 rounded-full">
+                                        <CreditCard className="inline mr-2 text-black" size={16} />
+                                        <span className="text-sm text-black">Current Plan: Starter Plan</span>
+                                    </div>
+                                </div>
+                                <button className="bg-white text-blue-500 px-4 py-2 rounded-lg hover:bg-blue-50 transition flex items-center">
+                                    <TrendingUp className="mr-2" size={16} />
+                                    See Pricing Plans
+                                </button>
+                            </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-lg shadow-md">
-                            <h2 className="text-xl font-semibold text-purple-600 mb-4">Industry Market Share Distribution</h2>
-                            <ResponsiveContainer width="100%" height={300}>
-                                <PieChart>
-                                    <Pie
-                                        data={industryMarketShareData}
-                                        cx="50%"
-                                        cy="50%"
-                                        labelLine={false}
-                                        outerRadius={80}
-                                        fill="#8884d8"
-                                        dataKey="value"
-                                    >
-                                        {industryMarketShareData.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip />
-                                    <Legend />
-                                </PieChart>
-                            </ResponsiveContainer>
+                        {/* Time Saved Box */}
+                        <div className="bg-white p-6 rounded-lg shadow-md flex flex-col justify-center">
+                            <div className="flex items-center mb-4">
+                                <Clock className="mr-3 text-purple-600" size={24} />
+                                <h3 className="text-xl font-semibold text-purple-600">Time Saved</h3>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="text-3xl font-bold text-green-500 mr-4">15</div>
+                                <div className="text-gray-600">Total hours saved</div>
+                            </div>
+                            {/* Graph representation */}
+                            <div className="mt-4 h-16 bg-green-100 relative overflow-hidden rounded">
+                                <div className="absolute bottom-0 left-0 right-0 flex">
+                                    {timeSavedData.map((data, index) => (
+                                        <div
+                                            key={index}
+                                            className="flex-grow"
+                                            style={{
+                                                backgroundColor: COLORS[1],
+                                                height: `${data.saved * 5}px`,
+                                                transition: 'height 0.5s ease-in-out'
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                    {/* New Analytics Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                        <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300">
-                            <div className="text-purple-500 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
+                        {analyticsCards.map((card, index) => (
+                            <div
+                                key={index}
+                                className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300 group"
+                            >
+                                <div className="text-purple-500 mb-4">
+                                    {card.icon}
+                                </div>
+                                <h3 className="font-bold text-lg text-gray-800 mb-2">{card.title}</h3>
+                                <p className="text-gray-600 mb-4">{card.description}</p>
+                                <button
+                                    onClick={() => navigate(card.route)}
+                                    className="flex items-center text-purple-600 hover:text-purple-800 transition"
+                                >
+                                    Visit {card.title} <ArrowRight className="ml-2" size={16} />
+                                </button>
                             </div>
-                            <h3 className="font-bold text-lg text-gray-800 mb-2">Technology Sector</h3>
-                            <p className="text-gray-600">Fastest-growing industry with 35% market share and continuous innovation.</p>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300">
-                            <div className="text-purple-500 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                                </svg>
-                            </div>
-                            <h3 className="font-bold text-lg text-gray-800 mb-2">Healthcare Innovation</h3>
-                            <p className="text-gray-600">Significant growth driven by technological advancements and global health challenges.</p>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300">
-                            <div className="text-purple-500 mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                                </svg>
-                            </div>
-                            <h3 className="font-bold text-lg text-gray-800 mb-2">Industry Analytics</h3>
-                            <p className="text-gray-600">Comprehensive insights into cross-industry technological and economic trends.</p>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>

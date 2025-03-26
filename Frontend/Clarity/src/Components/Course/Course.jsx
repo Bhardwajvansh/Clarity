@@ -160,9 +160,7 @@ export const Course = () => {
     };
 
     const handleGenerateCourse = () => {
-        navigate('/generate-course', {
-            state: { themes }
-        });
+        navigate('/generated');
     };
 
     return (
@@ -222,9 +220,15 @@ export const Course = () => {
                     <div className="flex justify-center mt-8">
                         <button
                             onClick={handleGenerateCourse}
-                            className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-500 text-white rounded-lg hover:opacity-90 transition-opacity"
+                            className="px-8 py-3 m-2 bg-gradient-to-r from-purple-600 to-blue-500 text-white rounded-lg hover:opacity-90 transition-opacity"
                         >
                             Generate Course
+                        </button>
+                        <button
+                            onClick={() => navigate('/report-builder')}
+                            className="px-8 py-3 m-2 text-black border rounded-lg hover:opacity-90 transition-opacity"
+                        >
+                            Go Back
                         </button>
                     </div>
                 </div>

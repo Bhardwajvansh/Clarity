@@ -112,9 +112,9 @@ export const Library = () => {
         return (
             <div className="p-6 max-w-6xl mx-auto">
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-semibold">{activeTab} Library</h2>
+                    <h1 className="text-3xl font-bold text-gray-800">{activeTab} Library</h1>
                     {activeTab === 'Team' && (
-                        <button className="flex items-center bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">
+                        <button className="flex items-center bg-[#8A4FFF] text-white px-4 py-2 rounded hover:bg-purple-700 transition">
                             <UserPlus className="h-5 w-5 mr-2" />
                             Invite Team Member
                         </button>
@@ -124,7 +124,7 @@ export const Library = () => {
                 <div className="border border-gray-200 rounded-lg">
                     {/* Drag and Drop Area */}
                     <div className="p-6 border-b border-gray-200 bg-gray-50 text-center">
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8">
+                        <div className="border-2 border-dashed border-gray-300 bg-[#8A4FFF]/5 rounded-lg p-8">
                             <div className="flex justify-center mb-4">
                                 <CloudUpload className="h-12 w-12 text-gray-400" />
                             </div>
@@ -142,7 +142,7 @@ export const Library = () => {
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-64 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                             />
-                            <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">View</button>
+                            <button className="bg-[#8A4FFF] text-white px-4 py-2 rounded hover:bg-purple-700 transition">View</button>
                         </div>
 
                         <div className="flex space-x-2 mb-4">
@@ -213,7 +213,7 @@ export const Library = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <nav className="bg-white shadow-sm">
+            <nav className="bg-[#8A4FFF]/20 shadow-sm">
                 <div className="flex space-x-4 p-4">
                     {libraryTabs.map((tab) => (
                         <button
@@ -222,8 +222,8 @@ export const Library = () => {
                             className={`
                 flex items-center px-4 py-2 rounded-md transition
                 ${activeTab === tab.name
-                                    ? 'bg-purple-600 text-white'
-                                    : 'text-gray-600 hover:bg-gray-100'
+                                    ? 'bg-[#8A4FFF] text-white'
+                                    : 'text-grey-600 bg-white hover:bg-gray-100'
                                 }
               `}
                         >

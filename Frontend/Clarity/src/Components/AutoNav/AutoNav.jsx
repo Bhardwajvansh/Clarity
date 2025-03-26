@@ -377,7 +377,7 @@ export const AutoNav = () => {
                 `}
             >
                 <div
-                    className="flex bg-gradient-to-r from-[#8A4FFF]/20 to-[#DA70D6]/20 p-4 space-x-4 shadow-sm"
+                    className="flex bg-[#8A4FFF]/20 p-4 space-x-4 shadow-sm"
                 >
                     {Object.keys(STATIC_CONTENT).map((section) => (
                         <button
@@ -392,7 +392,7 @@ export const AutoNav = () => {
                                 text-sm 
                                 font-medium
                                 ${activeSection === section
-                                    ? `bg-gradient-to-r from-[${COLORS[0]}] to-[${COLORS[4]}] text-white shadow-lg`
+                                    ? `bg-[#8A4FFF] text-white shadow-lg`
                                     : 'bg-white text-gray-700 hover:bg-gray-100 hover:shadow-md'}
                             `}
                         >

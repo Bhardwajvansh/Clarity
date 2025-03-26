@@ -1,4 +1,4 @@
-import { Hero } from "./Components/Hero/Hero"
+import { Navbar } from "./Components/Navbar/Navbar"
 import Login from "./Components/Login/Login"
 import Signup from "./Components/Signup/Signup"
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Hero />} />
+        <Route path="/" element={<Navbar />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>

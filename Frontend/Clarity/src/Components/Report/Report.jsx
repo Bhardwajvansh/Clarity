@@ -16,6 +16,18 @@ export const Report = () => {
     const [selectedSubtopics, setSelectedSubtopics] = useState(5);
     const [errors, setErrors] = useState({});
 
+    // New state for library selection
+    const [isLibraryEnabled, setIsLibraryEnabled] = useState(false);
+    const [selectedLibrary, setSelectedLibrary] = useState('');
+    const [isLibraryDropdownOpen, setIsLibraryDropdownOpen] = useState(false);
+
+    const libraryOptions = [
+        'Personal Library',
+        'Team Library',
+        'Global Library',
+        'Company Library'
+    ];
+
     const addTheme = () => {
         if (themes.length < 5) {
             setThemes([...themes, '']);
@@ -60,7 +72,8 @@ export const Report = () => {
             const courseData = {
                 topic,
                 themes: themes.filter(theme => theme.trim() !== ''),
-                subtopics: selectedSubtopics
+                subtopics: selectedSubtopics,
+                library: isLibraryEnabled ? selectedLibrary : null
             };
 
             // Navigate to course generation route
@@ -178,6 +191,63 @@ export const Report = () => {
                             Choose Files
                         </label>
                         <span className="text-[#BA55D3] opacity-70">No file chosen</span>
+                    </div>
+
+                    <div className="mt-4 space-y-2">
+                        <div className="flex items-center space-x-2">
+                            <input
+                                type="checkbox"
+                                id="library-toggle"
+                                checked={isLibraryEnabled}
+                                onChange={() => setIsLibraryEnabled(!isLibraryEnabled)}
+                                className="form-checkbox h-5 w-5 text-[#8A4FFF]"
+                            />
+                            <label htmlFor="library-toggle" className="text-[#6A5ACD]">
+                                Take data from Library?
+                            </label>
+                        </div>
+
+                        {isLibraryEnabled && (
+                            <div className="relative mt-2">
+                                <div
+                                    className="w-full px-4 py-3 border border-[#9370DB]/50 rounded-lg flex justify-between items-center cursor-pointer"
+                                    onClick={() => setIsLibraryDropdownOpen(!isLibraryDropdownOpen)}
+                                >
+                                    <span className="text-[#6A5ACD]">
+                                        {selectedLibrary || 'Select Library'}
+                                    </span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-5 w-5 text-[#6A5ACD]"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                </div>
+
+                                {isLibraryDropdownOpen && (
+                                    <div className="absolute z-10 w-full mt-1 bg-white border border-[#9370DB]/50 rounded-lg shadow-lg">
+                                        {libraryOptions.map((library) => (
+                                            <div
+                                                key={library}
+                                                className="px-4 py-3 hover:bg-[#9370DB]/10 cursor-pointer text-[#6A5ACD]"
+                                                onClick={() => {
+                                                    setSelectedLibrary(library);
+                                                    setIsLibraryDropdownOpen(false);
+                                                }}
+                                            >
+                                                {library}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
 
                     <button

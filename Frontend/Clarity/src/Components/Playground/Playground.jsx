@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
-import { ChevronDown,ChevronUp , Search } from 'lucide-react';
+import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 
 export const Playground = () => {
     const [currentMode, setCurrentMode] = useState('DeepBrain Reasoning');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isLibraryEnabled, setIsLibraryEnabled] = useState(false);
+    const [selectedLibrary, setSelectedLibrary] = useState('');
+    const [isLibraryDropdownOpen, setIsLibraryDropdownOpen] = useState(false);
 
     const modes = [
         'DeepBrain Reasoning Pro',
         'DeepBrain Reasoning',
         'DeepBrain'
+    ];
+
+    const libraryOptions = [
+        'Personal Library',
+        'Team Library',
+        'Global Library',
+        'Company Library'
     ];
 
     const suggestedQueries = [
@@ -20,35 +30,81 @@ export const Playground = () => {
 
     return (
         <div className="flex flex-col h-screen pb-10 bg-white bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10">
-            {/* Dropdown Container */}
-            <div className="relative p-4">
-                <div
-                    className="flex items-center justify-between w-64 p-2 border rounded-md cursor-pointer"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                >
-                    <span className="text-sm">{currentMode}</span>
-                    <ChevronDown className="w-4 h-4" />
+            {/* Dropdown and Library Selection Container */}
+            <div className="relative p-4 flex items-center space-x-4">
+                {/* Mode Dropdown */}
+                <div className="relative">
+                    <div
+                        className="flex items-center justify-between w-64 p-2 border rounded-md cursor-pointer"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    >
+                        <span className="text-sm">{currentMode}</span>
+                        <ChevronDown className="w-4 h-4" />
+                    </div>
+
+                    {isDropdownOpen && (
+                        <div className="absolute z-10 w-64 mt-1 bg-white border rounded-md shadow-lg">
+                            {modes.map((mode) => (
+                                <div
+                                    key={mode}
+                                    className="p-2 hover:bg-gray-100 cursor-pointer"
+                                    onClick={() => {
+                                        setCurrentMode(mode);
+                                        setIsDropdownOpen(false);
+                                    }}
+                                >
+                                    {mode}
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
-                {isDropdownOpen && (
-                    <div className="absolute z-10 w-64 mt-1 bg-white border rounded-md shadow-lg">
-                        {modes.map((mode) => (
+                {/* Library Selection */}
+                <div className="flex items-center space-x-2">
+                    <input
+                        type="checkbox"
+                        id="library-toggle"
+                        checked={isLibraryEnabled}
+                        onChange={() => setIsLibraryEnabled(!isLibraryEnabled)}
+                        className="form-checkbox h-5 w-5 text-purple-600"
+                    />
+                    <label htmlFor="library-toggle" className="text-sm">Take data from Library?</label>
+
+                    {isLibraryEnabled && (
+                        <div className="relative">
                             <div
-                                key={mode}
-                                className="p-2 hover:bg-gray-100 cursor-pointer"
-                                onClick={() => {
-                                    setCurrentMode(mode);
-                                    setIsDropdownOpen(false);
-                                }}
+                                className="flex items-center justify-between w-48 p-2 border rounded-md cursor-pointer"
+                                onClick={() => setIsLibraryDropdownOpen(!isLibraryDropdownOpen)}
                             >
-                                {mode}
+                                <span className="text-sm">
+                                    {selectedLibrary || 'Select Library'}
+                                </span>
+                                <ChevronDown className="w-4 h-4" />
                             </div>
-                        ))}
-                    </div>
-                )}
+
+                            {isLibraryDropdownOpen && (
+                                <div className="absolute z-10 w-48 mt-1 bg-white border rounded-md shadow-lg">
+                                    {libraryOptions.map((library) => (
+                                        <div
+                                            key={library}
+                                            className="p-2 hover:bg-gray-100 cursor-pointer"
+                                            onClick={() => {
+                                                setSelectedLibrary(library);
+                                                setIsLibraryDropdownOpen(false);
+                                            }}
+                                        >
+                                            {library}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
             </div>
 
-            {/* Main Content */}
+            {/* Rest of the existing component remains the same */}
             <div className="flex-grow flex flex-col items-center justify-center text-center">
                 <h1 className="text-4xl font-bold mb-4 flex items-center">
                     DeepBrain
@@ -59,6 +115,7 @@ export const Playground = () => {
                 </p>
                 <div className="text-sm text-gray-600 mb-4">
                     Currently using: {currentMode}
+                    {isLibraryEnabled && selectedLibrary && ` | Library: ${selectedLibrary}`}
                 </div>
 
                 {/* Suggested Queries */}
@@ -93,3 +150,5 @@ export const Playground = () => {
         </div>
     );
 };
+
+export default Playground;

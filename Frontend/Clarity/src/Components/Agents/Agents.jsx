@@ -61,17 +61,17 @@ export const Agents = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white p-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10 p-8 ">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Top Agents</h1>
         <a href="#" className="text-purple-600 hover:underline">View All Categories</a>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
         {agents.map((agent, index) => (
           <div 
             key={index} 
-            className="border rounded-lg p-6 hover:shadow-xl transition-all duration-300 flex flex-col"
+            className="border bg-white rounded-lg p-6 hover:shadow-xl transition-all duration-300 flex flex-col"
             style={{
               borderColor: COLORS[index % COLORS.length],
               boxShadow: `0 4px 6px -1px ${COLORS[index % COLORS.length]}40`

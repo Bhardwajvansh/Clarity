@@ -15,9 +15,8 @@ import {
     ChevronRight,
     ChevronDown
 } from "lucide-react";
-import { Dashboard } from "../Dashboard/Dashboard";
 import { Footer } from "../Footer/Footer";
-import { Playground } from "../playground/Playground";
+import { Course } from "../Course/Course";
 
 const COLORS = [
     '#8A4FFF',
@@ -27,7 +26,7 @@ const COLORS = [
     '#DA70D6'
 ];
 
-export const PlayNav = () => {
+export const CourseNav = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [clarityDropdownOpen, setClarityDropdownOpen] = useState(false);
     const navigate = useNavigate();
@@ -43,7 +42,7 @@ export const PlayNav = () => {
 
     const SidebarItem = ({ icon, label, onClick, isDropdown }) => (
         <div
-            className="relative group w-full "
+            className="relative group w-full"
         >
             <div
                 onClick={onClick}
@@ -252,7 +251,7 @@ export const PlayNav = () => {
                 `}
             >
                 <div>
-                    <Playground />
+                    <Course />
                     <Footer />
                 </div>
             </div>

@@ -172,7 +172,7 @@ export const Course = () => {
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
         >
-            <div className="min-h-screen bg-white p-10">
+            <div className="min-h-screen p-10 bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10">
                 <div className="max-w-4xl mx-auto space-y-6">
                     <h1 className="text-4xl font-bold text-center text-purple-700 mb-8">
                         AI IN AUTOMOBILES

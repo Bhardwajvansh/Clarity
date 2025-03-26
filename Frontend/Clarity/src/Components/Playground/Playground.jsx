@@ -19,7 +19,7 @@ export const Playground = () => {
     ];
 
     return (
-        <div className="flex flex-col h-screen pb-10 bg-white">
+        <div className="flex flex-col h-screen pb-10 bg-white bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10">
             {/* Dropdown Container */}
             <div className="relative p-4">
                 <div

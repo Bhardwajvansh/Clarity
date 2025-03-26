@@ -7,6 +7,7 @@ import { Parameters } from "../Parameters/Parameters";
 import { Market } from "../Market/Market";
 import { Specs } from "../Specs/Specs";
 import { Dashboard } from "../Dashboard/Dashboard";
+import { Playground } from "../playground/Playground";
 
 
 export const Hero = () => {
@@ -34,6 +35,7 @@ export const Hero = () => {
             <Parameters />
             <Market />
             <Specs />
+            <Playground />
             <Chatbot />
             <Footer />
         </div>

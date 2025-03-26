@@ -15,7 +15,9 @@ import {
     ChevronRight,
     ChevronDown
 } from "lucide-react";
-import { Dashboard } from "../Dashboard/Dashboard";
+import { Parameters } from "../Parameters/Parameters";
+import { Market } from "../Market/Market";
+import { Specs } from "../Specs/Specs";
 import { Footer } from "../Footer/Footer";
 
 const COLORS = [
@@ -26,7 +28,7 @@ const COLORS = [
     '#DA70D6'
 ];
 
-export const Navbar = () => {
+export const AutoNav = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [clarityDropdownOpen, setClarityDropdownOpen] = useState(false);
     const navigate = useNavigate();
@@ -251,7 +253,9 @@ export const Navbar = () => {
                 `}
             >
                 <div>
-                    <Dashboard />
+                    <Parameters />
+                    <Market />
+                    <Specs />
                     <Footer />
                 </div>
             </div>

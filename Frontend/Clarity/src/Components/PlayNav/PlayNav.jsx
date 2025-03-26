@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Dashboard } from "../Dashboard/Dashboard";
 import { Footer } from "../Footer/Footer";
+import { Playground } from "../playground/Playground";
 
 const COLORS = [
     '#8A4FFF',
@@ -26,7 +27,7 @@ const COLORS = [
     '#DA70D6'
 ];
 
-export const Navbar = () => {
+export const PlayNav = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [clarityDropdownOpen, setClarityDropdownOpen] = useState(false);
     const navigate = useNavigate();
@@ -251,7 +252,7 @@ export const Navbar = () => {
                 `}
             >
                 <div>
-                    <Dashboard />
+                    <Playground />
                     <Footer />
                 </div>
             </div>

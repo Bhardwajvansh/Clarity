@@ -26,7 +26,7 @@ export const Agents = () => {
       icon: '📋',
       title: 'Competitive Intelligence',
       description: 'Competitive Intelligence performs competitive analysis on any company in real time and with a historical window.',
-      agentType: 'Action Agents'
+      agentType: 'Text Agent'
     },
     {
       icon: '📄',
@@ -87,7 +87,7 @@ export const Agents = () => {
             <p className="text-gray-600 mb-4 flex-grow">{agent.description}</p>
             <div className="flex justify-between items-center">
               <button 
-                className="px-4 py-2 rounded-full text-white font-semibold transition-all duration-300 hover:opacity-90"
+                className="px-4 py-2 rounded-full text-white transition-all duration-300 hover:opacity-90"
                 style={{ 
                   backgroundColor: COLORS[index % COLORS.length],
                   boxShadow: `0 2px 4px -1px ${COLORS[index % COLORS.length]}80`

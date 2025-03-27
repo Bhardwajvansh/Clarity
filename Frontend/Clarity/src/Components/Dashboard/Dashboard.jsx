@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Clock, User, CreditCard, TrendingUp, Database, Activity, ArrowRight, Laptop } from 'lucide-react'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
 export const Dashboard = () => {
     const navigate = useNavigate();
@@ -13,12 +14,13 @@ export const Dashboard = () => {
     ];
 
     const timeSavedData = [
-        { hour: 0, saved: 0 },
-        { hour: 1, saved: 2 },
-        { hour: 2, saved: 5 },
-        { hour: 3, saved: 8 },
-        { hour: 4, saved: 12 },
-        { hour: 5, saved: 15 }
+        { day: 'Mon', hours: 2 },
+        { day: 'Tue', hours: 5 },
+        { day: 'Wed', hours: 8 },
+        { day: 'Thu', hours: 12 },
+        { day: 'Fri', hours: 15 },
+        { day: 'Sat', hours: 10 },
+        { day: 'Sun', hours: 7 }
     ];
 
     const analyticsCards = [
@@ -102,21 +104,32 @@ export const Dashboard = () => {
                                 <div className="text-3xl font-bold text-green-500 mr-4">15</div>
                                 <div className="text-gray-600">Total hours saved</div>
                             </div>
-                            {/* Graph representation */}
-                            <div className="mt-4 h-16 bg-green-100 relative overflow-hidden rounded">
-                                <div className="absolute bottom-0 left-0 right-0 flex">
-                                    {timeSavedData.map((data, index) => (
-                                        <div
-                                            key={index}
-                                            className="flex-grow"
-                                            style={{
-                                                backgroundColor: COLORS[1],
-                                                height: `${data.saved * 5}px`,
-                                                transition: 'height 0.5s ease-in-out'
+                            {/* Recharts Bar Graph */}
+                            <div className="mt-4 h-32 w-full">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={timeSavedData}>
+                                        <XAxis dataKey="day" axisLine={false} tickLine={false} />
+                                        <YAxis axisLine={false} tickLine={false} />
+                                        <Tooltip
+                                            cursor={{ fill: 'transparent' }}
+                                            content={({ active, payload }) => {
+                                                if (active && payload && payload.length) {
+                                                    return (
+                                                        <div className="bg-white p-2 shadow-lg rounded-md">
+                                                            <p className="text-gray-600">{`${payload[0].payload.day}: ${payload[0].value} hours`}</p>
+                                                        </div>
+                                                    );
+                                                }
+                                                return null;
                                             }}
                                         />
-                                    ))}
-                                </div>
+                                        <Bar
+                                            dataKey="hours"
+                                            fill={COLORS[1]}
+                                            radius={[4, 4, 0, 0]}
+                                        />
+                                    </BarChart>
+                                </ResponsiveContainer>
                             </div>
                         </div>
                     </div>

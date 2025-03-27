@@ -6,7 +6,7 @@ import {
     Car,
     Stethoscope,
     Laptop,
-    DollarSign,
+    Box,
     Database,
     FileText,
     Bot,
@@ -292,7 +292,7 @@ export const AutoNav = () => {
                             { icon: <Car />, label: "Automobile", href: "/automobile" },
                             { icon: <Stethoscope />, label: "Healthcare", href: "/healthcare" },
                             { icon: <Laptop />, label: "Technology", href: "/technology" },
-                            { icon: <DollarSign />, label: "Finance", href: "/finance" }
+                            { icon: <Box />, label: "Coal", href: "/Coal" }
                         ].map((item) => (
                             <a
                                 key={item.label}

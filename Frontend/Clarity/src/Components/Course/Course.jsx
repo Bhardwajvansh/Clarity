@@ -222,7 +222,7 @@ export const Course = () => {
                             onClick={handleGenerateCourse}
                             className="px-8 py-3 m-2 bg-gradient-to-r from-purple-600 to-blue-500 text-white rounded-lg hover:opacity-90 transition-opacity"
                         >
-                            Generate Course
+                            Generate Report
                         </button>
                         <button
                             onClick={() => navigate('/report-builder')}

@@ -85,7 +85,7 @@ export const Report = () => {
         <div className="min-h-screen bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10 flex items-center justify-center p-10">
             <div className="w-full max-w-md bg-white rounded-xl shadow-2xl p-8 space-y-6 border border-[#9370DB]/20">
                 <h1 className="text-3xl font-bold text-center text-[#6A5ACD] mb-4">
-                    Generate Course
+                    Generate Report
                 </h1>
 
                 <p className="text-center mb-6 opacity-80">

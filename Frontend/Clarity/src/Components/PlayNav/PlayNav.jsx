@@ -6,7 +6,7 @@ import {
     Car,
     Stethoscope,
     Laptop,
-    DollarSign,
+    Box,
     Database,
     FileText,
     Bot,
@@ -106,7 +106,7 @@ export const PlayNav = () => {
                             { icon: <Car />, label: "Automobile", href: "/automobile" },
                             { icon: <Stethoscope />, label: "Healthcare", href: "/healthcare" },
                             { icon: <Laptop />, label: "Technology", href: "/technology" },
-                            { icon: <DollarSign />, label: "Finance", href: "/finance" }
+                            { icon: <Box />, label: "Coal", href: "/Coa" }
                         ].map((item) => (
                             <a
                                 key={item.label}

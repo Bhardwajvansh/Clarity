@@ -281,6 +281,7 @@ export const Generated = () => {
                                             __html: DOMPurify.sanitize(section.content)
                                         }}
                                     />
+                                    <br />
                                     {section.img && (
                                         <img
                                             src={section.img}
@@ -288,6 +289,7 @@ export const Generated = () => {
                                             className="w-1/2 h-auto rounded-lg mb-4 shadow-md"
                                         />
                                     )}
+                                    <a href={section.img}>Source : {section.img}</a>
                                 </div>
                             ))}
                         </>

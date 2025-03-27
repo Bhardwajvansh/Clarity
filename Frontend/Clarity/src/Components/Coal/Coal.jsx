@@ -21,6 +21,7 @@ import { Parameters } from "../Parameters/Parameters";
 import { Market } from "../Market/Market";
 import { Specs } from "../Specs/Specs";
 import { Footer } from "../Footer/Footer";
+import { Coaldash } from "../Coaldash/Coaldash";
 
 const COLORS = [
     '#8A4FFF',
@@ -174,7 +175,7 @@ const MARKET_SECTIONS = {
         title: "Scope",
         content: (
             <div className="p-6 bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10 rounded-lg shadow-md">
-                <h1 className="text-3xl font-bold mb-6">Energy Transition and Coal Market Report</h1>
+                <h1 className="text-2xl font-bold mb-6">1. Energy Transition and Coal Market Report</h1>
 
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
                     <div className="bg-white p-4 rounded-lg shadow-md">
@@ -818,9 +819,7 @@ export const Coal = () => {
                 <div className="p-6">
                     {activeSection === 'dashboard' ? (
                         <>
-                            <Parameters />
-                            <Market />
-                            <Specs />
+                            <Coaldash />
                         </>
                     ) : (
                         MARKET_SECTIONS[activeSection].content

@@ -14,9 +14,6 @@ export const Footer = () => {
                             <Link to="/" className="text-white font-extrabold text-3xl tracking-tight">
                                 Clarity
                             </Link>
-                            <p className="mt-3 text-indigo-100">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio nostrum nam vitae rerum laudantium ullam.
-                            </p>
                             <div className="mt-4 flex space-x-4">
                                 <a href="#" className="text-indigo-100 hover:text-white">
                                     <span className="sr-only">Twitter</span>

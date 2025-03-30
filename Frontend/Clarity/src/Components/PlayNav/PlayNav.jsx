@@ -110,7 +110,7 @@ export const PlayNav = () => {
                         ].map((item) => (
                             <a
                                 key={item.label}
-                                href={item.href}
+                                onClick={()=>navigate(item.href)}
                                 className={`
                                     flex items-center 
                                     p-2 

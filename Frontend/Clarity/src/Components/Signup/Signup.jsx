@@ -169,7 +169,7 @@ const Signup = () => {
                     <br />
                     <p className="text-gray-600 text-center">
                         Have an account?{' '}
-                        <a href="/login" className="text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-300">
+                        <a onClick={()=>navigate("/login")} className="text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-300">
                             Log in
                         </a>
                     </p>

@@ -19,10 +19,10 @@ const Signup = () => {
         }
         setIsLoading(true);
         try {
-            const response = await axios.post('http://localhost:3001/signup', { name, email, password }, {
-                headers: { 'Content-Type': 'application/json' }
-            });
-            setSuccess(true);
+            // const response = await axios.post('http://localhost:3001/signup', { name, email, password }, {
+            //     headers: { 'Content-Type': 'application/json' }
+            // });
+            // setSuccess(true);
             navigate('/login');
         } catch (error) {
             if (error.response && error.response.status === 400) {

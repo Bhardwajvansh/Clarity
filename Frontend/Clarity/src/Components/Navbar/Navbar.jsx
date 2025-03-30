@@ -33,7 +33,7 @@ export const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.post("http://localhost:3001/logout", {}, { withCredentials: true });
+            // await axios.post("http://localhost:3001/logout", {}, { withCredentials: true });
             navigate("/login");
         } catch (error) {
             console.error("Logout error:", error);

@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Dashboard } from "../Dashboard/Dashboard";
 import { Footer } from "../Footer/Footer";
-import { Playground } from "../playground/Playground";
+import { Playground } from "../Playground/Playground";
 
 const COLORS = [
     '#8A4FFF',

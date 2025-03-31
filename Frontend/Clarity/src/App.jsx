@@ -10,6 +10,7 @@ import { CourseNav } from "./Components/CourseNav/CourseNav"
 import { GeneratedNav } from "./Components/GeneratedNav/GeneratedNav"
 import { LibraryNav } from "./Components/LibraryNav/LibraryNav"
 import { Coal } from "./Components/Coal/Coal"
+import { Cdash } from "./Components/Cdash/Cdash"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/healthcare" element={<AutoNav />} />
         <Route path="/technology" element={<AutoNav />} />
         <Route path="/Coal" element={<Coal />} />
+        <Route path="/claritydashboard" element={<Cdash />} />
         <Route path="/data-library" element={<LibraryNav />} />
         <Route path="/report-builder" element={<ReportNav />} />
         <Route path="/generate-course" element={<CourseNav />} />

@@ -28,7 +28,7 @@ export const Dashboard = () => {
             icon: <Laptop size={32} />,
             title: "Clarity",
             description: "Interactive data exploration and conversational insights.",
-            route: "/automobile"
+            route: "/claritydashboard"
         },
         {
             icon: <Database size={32} />,
@@ -101,8 +101,8 @@ export const Dashboard = () => {
                                 <h3 className="text-xl font-semibold text-purple-600">Time Saved</h3>
                             </div>
                             <div className="flex items-center">
-                                <div className="text-3xl font-bold text-green-500 mr-4">15</div>
-                                <div className="text-gray-600">Total hours saved</div>
+                                <div className="text-3xl font-bold text-green-500 mr-4">59</div>
+                                <div className="text-gray-600">Total hours saved this week</div>
                             </div>
                             {/* Recharts Bar Graph */}
                             <div className="mt-4 h-32 w-full">

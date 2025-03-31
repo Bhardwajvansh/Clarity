@@ -91,9 +91,9 @@ export const Playground = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen pb-10 bg-white bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10">
+        <div className="flex flex-col h-screen bg-white bg-gradient-to-br from-[#8A4FFF]/10 to-[#DA70D6]/10">
             {/* Dropdown and Library Selection Container */}
-            <div className="relative p-4 flex items-center space-x-4">
+            <div className="p-4 flex items-center space-x-4">
                 {/* Mode Dropdown */}
                 <div className="relative">
                     <div
@@ -166,27 +166,24 @@ export const Playground = () => {
                 </div>
             </div>
 
-            {/* Main Content Area */}
-            <div className="flex-grow flex flex-col items-center justify-center text-center overflow-hidden">
-                <h1 className="text-4xl font-bold mb-4 flex items-center">
-                    DeepBrain
-                    <span className="ml-2 text-purple-600">✨</span>
-                </h1>
-                <p className="text-gray-500 mb-8">
-                    Powering next-gen research and market intelligence with AI-driven insights, precision, and speed.
-                </p>
-                <div className="text-sm text-gray-600 mb-4">
-                    Currently using: {currentMode}
-                    {isLibraryEnabled && selectedLibrary && ` | Library: ${selectedLibrary}`}
-                </div>
+            {/* Main Content Area - Now as both welcome screen and chat */}
+            <div className="flex-grow flex flex-col px-4 overflow-auto">
+                {messages.length === 0 ? (
+                    // Welcome/Initial screen
+                    <div className="flex-grow flex flex-col items-center justify-center text-center">
+                        <h1 className="text-4xl font-bold mb-4 flex items-center">
+                            DeepBrain
+                            <span className="ml-2 text-purple-600">✨</span>
+                        </h1>
+                        <p className="text-gray-500 mb-8">
+                            Powering next-gen research and market intelligence with AI-driven insights, precision, and speed.
+                        </p>
+                        <div className="text-sm text-gray-600 mb-4">
+                            Currently using: {currentMode}
+                            {isLibraryEnabled && selectedLibrary && ` | Library: ${selectedLibrary}`}
+                        </div>
 
-                {/* Chat Messages Area */}
-                <div className={`w-full transition-all duration-300 ease-in-out ${messages.length === 0
-                        ? 'max-w-2xl'
-                        : 'max-w-4xl'
-                    } h-96 overflow-y-auto mb-4 p-4 bg-white border rounded-lg shadow-inner`}>
-                    {messages.length === 0 ? (
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
                             {suggestedQueries.map((suggestedQuery, index) => (
                                 <div
                                     key={index}
@@ -200,49 +197,51 @@ export const Playground = () => {
                                 </div>
                             ))}
                         </div>
-                    ) : (
-                        messages.map((message, index) => (
-                            <div
-                                key={index}
-                                className={`flex items-start mb-4 ${message.type === 'user'
-                                        ? 'justify-end'
-                                        : 'justify-start'
-                                    }`}
-                            >
-                                <div className={`flex items-center ${message.type === 'user'
-                                        ? 'flex-row-reverse'
-                                        : 'flex-row'
-                                    }`}>
-                                    {message.type === 'user' ? (
-                                        <User className="w-8 h-8 text-purple-600 ml-2" />
-                                    ) : (
-                                        <Bot className="w-8 h-8 text-blue-600 mr-2" />
-                                    )}
-                                    <div className={`p-3 rounded-lg max-w-xl ${message.type === 'user'
-                                            ? 'bg-purple-100 text-right'
-                                            : 'bg-blue-100 text-left'
-                                        }`}>
-                                        <ReactMarkdown components={MarkdownComponents}>
-                                            {message.text}
-                                        </ReactMarkdown>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    )}
-                    {isLoading && (
-                        <div className="flex justify-start items-center">
-                            <Bot className="w-8 h-8 text-blue-600 mr-2" />
-                            <div className="p-3 bg-blue-100 rounded-lg">
-                                Thinking...
+                    </div>
+                ) : (
+                    // Chat messages
+                    <>
+                        <div className="text-center py-2">
+                            <div className="text-sm text-gray-600 inline-block px-4 py-1 rounded-full bg-white/70">
+                                Currently using: {currentMode}
+                                {isLibraryEnabled && selectedLibrary && ` | Library: ${selectedLibrary}`}
                             </div>
                         </div>
-                    )}
-                </div>
+                        <div className="flex-grow overflow-y-auto flex flex-col space-y-4 pb-4">
+                            {messages.map((message, index) => (
+                                <div
+                                    key={index}
+                                    className={`flex items-start ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                                >
+                                    <div className={`flex items-start max-w-2xl ${message.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                                        {message.type === 'user' ? (
+                                            <User className="w-8 h-8 text-purple-600 ml-2 flex-shrink-0 mt-1" />
+                                        ) : (
+                                            <Bot className="w-8 h-8 text-blue-600 mr-2 flex-shrink-0 mt-1" />
+                                        )}
+                                        <div className={`p-3 rounded-lg ${message.type === 'user' ? 'bg-purple-100 text-right' : 'bg-blue-100 text-left'}`}>
+                                            <ReactMarkdown components={MarkdownComponents}>
+                                                {message.text}
+                                            </ReactMarkdown>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            {isLoading && (
+                                <div className="flex justify-start items-start">
+                                    <Bot className="w-8 h-8 text-blue-600 mr-2 flex-shrink-0 mt-1" />
+                                    <div className="p-3 bg-blue-100 rounded-lg">
+                                        Thinking...
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </>
+                )}
             </div>
 
             {/* Search Input */}
-            <div className="p-4 flex justify-center">
+            <div className="p-4 flex justify-center sticky bottom-0 bg-white/80 backdrop-blur-sm">
                 <div className="relative w-full max-w-2xl">
                     <input
                         type="text"

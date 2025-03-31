@@ -42,7 +42,7 @@ export const Cdash = () => {
     ];
 
     return (
-        <div>
+        <div className='bg-gradient-to-tr from-purple-100 to-indigo-100 p-10 mx-auto relative overflow-hidden shadow-sm'>
             {/* New Analytics Cards */}
             <h1 className="text-3xl font-bold" style={{ background: `linear-gradient(to right, ${COLORS[0]}, ${COLORS[3]})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                 Clarity Sectors

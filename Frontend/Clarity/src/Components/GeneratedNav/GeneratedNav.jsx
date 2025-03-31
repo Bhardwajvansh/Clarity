@@ -103,8 +103,8 @@ export const GeneratedNav = () => {
                     <div className="flex flex-col space-y-2">
                         {[
                             { icon: <Car />, label: "Automobile", href: "/automobile" },
-                            { icon: <Stethoscope />, label: "Healthcare", href: "/claritydashboard", isDisabled: true },
-                            { icon: <Laptop />, label: "Technology", href: "/claritydashboard", isDisabled: true },
+                            { icon: <Stethoscope />, label: "Healthcare", href: "/healthcare", isDisabled: true },
+                            { icon: <Laptop />, label: "Technology", href: "/technology" },
                             { icon: <Box />, label: "Coal", href: "/Coal" }
                         ].map((item) => (
                             <a
@@ -113,10 +113,7 @@ export const GeneratedNav = () => {
                                 className={`
                                     flex items-center 
                                     p-2 
-                                    ${item.isDisabled
-                                        ? 'opacity-50 cursor-not-allowed'
-                                        : `hover:bg-[${COLORS[0]}]/10 cursor-pointer`
-                                    } 
+                                    hover:bg-[${COLORS[0]}]/10 
                                     rounded-lg 
                                     group/subitem
                                     transition-all 

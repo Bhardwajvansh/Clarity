@@ -11,7 +11,7 @@ const COLORS = [
 
 export const Report = () => {
     const navigate = useNavigate();
-    const [topic, setTopic] = useState('');
+    const [topic] = useState('AI in Automobiles'); // Preset topic, no setter
     const [themes, setThemes] = useState(['']);
     const [selectedSubtopics, setSelectedSubtopics] = useState(5);
     const [errors, setErrors] = useState({});
@@ -49,10 +49,7 @@ export const Report = () => {
     const validateForm = () => {
         const newErrors = {};
 
-        // Validate topic
-        if (!topic.trim()) {
-            newErrors.topic = 'Topic is required';
-        }
+        // Topic validation removed since it's preset
 
         // Validate at least one theme
         const validThemes = themes.filter(theme => theme.trim() !== '');
@@ -88,9 +85,13 @@ export const Report = () => {
                     Generate Report
                 </h1>
 
+                <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md mb-4">
+                    <p className="font-medium">Demo Mode</p>
+                    <p className="text-sm">Topic editing is disabled in this demonstration.</p>
+                </div>
+
                 <p className="text-center mb-6 opacity-80">
-                    Type the topic on which you want to generate a course.
-                    Also, you can enter a list of subtopics, which are the specifics you want to learn.
+                    Enter a list of themes related to AI in Automobiles that you want to explore in this course.
                 </p>
 
                 <form onSubmit={handleSubmit}>
@@ -98,14 +99,11 @@ export const Report = () => {
                         Add a topic for the course
                         <input
                             type="text"
-                            placeholder="Topic"
                             value={topic}
-                            onChange={(e) => setTopic(e.target.value)}
-                            className="w-full px-4 py-3 mb-2 border border-[#9370DB]/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8A4FFF]"
+                            disabled
+                            className="w-full px-4 py-3 mb-2 border border-[#9370DB]/50 rounded-lg bg-gray-100 cursor-not-allowed"
                         />
-                        {errors.topic && (
-                            <p className="text-red-500 text-sm mt-1">{errors.topic}</p>
-                        )}
+                        <p className="text-sm text-gray-500 italic">Topic is preset in demo mode</p>
                     </label>
 
                     <label className="block text-[#6A5ACD] font-medium mt-4">

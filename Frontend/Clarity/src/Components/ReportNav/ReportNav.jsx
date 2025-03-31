@@ -103,8 +103,8 @@ export const ReportNav = () => {
                     <div className="flex flex-col space-y-2">
                         {[
                             { icon: <Car />, label: "Automobile", href: "/automobile" },
-                            { icon: <Stethoscope />, label: "Healthcare", href: "/healthcare" },
-                            { icon: <Laptop />, label: "Technology", href: "/technology" },
+                            { icon: <Stethoscope />, label: "Healthcare", href: "/claritydashboard", isDisabled: true },
+                            { icon: <Laptop />, label: "Technology", href: "/claritydashboard", isDisabled: true },
                             { icon: <Box />, label: "Coal", href: "/Coal" }
                         ].map((item) => (
                             <a
@@ -113,7 +113,10 @@ export const ReportNav = () => {
                                 className={`
                                     flex items-center 
                                     p-2 
-                                    hover:bg-[${COLORS[0]}]/10 
+                                    ${item.isDisabled
+                                        ? 'opacity-50 cursor-not-allowed'
+                                        : `hover:bg-[${COLORS[0]}]/10 cursor-pointer`
+                                    } 
                                     rounded-lg 
                                     group/subitem
                                     transition-all 

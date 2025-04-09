@@ -30,7 +30,10 @@ export default function News() {
   const fetchNews = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`https://newsapi.org/v2/top-headlines?category=${category}&apiKey=d0937ca0bbe24763a36618d76080f4bb`);
+      const response = await fetch(`https://newsapi.org/v2/top-headlines?category=${category}&apiKey=d0937ca0bbe24763a36618d76080f4bb`, {
+        method: "GET",
+        mode: "cors",
+      });
       const data = await response.json();
       if (data.status === 'ok') {
         setArticles(data.articles);
@@ -50,7 +53,7 @@ export default function News() {
       .slice(0, 5)
       .map(article => `${article.title}\n${article.description || 'No description available'}\nSource: ${article.source.name}\n\n`)
       .join('');
-    
+
     const blob = new Blob([highlightsText], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -76,8 +79,8 @@ export default function News() {
       <div className="max-w-8xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-purple-800">Headlines</h1>
-          <button 
-            onClick={handleDownload} 
+          <button
+            onClick={handleDownload}
             className="flex items-center gap-2 bg-purple-700 text-white px-4 py-2 rounded-lg hover:bg-purple-800 transition"
           >
             <Download size={20} />
@@ -91,7 +94,7 @@ export default function News() {
               key={cat}
               onClick={() => setCategory(cat)}
               className="px-4 py-2 rounded-md text-white min-w-max transition-transform hover:scale-105"
-              style={{ 
+              style={{
                 backgroundColor: COLORS[index % COLORS.length],
                 border: cat === category ? '2px solid white' : 'none',
                 boxShadow: cat === category ? '0 0 0 2px ' + COLORS[index % COLORS.length] : 'none'
@@ -113,14 +116,14 @@ export default function News() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {articles.map((article, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition"
               >
                 {article.urlToImage ? (
-                  <img 
-                    src={article.urlToImage} 
-                    alt={article.title} 
+                  <img
+                    src={article.urlToImage}
+                    alt={article.title}
                     className="w-full h-48 object-cover"
                     onError={(e) => {
                       e.target.src = "/api/placeholder/400/320";
@@ -134,7 +137,7 @@ export default function News() {
                 )}
                 <div className="p-4">
                   <div className="flex items-center mb-2">
-                    <span 
+                    <span
                       className="text-xs font-medium px-2 py-1 rounded text-white"
                       style={{ backgroundColor: COLORS[index % COLORS.length] }}
                     >
@@ -149,9 +152,9 @@ export default function News() {
                   <h2 className="text-xl font-semibold mb-2 line-clamp-2">{article.title}</h2>
                   <p className="text-gray-600 mb-4 line-clamp-3">{article.description || 'No description available'}</p>
                   {article.author && <p className="text-sm text-gray-500 mb-2">By {article.author}</p>}
-                  <a 
-                    href={article.url} 
-                    target="_blank" 
+                  <a
+                    href={article.url}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-purple-600 hover:text-purple-800 font-medium"
                   >

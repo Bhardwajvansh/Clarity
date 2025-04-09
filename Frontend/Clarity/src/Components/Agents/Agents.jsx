@@ -17,7 +17,7 @@ export const Agents = () => {
       "title": "Market IQ",
       "description": "Market IQ agents provide deep insights into industry landscapes, market revenues, regional trends, and benchmarking across categories, sectors, and technologies.",
       "agentType": "Text Agent",
-      "navigate": "/dashboard",
+      "navigate": "/report-builder",
     },
     {
       "icon": "📈",

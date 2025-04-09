@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronRight, ChevronLeft, Info, ChevronDown } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Info, ChevronDown, X } from 'lucide-react';
 
 export const Company = () => {
     const [activeStep, setActiveStep] = useState(1);
@@ -7,6 +7,7 @@ export const Company = () => {
     const [selectedCompanies, setSelectedCompanies] = useState([]);
     const [companyInput, setCompanyInput] = useState('');
     const [selectedParameters, setSelectedParameters] = useState([]);
+    const [parameterValue, setParameterValue] = useState('');
 
     const handleNext = () => {
         setActiveStep(prevStep => Math.min(prevStep + 1, 3));
@@ -22,6 +23,30 @@ export const Company = () => {
             setCompanyInput('');
         }
     };
+
+    const removeCompany = (index) => {
+        setSelectedCompanies(selectedCompanies.filter((_, i) => i !== index));
+    };
+
+    const addParameter = () => {
+        if (parameterValue && !selectedParameters.includes(parameterValue)) {
+            setSelectedParameters([...selectedParameters, parameterValue]);
+            setParameterValue('');
+        }
+    };
+
+    const removeParameter = (param) => {
+        setSelectedParameters(selectedParameters.filter(p => p !== param));
+    };
+
+    const parameters = [
+        { value: "financial_performance", label: "Financial Performance" },
+        { value: "stock_growth", label: "Stock Growth" },
+        { value: "product_launches", label: "Product Launches" },
+        { value: "partnership", label: "Partnership" },
+        { value: "pricing_strategies", label: "Pricing Strategies" }
+    ];
+
 
     const renderStepContent = () => {
         switch (activeStep) {
@@ -67,8 +92,11 @@ export const Company = () => {
                                 <h3 className="font-medium text-gray-700 mb-2">Selected Companies:</h3>
                                 <div className="flex flex-wrap gap-2">
                                     {selectedCompanies.map((company, index) => (
-                                        <div key={index} className="bg-purple-100 px-3 py-1 rounded-full text-purple-800">
+                                        <div key={index} className="bg-purple-100 px-3 py-1 rounded-full text-purple-800 flex items-center">
                                             {company}
+                                            <button onClick={() => removeCompany(index)} className="ml-2">
+                                                <X className="w-4 h-4 text-purple-700 hover:text-purple-900" />
+                                            </button>
                                         </div>
                                     ))}
                                 </div>
@@ -89,23 +117,43 @@ export const Company = () => {
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
                                 <label className="block text-gray-700 font-medium">Select Parameters</label>
-                                <button className="text-purple-600 flex items-center">
-                                    <span className="text-xl mr-1">+</span> Add New
-                                </button>
                             </div>
                             <div className="relative">
                                 <select
                                     className="w-full border border-gray-300 rounded-md px-4 py-2 appearance-none"
+                                    value={parameterValue}
+                                    onChange={(e) => setParameterValue(e.target.value)}
+                                    onClick={addParameter}
                                 >
                                     <option value="">Select a parameter</option>
-                                    <option value="revenue">Revenue</option>
-                                    <option value="employees">Number of Employees</option>
-                                    <option value="funding">Funding</option>
-                                    <option value="social_media">Social Media Presence</option>
+                                    {parameters.map(param => (
+                                        <option key={param.value} value={param.value}>
+                                            {param.label}
+                                        </option>
+                                    ))}
                                 </select>
                                 <ChevronDown className="absolute right-3 top-3 text-gray-500" />
                             </div>
                         </div>
+
+                        {selectedParameters.length > 0 && (
+                            <div className="mt-4">
+                                <h3 className="font-medium text-gray-700 mb-2">Selected Parameters:</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {selectedParameters.map((param) => {
+                                        const paramObj = parameters.find(p => p.value === param) || { label: param };
+                                        return (
+                                            <div key={param} className="bg-purple-100 px-3 py-1 rounded-full text-purple-800 flex items-center">
+                                                {paramObj.label}
+                                                <button onClick={() => removeParameter(param)} className="ml-2">
+                                                    <X className="w-4 h-4 text-purple-700 hover:text-purple-900" />
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
 
                         <div className="bg-blue-50 p-4 rounded-md flex items-start">
                             <Info className="text-blue-500 w-5 h-5 mr-2 mt-0.5" />

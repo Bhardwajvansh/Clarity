@@ -11,15 +11,23 @@ const COLORS = [
 
 export const Report = () => {
     const navigate = useNavigate();
-    const [topic] = useState('AI in Automobiles'); // Preset topic, no setter
+    const [topic] = useState('AI in Automobiles');
     const [themes, setThemes] = useState(['']);
     const [selectedSubtopics, setSelectedSubtopics] = useState(5);
     const [errors, setErrors] = useState({});
+    const [isLibraryDropdownOpen, setIsLibraryDropdownOpen] = useState (false);
+    const [selectedLibraries, setSelectedLibraries] = useState([]);
 
-    // New state for library selection
+    const handleLibraryToggle = (library) => {
+        setSelectedLibraries((prevSelected) =>
+            prevSelected.includes(library)
+                ? prevSelected.filter((item) => item !== library)
+                : [...prevSelected, library]
+        );
+    };
+
     const [isLibraryEnabled, setIsLibraryEnabled] = useState(false);
     const [selectedLibrary, setSelectedLibrary] = useState('');
-    const [isLibraryDropdownOpen, setIsLibraryDropdownOpen] = useState(false);
 
     const libraryOptions = [
         'Personal Library',
@@ -65,7 +73,6 @@ export const Report = () => {
         e.preventDefault();
 
         if (validateForm()) {
-            // Prepare course data
             const courseData = {
                 topic,
                 themes: themes.filter(theme => theme.trim() !== ''),
@@ -73,7 +80,6 @@ export const Report = () => {
                 library: isLibraryEnabled ? selectedLibrary : null
             };
 
-            // Navigate to course generation route
             navigate('/generate-course', { state: courseData });
         }
     };
@@ -228,22 +234,53 @@ export const Report = () => {
                                     </svg>
                                 </div>
 
-                                {isLibraryDropdownOpen && (
-                                    <div className="absolute z-10 w-full mt-1 bg-white border border-[#9370DB]/50 rounded-lg shadow-lg">
-                                        {libraryOptions.map((library) => (
-                                            <div
-                                                key={library}
-                                                className="px-4 py-3 hover:bg-[#9370DB]/10 cursor-pointer text-[#6A5ACD]"
-                                                onClick={() => {
-                                                    setSelectedLibrary(library);
-                                                    setIsLibraryDropdownOpen(false);
-                                                }}
-                                            >
-                                                {library}
+                                <div className="relative w-full">
+                                    <div
+                                        className="border border-[#9370DB]/50 rounded-lg px-4 py-2 cursor-pointer bg-white text-[#6A5ACD]"
+                                        onClick={() => setIsLibraryDropdownOpen(!isLibraryDropdownOpen)}
+                                    >
+                                        {selectedLibraries.length > 0 ? (
+                                            <div className="flex flex-wrap gap-2">
+                                                {selectedLibraries.map((lib) => (
+                                                    <span
+                                                        key={lib}
+                                                        className="bg-[#9370DB]/10 text-[#6A5ACD] px-2 py-1 rounded-md text-sm"
+                                                    >
+                                                        {lib}
+                                                    </span>
+                                                ))}
                                             </div>
-                                        ))}
+                                        ) : (
+                                            "None Selected"
+                                        )}
                                     </div>
-                                )}
+
+                                    {isLibraryDropdownOpen && (
+                                        <div className="absolute z-10 w-full mt-1 bg-white border border-[#9370DB]/50 rounded-lg shadow-lg p-4">
+                                            {libraryOptions.map((library) => (
+                                                <label
+                                                    key={library}
+                                                    className="flex items-center space-x-2 py-2 cursor-pointer hover:bg-[#9370DB]/10 rounded px-2"
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        className="accent-[#6A5ACD]"
+                                                        checked={selectedLibraries.includes(library)}
+                                                        onChange={() => handleLibraryToggle(library)}
+                                                    />
+                                                    <span className="text-[#6A5ACD]">{library}</span>
+                                                </label>
+                                            ))}
+
+                                            <button
+                                                className="mt-4 bg-[#6A5ACD] text-white px-4 py-2 rounded hover:bg-[#5b4fc4] transition"
+                                                onClick={() => setIsLibraryDropdownOpen(false)}
+                                            >
+                                                Done
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         )}
                     </div>

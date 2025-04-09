@@ -52,10 +52,10 @@ export const Report = () => {
         // Topic validation removed since it's preset
 
         // Validate at least one theme
-        const validThemes = themes.filter(theme => theme.trim() !== '');
-        if (validThemes.length === 0) {
-            newErrors.themes = 'At least one theme is required';
-        }
+        // const validThemes = themes.filter(theme => theme.trim() !== '');
+        // if (validThemes.length === 0) {
+        //     newErrors.themes = 'At least one theme is required';
+        // }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -146,7 +146,7 @@ export const Report = () => {
                         )}
                     </div>
 
-                    <div className="space-y-2">
+                    {/* <div className="space-y-2">
                         <label className="block text-[#6A5ACD] font-medium">
                             For free member sub topics is limited to 5
                         </label>
@@ -174,9 +174,9 @@ export const Report = () => {
                                 <span className="text-[#6A5ACD]">10</span>
                             </label>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="flex items-center space-x-2 mt-4">
+                    {/* <div className="flex items-center space-x-2 mt-4">
                         <input
                             type="file"
                             className="hidden"
@@ -189,7 +189,7 @@ export const Report = () => {
                             Choose Files
                         </label>
                         <span className="text-[#BA55D3] opacity-70">No file chosen</span>
-                    </div>
+                    </div> */}
 
                     <div className="mt-4 space-y-2">
                         <div className="flex items-center space-x-2">

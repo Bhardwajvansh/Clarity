@@ -5,7 +5,7 @@ export default function News() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [category, setCategory] = useState('business');
+  const [category, setCategory] = useState('health');
 
   const COLORS = [
     '#8A4FFF',
@@ -30,10 +30,10 @@ export default function News() {
   const fetchNews = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${category}/in.json`);
+      const response = await fetch(`https://newsdata.io/api/1/latest?apikey=pub_79276cd316065a5ef1e99418db1cbc97e5159&category=${category}`);
       const data = await response.json();
-      if (data.status === 'ok') {
-        setArticles(data.articles);
+      if (data.status === 'success') {
+        setArticles(data.results || []);
       } else {
         setError('Failed to fetch news');
       }
@@ -48,7 +48,7 @@ export default function News() {
   const handleDownload = () => {
     const highlightsText = articles
       .slice(0, 5)
-      .map(article => `${article.title}\n${article.description || 'No description available'}\nSource: ${article.source.name}\n\n`)
+      .map(article => `${article.title}\n${article.description || 'No description available'}\nSource: ${article.source_name}\n\n`)
       .join('');
 
     const blob = new Blob([highlightsText], { type: 'text/plain' });
@@ -117,9 +117,9 @@ export default function News() {
                 key={index}
                 className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition"
               >
-                {article.urlToImage ? (
+                {article.image_url ? (
                   <img
-                    src={article.urlToImage}
+                    src={article.image_url}
                     alt={article.title}
                     className="w-full h-48 object-cover"
                     onError={(e) => {
@@ -138,19 +138,19 @@ export default function News() {
                       className="text-xs font-medium px-2 py-1 rounded text-white"
                       style={{ backgroundColor: COLORS[index % COLORS.length] }}
                     >
-                      {article.source.name}
+                      {article.source_name}
                     </span>
-                    {article.publishedAt && (
+                    {article.pubDate && (
                       <span className="text-xs text-gray-500 ml-2">
-                        {formatDate(article.publishedAt)}
+                        {formatDate(article.pubDate)}
                       </span>
                     )}
                   </div>
                   <h2 className="text-xl font-semibold mb-2 line-clamp-2">{article.title}</h2>
                   <p className="text-gray-600 mb-4 line-clamp-3">{article.description || 'No description available'}</p>
-                  {article.author && <p className="text-sm text-gray-500 mb-2">By {article.author}</p>}
+                  {article.creator && <p className="text-sm text-gray-500 mb-2">By {Array.isArray(article.creator) ? article.creator.join(', ') : article.creator}</p>}
                   <a
-                    href={article.url}
+                    href={article.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-purple-600 hover:text-purple-800 font-medium"

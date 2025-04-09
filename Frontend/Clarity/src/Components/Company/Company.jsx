@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChevronRight, ChevronLeft, Info, ChevronDown, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export const Company = () => {
     const [activeStep, setActiveStep] = useState(1);
@@ -8,6 +9,7 @@ export const Company = () => {
     const [companyInput, setCompanyInput] = useState('');
     const [selectedParameters, setSelectedParameters] = useState([]);
     const [parameterValue, setParameterValue] = useState('');
+    const navigate = useNavigate();
 
     const handleNext = () => {
         setActiveStep(prevStep => Math.min(prevStep + 1, 3));
@@ -127,7 +129,7 @@ export const Company = () => {
                                 >
                                     <option value="">Select a parameter</option>
                                     {parameters.map(param => (
-                                        <option key={param.value} value={param.value}>
+                                        <option key={param.value} value={param.lable}>
                                             {param.label}
                                         </option>
                                     ))}
@@ -279,7 +281,19 @@ export const Company = () => {
                     </button>
 
                     <button
-                        onClick={activeStep === 3 ? () => alert('Form submitted!') : handleNext}
+                        onClick={
+                            activeStep === 3
+                                ? () =>
+                                    navigate("/eval", {
+                                        state: {
+                                            projectTitle,
+                                            selectedCompanies,
+                                            selectedParameters,
+                                        },
+                                    })
+                                :
+                                handleNext
+                        }
                         className="flex items-center px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition"
                     >
                         {activeStep === 3 ? 'Submit' : 'Next'}
@@ -287,6 +301,6 @@ export const Company = () => {
                     </button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };

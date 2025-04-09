@@ -5,7 +5,7 @@ export default function News() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [category, setCategory] = useState('health');
+  const [category, setCategory] = useState('business');
 
   const COLORS = [
     '#8A4FFF',

@@ -24,7 +24,7 @@ export const Agents = () => {
       "title": "Account IQ",
       "description": "Account IQ agents deliver comprehensive financial analysis of publicly traded companies, including key financial metrics, market trends, and technical stock insights.",
       "agentType": "Text Agent",
-      "navigate": "/automobile",
+      "navigate": "/ci",
     },
     {
       "icon": "📋",

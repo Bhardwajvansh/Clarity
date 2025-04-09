@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Agents = () => {
+  const navigate = useNavigate();
   const COLORS = [
     '#8A4FFF',
     '#6A5ACD',
@@ -14,19 +16,22 @@ export const Agents = () => {
       "icon": "📊",
       "title": "Market IQ",
       "description": "Market IQ agents provide deep insights into industry landscapes, market revenues, regional trends, and benchmarking across categories, sectors, and technologies.",
-      "agentType": "Text Agent"
+      "agentType": "Text Agent",
+      "navigate": "/dashboard",
     },
     {
       "icon": "📈",
       "title": "Account IQ",
       "description": "Account IQ agents deliver comprehensive financial analysis of publicly traded companies, including key financial metrics, market trends, and technical stock insights.",
-      "agentType": "Text Agent"
+      "agentType": "Text Agent",
+      "navigate": "/automobile",
     },
     {
       "icon": "📋",
       "title": "Brand IQ",
       "description": "Brand IQ agents conduct competitive intelligence, analyzing companies in real time and historically to evaluate brand positioning and market performance.",
-      "agentType": "Text Agent"
+      "agentType": "Text Agent",
+      "navigate": "/brandnews",
     }
   ];
 
@@ -58,6 +63,7 @@ export const Agents = () => {
             <div className="flex justify-between items-center">
               <button
                 className="px-4 py-2 rounded-full text-white transition-all duration-300 hover:opacity-90"
+                onClick={() => navigate(agent.navigate)}
                 style={{
                   backgroundColor: COLORS[index % COLORS.length],
                   boxShadow: `0 2px 4px -1px ${COLORS[index % COLORS.length]}80`

@@ -11,6 +11,7 @@ import { GeneratedNav } from "./Components/GeneratedNav/GeneratedNav"
 import { LibraryNav } from "./Components/LibraryNav/LibraryNav"
 import { Coal } from "./Components/Coal/Coal"
 import { Cdashnav } from "./Components/Cdashnav/Cdashnav"
+import { NewsNav } from "./Components/Newsnav/Newsnav"
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/generate-course" element={<CourseNav />} />
         <Route path="/generated" element={<GeneratedNav />} />
         <Route path="/ai-analyst" element={<AgentsNav />} />
+        <Route path="/brandnews" element={<NewsNav />} />
         <Route path="/virtual-analyst" element={<PlayNav />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />

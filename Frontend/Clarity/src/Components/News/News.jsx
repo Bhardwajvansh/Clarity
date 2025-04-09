@@ -30,10 +30,7 @@ export default function News() {
   const fetchNews = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`https://newsapi.org/v2/top-headlines?category=${category}&apiKey=d0937ca0bbe24763a36618d76080f4bb`, {
-        method: "GET",
-        mode: "cors",
-      });
+      const response = await fetch(`https://saurav.tech/NewsAPI/top-headlines/category/${category}/in.json`);
       const data = await response.json();
       if (data.status === 'ok') {
         setArticles(data.articles);

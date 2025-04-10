@@ -123,7 +123,7 @@ export const Subcat = () => {
             <div className='flex items-center justify-between mb-8'>
                 <h1 className="text-3xl font-bold text-purple-500">Automotive Industry Market Map</h1>
                 <button
-                    onClick={() => { navigate("/Automobile") }}
+                    onClick={() => { navigate("/autodash") }}
                     className="px-4 py-3 bg-gradient-to-r from-[#8A4FFF] to-[#6A5ACD] text-white rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
                     <div className='flex gap-2'>

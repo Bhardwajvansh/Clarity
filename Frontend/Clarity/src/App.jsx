@@ -16,7 +16,7 @@ import { CompanyNav } from "./Components/Companynav/Companynav"
 import { EvalNav } from "./Components/Evalnav/Evalnav"
 import { Automeganav } from "./Components/Automeganav/Automeganav"
 import { Top50nav } from "./Components/Top50nav/Top50nav"
-import { Subcat } from "./Components/Subcat/Subcat"
+import { Subcatnav } from "./Components/Subcatnav/Subcatnav"
 
 function App() {
   return (
@@ -24,13 +24,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Navbar />} />
-        <Route path="/automobile" element={<AutoNav />} />
+        <Route path="/automobile" element={<Automeganav />} />
         <Route path="/healthcare" element={<AutoNav />} />
         <Route path="/technology" element={<AutoNav />} />
         <Route path="/Coal" element={<Coal />} />
         <Route path="/claritydashboard" element={<Automeganav />} />
         <Route path="/top50" element={<Top50nav />} />
-        <Route path="/subcat" element={<Subcat />} />
+        <Route path="/autodash" element={<AutoNav />} />
+        <Route path="/subcat" element={<Subcatnav />} />
         <Route path="/data-library" element={<LibraryNav />} />
         <Route path="/report-builder" element={<ReportNav />} />
         <Route path="/generate-course" element={<CourseNav />} />

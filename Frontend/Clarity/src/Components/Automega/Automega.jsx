@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react'
+import {  ChevronRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom';
 
 export default function Automega() {
@@ -13,7 +13,7 @@ export default function Automega() {
     ];
 
     return (
-        <div className=" mx-auto bg-gradient-to-tr from-purple-100 to-indigo-100 p-10">
+        <div className="mx-auto bg-gradient-to-tr from-purple-100 to-indigo-100 p-10">
             <div className='flex items-center justify-between mb-8'>
                 <h1 className="text-3xl font-bold text-purple-500">Megatrend and Microboom</h1>
                 <button
@@ -21,7 +21,7 @@ export default function Automega() {
                     className="px-4 py-3 bg-gradient-to-r from-[#8A4FFF] to-[#6A5ACD] text-white rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
                     <div className='flex gap-2'>
-                        <p>Top 50 Companies</p><ArrowRight />
+                        <p>Top 50 Tech</p>< ChevronRight />
                     </div>
                 </button>
             </div>

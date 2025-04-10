@@ -15,6 +15,7 @@ import { NewsNav } from "./Components/Newsnav/Newsnav"
 import { CompanyNav } from "./Components/Companynav/Companynav"
 import { EvalNav } from "./Components/Evalnav/Evalnav"
 import { Automeganav } from "./Components/Automeganav/Automeganav"
+import { Top50nav } from "./Components/Top50nav/Top50nav"
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <Route path="/technology" element={<AutoNav />} />
         <Route path="/Coal" element={<Coal />} />
         <Route path="/claritydashboard" element={<Automeganav />} />
+        <Route path="/top50" element={<Top50nav />} />
+        <Route path="/subcat" element={<Top50nav />} />
         <Route path="/data-library" element={<LibraryNav />} />
         <Route path="/report-builder" element={<ReportNav />} />
         <Route path="/generate-course" element={<CourseNav />} />

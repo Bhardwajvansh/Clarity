@@ -14,6 +14,7 @@ import { Cdashnav } from "./Components/Cdashnav/Cdashnav"
 import { NewsNav } from "./Components/Newsnav/Newsnav"
 import { CompanyNav } from "./Components/Companynav/Companynav"
 import { EvalNav } from "./Components/Evalnav/Evalnav"
+import { Automeganav } from "./Components/Automeganav/Automeganav"
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path="/healthcare" element={<AutoNav />} />
         <Route path="/technology" element={<AutoNav />} />
         <Route path="/Coal" element={<Coal />} />
-        <Route path="/claritydashboard" element={<Cdashnav />} />
+        <Route path="/claritydashboard" element={<Automeganav />} />
         <Route path="/data-library" element={<LibraryNav />} />
         <Route path="/report-builder" element={<ReportNav />} />
         <Route path="/generate-course" element={<CourseNav />} />

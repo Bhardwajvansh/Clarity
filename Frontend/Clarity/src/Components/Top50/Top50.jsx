@@ -69,42 +69,42 @@ export const Top50 = () => {
             color: COLORS.adas,
             technologies: [
                 {
-                    id: 9,
+                    id: 7,
                     title: "LiDAR Systems",
                     status: "High Growth",
                     description: "Advanced light detection and ranging sensors for highly accurate 3D mapping and object detection, crucial for L3+ autonomous vehicles. Includes solid-state and FMCW designs.",
                     marketPotential: "$8 billion by 2030, with 36% CAGR"
                 },
                 {
-                    id: 10,
+                    id: 8,
                     title: "Edge AI Computing Platforms",
                     status: "Critical",
                     description: "High-performance, low-power computing systems for real-time processing of sensor data and AI-driven decision making in autonomous vehicles.",
                     marketPotential: "$12 billion by 2030, with 32% CAGR"
                 },
                 {
-                    id: 11,
+                    id: 9,
                     title: "HD Maps & Localization",
                     status: "Growing",
                     description: "Centimeter-accurate mapping and localization systems that enable autonomous vehicles to precisely determine their position and navigate complex environments.",
                     marketPotential: "$16 billion by 2030"
                 },
                 {
-                    id: 12,
+                    id: 10,
                     title: "4D Imaging Radar",
                     status: "Emerging",
                     description: "High-resolution radar systems capable of detecting velocity, range, angle, and elevation of objects, providing enhanced perception in all weather conditions.",
                     marketPotential: "$5.5 billion by 2030, with 30% CAGR"
                 },
                 {
-                    id: 13,
+                    id: 11,
                     title: "Sensor Fusion Algorithms",
                     status: "Critical",
                     description: "Software that combines data from multiple sensors (cameras, radar, LiDAR) to create a comprehensive and redundant understanding of the vehicle's surroundings.",
                     marketPotential: "Part of $40+ billion autonomous software market by 2030"
                 },
                 {
-                    id: 14,
+                    id: 12,
                     title: "Driver Monitoring Systems",
                     status: "Growing",
                     description: "Camera and sensor-based systems that monitor driver attention, alertness, and readiness to take control in semi-autonomous vehicles. Critical for L2+ systems.",
@@ -118,42 +118,42 @@ export const Top50 = () => {
             color: COLORS.software,
             technologies: [
                 {
-                    id: 23,
+                    id: 13,
                     title: "Software-Defined Vehicle Architecture",
                     status: "Transformative",
                     description: "Centralized computing architecture that abstracts hardware from software, enabling flexible feature deployment, improvements, and monetization throughout vehicle lifecycle.",
                     marketPotential: "$640 billion by 2030, with 34% CAGR"
                 },
                 {
-                    id: 24,
+                    id: 14,
                     title: "AI & Machine Learning Platforms",
                     status: "Critical",
                     description: "Software frameworks that enable continuous learning and improvement of vehicle functions, personalization, and adaptive features based on usage patterns.",
                     marketPotential: "$35 billion by 2030"
                 },
                 {
-                    id: 25,
+                    id: 15,
                     title: "Over-the-Air Update Systems",
                     status: "Essential",
                     description: "Platforms enabling secure, reliable wireless updates to vehicle software and firmware, supporting new features, bug fixes, and security patches throughout vehicle life.",
                     marketPotential: "$14 billion by 2030"
                 },
                 {
-                    id: 26,
+                    id: 16,
                     title: "App Stores & Ecosystem",
                     status: "Growing",
                     description: "Vehicle-specific application marketplaces and developer ecosystems enabling third-party software integration and new revenue streams for automakers.",
                     marketPotential: "$24 billion by 2030"
                 },
                 {
-                    id: 27,
+                    id: 17,
                     title: "Blockchain for Automotive",
                     status: "Emerging",
                     description: "Decentralized ledger technology for secure vehicle data sharing, supply chain transparency, fractional ownership models, and usage-based services.",
                     marketPotential: "$5.6 billion by 2030"
                 },
                 {
-                    id: 28,
+                    id: 18,
                     title: "Data Marketplaces",
                     status: "Emerging",
                     description: "Platforms for securely sharing and monetizing vehicle-generated data with third parties while maintaining privacy and compliance with regulations.",
@@ -167,46 +167,53 @@ export const Top50 = () => {
             color: COLORS.manufacturing,
             technologies: [
                 {
-                    id: 30,
+                    id: 19,
                     title: "Advanced Composites",
                     status: "Growing",
                     description: "Lightweight, high-strength materials including carbon fiber, glass fiber composites, and natural fiber reinforced polymers for vehicle weight reduction and improved efficiency.",
                     marketPotential: "$18 billion by 2030 in automotive applications"
                 },
                 {
-                    id: 31,
+                    id: 20,
                     title: "Additive Manufacturing",
                     status: "Growing",
                     description: "3D printing technologies for rapid prototyping, tooling, and production of complex components with optimized designs not possible with traditional manufacturing methods.",
                     marketPotential: "$12 billion by 2030 in automotive applications"
                 },
                 {
-                    id: 32,
+                    id: 21,
                     title: "Advanced Robotics & Cobots",
                     status: "Critical",
                     description: "Next-generation industrial robots and collaborative robots working alongside humans in manufacturing, featuring enhanced flexibility, AI integration, and safety features.",
                     marketPotential: "$22 billion by 2030 in automotive applications"
                 },
                 {
-                    id: 33,
+                    id: 22,
                     title: "Digital Twins for Manufacturing",
                     status: "Growing",
                     description: "Virtual replicas of physical production systems enabling simulation, optimization, and predictive maintenance of manufacturing processes and facilities.",
                     marketPotential: "$6 billion by 2030 in automotive manufacturing"
                 },
                 {
-                    id: 34,
+                    id: 23,
                     title: "Advanced Battery Manufacturing",
                     status: "Critical",
                     description: "Innovative production technologies for EV batteries including dry electrode processing, automated assembly, and rapid formation techniques to reduce costs and environmental impact.",
                     marketPotential: "$45 billion by 2030"
                 },
                 {
-                    id: 35,
+                    id: 24,
                     title: "Smart Factory Solutions",
                     status: "Growing",
                     description: "Industry 4.0 technologies including IoT sensors, edge computing, and AI-driven analytics enabling fully connected, flexible, and adaptive manufacturing operations.",
                     marketPotential: "$32 billion by 2030 in automotive manufacturing"
+                },
+                {
+                    id: 25,
+                    title: "Data Marketplaces",
+                    status: "Emerging",
+                    description: "Platforms for securely sharing and monetizing vehicle-generated data with third parties while maintaining privacy and compliance with regulations.",
+                    marketPotential: "$3.5 billion by 2030"
                 }
             ]
         }

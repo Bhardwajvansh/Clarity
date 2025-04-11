@@ -1,125 +1,258 @@
 import { useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
+import { ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronRight, ChevronUp, Zap, Car, Cpu, Network, Battery, Gauge, ArrowUpRight } from 'lucide-react';
 
 export const Subcat = () => {
-    const [expandedCategory, setExpandedCategory] = useState(null);
+    const [chartType, setChartType] = useState('stacked');
     const navigate = useNavigate();
-    const COLORS = {
-        high: '#8A4FFF',
-        medium: '#6A5ACD',
-        low: '#9370DB',
-        veryLow: '#BA55D3',
-        header: '#DA70D6'
-    };
-
-    const toggleCategory = (category) => {
-        if (expandedCategory === category) {
-            setExpandedCategory(null);
-        } else {
-            setExpandedCategory(category);
-        }
-    };
-
+    // Data extracted from the images
     const categories = [
         {
             id: 'powertrain',
             name: 'Powertrain & Electrification',
-            icon: <Battery className="mr-2" />,
-            market: '$462B by 2030 (CAGR 9.5%)',
+            marketSize: 462,
+            marketYear: 2030,
+            cagr: 9.5,
             growth: 'High',
+            growthScore: 8,
             segments: [
-                { name: 'Smart Thermal Management', impact: 'High', market: '$24B by 2030' },
-                { name: 'Advanced Electric Motors', impact: 'High', market: '$35B by 2030' },
-                { name: 'Wireless Charging', impact: 'Medium', market: '$7B by 2030' },
-                { name: 'Ultra-Fast Charging', impact: 'High', market: '$12B by 2030' },
-                { name: 'Solid-State Batteries', impact: 'High', market: '$26B by 2032' }
+                { name: 'Smart Thermal Management', marketSize: 24, marketYear: 2030, impact: 'High', impactScore: 8 },
+                { name: 'Advanced Electric Motors', marketSize: 35, marketYear: 2030, impact: 'High', impactScore: 8 },
+                { name: 'Wireless Charging', marketSize: 7, marketYear: 2030, impact: 'Medium', impactScore: 5 },
+                { name: 'Ultra-Fast Charging', marketSize: 12, marketYear: 2030, impact: 'High', impactScore: 8 },
+                { name: 'Solid-State Batteries', marketSize: 26, marketYear: 2032, impact: 'High', impactScore: 8 }
             ]
         },
         {
             id: 'adas',
             name: 'ADAS & Autonomous Driving',
-            icon: <Gauge className="mr-2" />,
-            market: '$273.75B (2025) → $3.2T (2033)',
+            marketSize: 3200,
+            marketYear: 2033,
+            startMarket: 273.75,
+            startYear: 2025,
             growth: 'Very High',
+            growthScore: 10,
             segments: [
-                { name: 'V2X Communication', impact: 'High', market: '$12B by 2030' },
-                { name: 'Computer Vision AI', impact: 'High', market: '$8.5B by 2029' },
-                { name: 'Robotaxi Technology', impact: 'Medium', market: '$17B by 2025' },
-                { name: 'Centralized ADAS Computing', impact: 'High', market: '$19B by 2028' },
-                { name: 'Sensor Fusion', impact: 'High', market: '$14B by 2028' }
+                { name: 'V2X Communication', marketSize: 12, marketYear: 2030, impact: 'High', impactScore: 8 },
+                { name: 'Computer Vision AI', marketSize: 8.5, marketYear: 2029, impact: 'High', impactScore: 8 },
+                { name: 'Robotaxi Technology', marketSize: 17, marketYear: 2025, impact: 'Medium', impactScore: 5 },
+                { name: 'Centralized ADAS Computing', marketSize: 19, marketYear: 2028, impact: 'High', impactScore: 8 },
+                { name: 'Sensor Fusion', marketSize: 14, marketYear: 2028, impact: 'High', impactScore: 8 }
             ]
         },
         {
             id: 'connected',
             name: 'Connected Car Technologies',
-            icon: <Network className="mr-2" />,
-            market: '$35.9B (2024) → $56B (2035)',
+            marketSize: 56,
+            marketYear: 2035,
+            startMarket: 35.9,
+            startYear: 2024,
             growth: 'Medium',
+            growthScore: 5,
             segments: [
-                { name: '5G Connectivity', impact: 'High', market: '$10B by 2035' },
-                { name: 'Edge Computing', impact: 'High', market: '$8B by 2031' },
-                { name: 'Cybersecurity', impact: 'High', market: '$9.3B by 2030' },
-                { name: 'Fleet Management', impact: 'Medium', market: '$52B by 2030' },
-                { name: 'Digital Twin Tech', impact: 'Medium', market: '$4B by 2033' }
+                { name: '5G Connectivity', marketSize: 10, marketYear: 2035, impact: 'High', impactScore: 8 },
+                { name: 'Edge Computing', marketSize: 8, marketYear: 2031, impact: 'High', impactScore: 8 },
+                { name: 'Cybersecurity', marketSize: 9.3, marketYear: 2030, impact: 'High', impactScore: 8 },
+                { name: 'Fleet Management', marketSize: 52, marketYear: 2030, impact: 'Medium', impactScore: 5 },
+                { name: 'Digital Twin Tech', marketSize: 4, marketYear: 2033, impact: 'Medium', impactScore: 5 }
             ]
         },
         {
             id: 'sdc',
             name: 'Software-Defined Vehicles',
-            icon: <Cpu className="mr-2" />,
-            market: '$213.5B (2024) → $1.2T (2030) at CAGR 34%',
+            marketSize: 1200,
+            marketYear: 2030,
+            startMarket: 213.5,
+            startYear: 2024,
+            cagr: 34,
             growth: 'Very High',
+            growthScore: 10,
             segments: [
-                { name: 'OTA Updates', impact: 'High', market: '$13B by 2030' },
-                { name: 'App Ecosystems', impact: 'Medium', market: '$8B by 2028' },
-                { name: 'Centralized Computing', impact: 'High', market: '$25B by 2030' },
-                { name: 'Manufacturing AI', impact: 'Medium', market: '$12B by 2028' },
-                { name: 'UX/UI', impact: 'Medium', market: '$7B by 2029' }
+                { name: 'OTA Updates', marketSize: 13, marketYear: 2030, impact: 'High', impactScore: 8 },
+                { name: 'App Ecosystems', marketSize: 8, marketYear: 2028, impact: 'Medium', impactScore: 5 },
+                { name: 'Centralized Computing', marketSize: 25, marketYear: 2030, impact: 'High', impactScore: 8 },
+                { name: 'Manufacturing AI', marketSize: 12, marketYear: 2028, impact: 'Medium', impactScore: 5 },
+                { name: 'UX/UI', marketSize: 7, marketYear: 2029, impact: 'Medium', impactScore: 5 }
             ]
         },
         {
             id: 'sustainability',
             name: 'Sustainability & Circular Economy',
-            icon: <ArrowUpRight className="mr-2" />,
-            market: 'Part of $94.87B CASE tech by 2029',
+            marketSize: 94.87,
+            marketYear: 2029,
             growth: 'High',
+            growthScore: 8,
             segments: [
-                { name: 'Carbon Neutral Manufacturing', impact: 'High', market: '$32B by 2030' },
-                { name: 'Materials Recycling', impact: 'Medium', market: '$12B by 2030' },
-                { name: 'Battery Analytics', impact: 'High', market: '$6B by 2029' },
-                { name: 'Energy Efficiency', impact: 'High', market: '$8B by 2030' },
-                { name: 'Reduced Emissions Routing', impact: 'Medium', market: '$4B by 2028' }
-            ]
-        },
-        {
-            id: 'business',
-            name: 'New Mobility Business Models',
-            icon: <Car className="mr-2" />,
-            market: 'Part of total $2.2T (2024) → $2.8T (2033)',
-            growth: 'Medium',
-            segments: [
-                { name: 'Subscription Services', impact: 'Medium', market: '$30B by 2030' },
-                { name: 'MaaS', impact: 'Medium', market: '$40B by 2030' },
-                { name: 'Data Monetization', impact: 'High', market: '$7B by 2029' },
-                { name: 'Connectivity Subscription', impact: 'Medium', market: '$15B by 2032' },
-                { name: 'Premium ADAS Subscription', impact: 'High', market: '$12B by 2030' }
+                { name: 'Carbon Neutral Manufacturing', marketSize: 32, marketYear: 2030, impact: 'High', impactScore: 8 },
+                { name: 'Materials Recycling', marketSize: 12, marketYear: 2030, impact: 'Medium', impactScore: 5 },
+                { name: 'Battery Analytics', marketSize: 6, marketYear: 2029, impact: 'High', impactScore: 8 },
+                { name: 'Energy Efficiency', marketSize: 8, marketYear: 2030, impact: 'High', impactScore: 8 },
+                { name: 'Reduced Emissions Routing', marketSize: 4, marketYear: 2028, impact: 'Medium', impactScore: 5 }
             ]
         }
     ];
 
-    const getImpactColor = (impact) => {
-        switch (impact) {
-            case 'High': return COLORS.high;
-            case 'Medium': return COLORS.medium;
-            case 'Low': return COLORS.low;
-            case 'Very High': return COLORS.veryLow;
-            default: return COLORS.medium;
+    // For the growth/impact score visualization
+    const radarData = categories.map(cat => {
+        return {
+            subject: cat.name.split(' ')[0],
+            marketScore: Math.log10(cat.marketSize) * 2,
+            growthScore: cat.growthScore,
+            fullName: cat.name
+        };
+    });
+
+    // For bar chart - market size by category
+    const marketSizeData = categories.map(cat => {
+        return {
+            name: cat.name.split(' ')[0],
+            marketSize: cat.marketSize,
+            fullName: cat.name
+        };
+    });
+
+    // For pie chart - market share
+    const pieData = categories.map(cat => {
+        return {
+            name: cat.name.split(' ')[0],
+            value: cat.marketSize,
+            fullName: cat.name
+        };
+    });
+
+    // Fixed: Create proper segment data for each category
+    // Instead of using the segment names from just the first category,
+    // we'll prepare individual datasets for each category
+
+    // First, get all unique segment names from the first category to use as reference
+    const powertrainSegments = categories[0].segments.map(seg => seg.name);
+
+    // Create separate datasets for each category
+    const powertrainData = {
+        name: 'Powertrain',
+        fullName: 'Powertrain & Electrification',
+        ...Object.fromEntries(categories[0].segments.map(seg => [seg.name, seg.marketSize]))
+    };
+
+    const adasData = {
+        name: 'ADAS',
+        fullName: 'ADAS & Autonomous Driving',
+        ...Object.fromEntries(categories[1].segments.map(seg => [seg.name, seg.marketSize]))
+    };
+
+    const connectedData = {
+        name: 'Connected',
+        fullName: 'Connected Car Technologies',
+        ...Object.fromEntries(categories[2].segments.map(seg => [seg.name, seg.marketSize]))
+    };
+
+    const sdvData = {
+        name: 'Software-Defined',
+        fullName: 'Software-Defined Vehicles',
+        ...Object.fromEntries(categories[3].segments.map(seg => [seg.name, seg.marketSize]))
+    };
+
+    const sustainabilityData = {
+        name: 'Sustainability',
+        fullName: 'Sustainability & Circular Economy',
+        ...Object.fromEntries(categories[4].segments.map(seg => [seg.name, seg.marketSize]))
+    };
+
+    // Combine into a single array for the stacked bar chart
+    const segmentData = [powertrainData, adasData, connectedData, sdvData, sustainabilityData];
+
+    // Get all unique segment names across all categories
+    const allSegmentNames = [
+        ...new Set(
+            categories.flatMap(cat => cat.segments.map(seg => seg.name))
+        )
+    ];
+
+    // Colors for charts and segments
+    const COLORS = ['#8A4FFF', '#6A5ACD', '#9370DB', '#BA55D3', '#DA70D6', '#EE82EE'];
+
+    // More vibrant colors for segments
+    const SEGMENT_COLORS = {
+        'Smart Thermal Management': '#8A4FFF',
+        'Advanced Electric Motors': '#6A5ACD',
+        'Wireless Charging': '#9370DB',
+        'Ultra-Fast Charging': '#BA55D3',
+        'Solid-State Batteries': '#DA70D6',
+        'V2X Communication': '#8A4FFF',
+        'Computer Vision AI': '#6A5ACD',
+        'Robotaxi Technology': '#9370DB',
+        'Centralized ADAS Computing': '#BA55D3',
+        'Sensor Fusion': '#DA70D6',
+        '5G Connectivity': '#8A4FFF',
+        'Edge Computing': '#6A5ACD',
+        'Cybersecurity': '#9370DB',
+        'Fleet Management': '#BA55D3',
+        'Digital Twin Tech': '#DA70D6',
+        'OTA Updates': '#8A4FFF',
+        'App Ecosystems': '#6A5ACD',
+        'Centralized Computing': '#9370DB',
+        'Manufacturing AI': '#BA55D3',
+        'UX/UI': '#DA70D6',
+        'Carbon Neutral Manufacturing': '#8A4FFF',
+        'Materials Recycling': '#6A5ACD',
+        'Battery Analytics': '#9370DB',
+        'Energy Efficiency': '#BA55D3',
+        'Reduced Emissions Routing': '#DA70D6'
+    };
+
+    // Custom tooltip
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active && payload && payload.length) {
+            const categoryData = segmentData.find(cat => cat.name === label);
+
+            if (chartType === 'bar') {
+                const fullName = payload[0]?.payload?.fullName || label;
+                return (
+                    <div className="bg-white p-3 rounded shadow">
+                        <p className="font-bold">{fullName}</p>
+                        {payload.map((entry, index) => (
+                            <p key={index} style={{ color: entry.color }}>
+                                {entry.name}: ${entry.value}B
+                            </p>
+                        ))}
+                    </div>
+                );
+            } else if (chartType === 'stacked') {
+                return (
+                    <div className="bg-white p-3 rounded shadow">
+                        <p className="font-bold">{categoryData?.fullName || label}</p>
+                        {payload.map((entry, index) => (
+                            entry.value > 0 ? (
+                                <p key={index} style={{ color: entry.color }}>
+                                    {entry.name}: ${entry.value}B
+                                </p>
+                            ) : null
+                        ))}
+                    </div>
+                );
+            } else if (chartType === 'radar') {
+                return (
+                    <div className="bg-white p-3 rounded shadow">
+                        <p className="font-bold">{payload[0]?.payload?.fullName}</p>
+                        <p style={{ color: payload[0]?.color }}>Market Size (log): {payload[0]?.value.toFixed(1)}</p>
+                        <p style={{ color: payload[1]?.color }}>Growth Score: {payload[1]?.value}</p>
+                    </div>
+                );
+            } else if (chartType === 'pie') {
+                return (
+                    <div className="bg-white p-3 rounded shadow">
+                        <p className="font-bold">{payload[0]?.payload?.fullName || payload[0]?.name}</p>
+                        <p style={{ color: payload[0]?.color }}>${payload[0]?.value}B</p>
+                    </div>
+                );
+            }
         }
+        return null;
     };
 
     return (
-        <div className="bg-gradient-to-tr from-purple-100 to-indigo-100 p-10">
+        <div className="bg-gradient-to-tr from-purple-100 to-indigo-100 p-6 rounded-lg">
             <div className='flex items-center justify-between mb-8'>
                 <h1 className="text-3xl font-bold text-purple-500">Automotive Industry Market Map</h1>
                 <button
@@ -131,109 +264,153 @@ export const Subcat = () => {
                     </div>
                 </button>
             </div>
-            <div className="mb-6">
-                <div className="bg-purple-50 p-4 rounded-lg">
-                    <h2 className="text-lg font-semibold mb-2">Key Market Potential Figures</h2>
-                    <ul className="space-y-1">
-                        <li className="flex items-center"><Zap size={16} className="text-purple-600 mr-2" /> Total Automotive Market: $2.2T (2024) → $2.8T (2033)</li>
-                        <li className="flex items-center"><Zap size={16} className="text-purple-600 mr-2" /> Software & Electronics: $462B by 2030 (CAGR 9.5%)</li>
-                        <li className="flex items-center"><Zap size={16} className="text-purple-600 mr-2" /> CASE Technologies: $94.87B by 2029 (CAGR 19.2%)</li>
-                        <li className="flex items-center"><Zap size={16} className="text-purple-600 mr-2" /> Software-Defined Vehicles: $213.5B (2024) → $1.2T (2030) at CAGR 34%</li>
-                        <li className="flex items-center"><Zap size={16} className="text-purple-600 mr-2" /> Autonomous Vehicles: $273.75B (2025) → $3.2T (2033)</li>
-                        <li className="flex items-center"><Zap size={16} className="text-purple-600 mr-2" /> Connected Vehicle Tech: $35.9B (2024) → $56B (2035)</li>
-                    </ul>
-                </div>
+
+            <div className="flex flex-wrap gap-4 mb-6">
+                <button
+                    className={`px-4 py-2 rounded ${chartType === 'bar' ? 'bg-purple-600 text-white' : 'bg-purple-200'}`}
+                    onClick={() => setChartType('bar')}
+                >
+                    Bar Chart
+                </button>
+                <button
+                    className={`px-4 py-2 rounded ${chartType === 'stacked' ? 'bg-purple-600 text-white' : 'bg-purple-200'}`}
+                    onClick={() => setChartType('stacked')}
+                >
+                    Segment Breakdown
+                </button>
+                <button
+                    className={`px-4 py-2 rounded ${chartType === 'pie' ? 'bg-purple-600 text-white' : 'bg-purple-200'}`}
+                    onClick={() => setChartType('pie')}
+                >
+                    Market Share
+                </button>
+                <button
+                    className={`px-4 py-2 rounded ${chartType === 'radar' ? 'bg-purple-600 text-white' : 'bg-purple-200'}`}
+                    onClick={() => setChartType('radar')}
+                >
+                    Growth/Size Radar
+                </button>
             </div>
 
-            <div className="flex mb-3 px-4">
-                <div className="flex items-center mr-6">
-                    <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: COLORS.high }}></div>
-                    <span className="text-sm">High Impact/Potential</span>
-                </div>
-                <div className="flex items-center mr-6">
-                    <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: COLORS.medium }}></div>
-                    <span className="text-sm">Medium Impact/Potential</span>
-                </div>
-                <div className="flex items-center">
-                    <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: COLORS.low }}></div>
-                    <span className="text-sm">Low Impact/Potential</span>
-                </div>
+            <div className="bg-white p-4 rounded-lg shadow h-96">
+                {chartType === 'bar' && (
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={marketSizeData} margin={{ top: 20, right: 30, left: 20, bottom: 70 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" angle={-45} textAnchor="end" height={70} />
+                            <YAxis label={{ value: 'Market Size (Billion $)', angle: -90, position: 'insideLeft' }} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend />
+                            <Bar dataKey="marketSize" name="Market Size (Billion $)" fill="#8A4FFF" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                )}
+
+                {chartType === 'stacked' && (
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={segmentData} margin={{ top: 20, right: 30, left: 20, bottom: 70 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" angle={-45} textAnchor="end" height={70} />
+                            <YAxis label={{ value: 'Segment Size (Billion $)', angle: -90, position: 'insideLeft' }} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend />
+                            {/* Map through segments from each category */}
+                            {categories[0].segments.map((segment) => (
+                                <Bar
+                                    key={segment.name}
+                                    dataKey={segment.name}
+                                    stackId="a"
+                                    fill={SEGMENT_COLORS[segment.name]}
+                                    name={segment.name}
+                                />
+                            ))}
+                            {categories[1].segments.map((segment) => (
+                                !categories[0].segments.some(s => s.name === segment.name) && (
+                                    <Bar
+                                        key={segment.name}
+                                        dataKey={segment.name}
+                                        stackId="a"
+                                        fill={SEGMENT_COLORS[segment.name]}
+                                        name={segment.name}
+                                    />
+                                )
+                            ))}
+                            {categories.slice(2).flatMap(cat =>
+                                cat.segments.filter(seg =>
+                                    !categories[0].segments.some(s => s.name === seg.name) &&
+                                    !categories[1].segments.some(s => s.name === seg.name)
+                                )
+                            ).map(segment => (
+                                <Bar
+                                    key={segment.name}
+                                    dataKey={segment.name}
+                                    stackId="a"
+                                    fill={SEGMENT_COLORS[segment.name]}
+                                    name={segment.name}
+                                />
+                            ))}
+                        </BarChart>
+                    </ResponsiveContainer>
+                )}
+
+                {chartType === 'pie' && (
+                    <ResponsiveContainer width="100%" height="100%">
+                        <PieChart margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                            <Pie
+                                data={pieData}
+                                cx="50%"
+                                cy="50%"
+                                labelLine={true}
+                                outerRadius={120}
+                                fill="#8884d8"
+                                dataKey="value"
+                                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                            >
+                                {pieData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend />
+                        </PieChart>
+                    </ResponsiveContainer>
+                )}
+
+                {chartType === 'radar' && (
+                    <ResponsiveContainer width="100%" height="100%">
+                        <RadarChart cx="50%" cy="50%" outerRadius={120} data={radarData}>
+                            <PolarGrid />
+                            <PolarAngleAxis dataKey="subject" />
+                            <PolarRadiusAxis angle={30} domain={[0, 10]} />
+                            <Radar name="Market Size (log)" dataKey="marketScore" stroke="#8A4FFF" fill="#8A4FFF" fillOpacity={0.4} />
+                            <Radar name="Growth Potential" dataKey="growthScore" stroke="#DA70D6" fill="#DA70D6" fillOpacity={0.4} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend />
+                        </RadarChart>
+                    </ResponsiveContainer>
+                )}
             </div>
 
-            <div className="bg-white rounded-lg shadow overflow-hidden">
-                <table className="w-full">
-                    <thead>
-                        <tr style={{ backgroundColor: COLORS.header }}>
-                            <th className="text-left p-3 text-white font-semibold">Tech Category</th>
-                            <th className="text-left p-3 text-white font-semibold">Market Size</th>
-                            <th className="text-left p-3 text-white font-semibold">Growth</th>
-                            <th className="text-left p-3 text-white font-semibold"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {categories.map((category, index) => (
-                            <>
-                                <tr
-                                    key={category.id}
-                                    className={`border-b ${index % 2 === 0 ? 'bg-purple-50' : 'bg-white'} hover:bg-purple-100 cursor-pointer`}
-                                    onClick={() => toggleCategory(category.id)}
-                                >
-                                    <td className="p-3">
-                                        <div className="flex items-center font-medium">
-                                            {category.icon}
-                                            {category.name}
-                                        </div>
-                                    </td>
-                                    <td className="p-3 text-sm">{category.market}</td>
-                                    <td className="p-3">
-                                        <span
-                                            className="inline-block rounded-full px-2 py-1 text-xs text-white"
-                                            style={{ backgroundColor: getImpactColor(category.growth) }}
-                                        >
-                                            {category.growth}
-                                        </span>
-                                    </td>
-                                    <td className="p-3 text-right">
-                                        {expandedCategory === category.id ?
-                                            <ChevronUp size={18} /> :
-                                            <ChevronDown size={18} />
-                                        }
-                                    </td>
-                                </tr>
-
-                                {expandedCategory === category.id && (
-                                    <tr>
-                                        <td colSpan="4" className="p-0">
-                                            <div className="p-4 bg-purple-50/50">
-                                                <h3 className="font-medium mb-2">Key Segments:</h3>
-                                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                                    {category.segments.map((segment) => (
-                                                        <div
-                                                            key={segment.name}
-                                                            className="p-3 rounded-lg flex flex-col justify-between"
-                                                            style={{ backgroundColor: `${getImpactColor(segment.impact)}33` }}
-                                                        >
-                                                            <div className="font-medium text-sm mb-2">{segment.name}</div>
-                                                            <div className="flex justify-between items-center">
-                                                                <span className="text-xs">{segment.market}</span>
-                                                                <span
-                                                                    className="inline-block rounded-full px-2 py-1 text-xs text-white"
-                                                                    style={{ backgroundColor: getImpactColor(segment.impact) }}
-                                                                >
-                                                                    {segment.impact}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )}
-                            </>
-                        ))}
-                    </tbody>
-                </table>
+            <div className="mt-6 bg-purple-50 p-4 rounded-lg shadow">
+                <h2 className="text-xl font-semibold mb-3 text-purple-700">Key Market Insights</h2>
+                <ul className="space-y-2">
+                    <li className="flex items-center">
+                        <span className="h-3 w-3 rounded-full bg-purple-600 mr-2"></span>
+                        <span>Software-Defined Vehicles: The fastest growing segment with a CAGR of 34%</span>
+                    </li>
+                    <li className="flex items-center">
+                        <span className="h-3 w-3 rounded-full bg-purple-600 mr-2"></span>
+                        <span>ADAS & Autonomous Driving: Largest potential market reaching $3.2T by 2033</span>
+                    </li>
+                    <li className="flex items-center">
+                        <span className="h-3 w-3 rounded-full bg-purple-600 mr-2"></span>
+                        <span>Fleet Management: Largest individual segment at $52B by 2030</span>
+                    </li>
+                    <li className="flex items-center">
+                        <span className="h-3 w-3 rounded-full bg-purple-600 mr-2"></span>
+                        <span>Top high-impact segments: Carbon Neutral Manufacturing ($32B), Advanced Electric Motors ($35B)</span>
+                    </li>
+                </ul>
             </div>
         </div>
     );

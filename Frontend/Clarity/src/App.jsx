@@ -17,12 +17,15 @@ import { EvalNav } from "./Components/Evalnav/Evalnav"
 import { Automeganav } from "./Components/Automeganav/Automeganav"
 import { Top50nav } from "./Components/Top50nav/Top50nav"
 import { Subcatnav } from "./Components/Subcatnav/Subcatnav"
+import { UserOnboarding } from "./Components/Onboard/Onboard"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/onboard" element={<UserOnboarding />} />
+        <Route path="/stdashboard" element={<Navbar />} />
         <Route path="/dashboard" element={<Navbar />} />
         <Route path="/automobile" element={<Automeganav />} />
         <Route path="/healthcare" element={<AutoNav />} />

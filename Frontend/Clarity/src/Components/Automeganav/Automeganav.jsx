@@ -14,6 +14,7 @@ import {
     LogOut,
     ChevronRight,
     ChevronDown,
+    Handshake,
 } from "lucide-react";
 import { Footer } from "../Footer/Footer";
 import Automega from "../Automega/Automega";
@@ -232,6 +233,12 @@ export const Automeganav = () => {
                         icon={<UserRound />}
                         label="Virtual Analyst Assistant"
                         onClick={() => navigate('/virtual-analyst')}
+                    />
+
+                    <SidebarItem
+                        icon={<Handshake />}
+                        label="Supplier IQ"
+                        onClick={() => navigate('/supiq')}
                     />
 
                     <div className="absolute bottom-0 w-full p-2">

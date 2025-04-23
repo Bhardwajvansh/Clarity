@@ -14,6 +14,7 @@ import {
     LogOut,
     ChevronRight,
     ChevronDown,
+    Handshake,
 } from "lucide-react";
 import { Dashboard } from "../Dashboard/Dashboard";
 import { Footer } from "../Footer/Footer";
@@ -235,6 +236,12 @@ export const Navbar = () => {
                         icon={<UserRound />}
                         label="Virtual Analyst Assistant"
                         onClick={() => navigate('/virtual-analyst')}
+                    />
+
+                    <SidebarItem
+                        icon={<Handshake />}
+                        label="Supplier IQ"
+                        onClick={() => navigate('/supiq')}
                     />
 
                     <div className="absolute bottom-0 w-full p-2">

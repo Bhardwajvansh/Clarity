@@ -16,8 +16,9 @@ import {
     ChevronDown,
     Handshake,
 } from "lucide-react";
+import { Dashboard } from "../Dashboard/Dashboard";
 import { Footer } from "../Footer/Footer";
-import { Subcat } from "../Subcat/Subcat";
+import SupplierIQDashboard from "./Supiq";
 
 const COLORS = [
     '#8A4FFF',
@@ -27,7 +28,7 @@ const COLORS = [
     '#DA70D6'
 ];
 
-export const Subcatnav = () => {
+export const Supiqnav = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [clarityDropdownOpen, setClarityDropdownOpen] = useState(false);
     const navigate = useNavigate();
@@ -110,14 +111,17 @@ export const Subcatnav = () => {
                         ].map((item) => (
                             <a
                                 key={item.label}
-                                onClick={() => navigate(item.href)}
+                                onClick={() => { navigate(item.href) }}
                                 className={`
                                     flex items-center 
                                     p-2 
                                     ${item.isDisabled
                                         ? 'opacity-50 cursor-not-allowed'
-                                        : `hover:bg-[${COLORS[0]}]/10 cursor-pointer`
-                                    } 
+                                        : `${item.isDisabled
+                                            ? 'opacity-50 cursor-not-allowed'
+                                            : `hover:bg-[${COLORS[0]}]/10 cursor-pointer`
+                                        } cursor-pointer`
+                                    }
                                     rounded-lg 
                                     group/subitem
                                     transition-all 
@@ -261,7 +265,7 @@ export const Subcatnav = () => {
                 `}
             >
                 <div>
-                    <Subcat />
+                    <SupplierIQDashboard />
                     <Footer />
                 </div>
             </div>

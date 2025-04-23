@@ -14,6 +14,7 @@ import {
     LogOut,
     ChevronRight,
     ChevronDown,
+    Handshake,
 } from "lucide-react";
 import { Footer } from "../Footer/Footer";
 import { Cdash } from "../Cdash/Cdash";
@@ -232,6 +233,12 @@ export const Cdashnav = () => {
                         icon={<UserRound />}
                         label="Virtual Analyst Assistant"
                         onClick={() => navigate('/virtual-analyst')}
+                    />
+
+                    <SidebarItem
+                        icon={<Handshake />}
+                        label="Supplier IQ"
+                        onClick={() => navigate('/supiq')}
                     />
 
                     <div className="absolute bottom-0 w-full p-2">

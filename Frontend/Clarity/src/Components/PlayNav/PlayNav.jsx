@@ -7,6 +7,7 @@ import {
     Stethoscope,
     Laptop,
     Box,
+    Handshake,
     Database,
     FileText,
     Bot,
@@ -233,6 +234,12 @@ export const PlayNav = () => {
                         icon={<UserRound />}
                         label="Virtual Analyst Assistant"
                         onClick={() => navigate('/virtual-analyst')}
+                    />
+
+                    <SidebarItem
+                        icon={<Handshake />}
+                        label="Supplier IQ"
+                        onClick={() => navigate('/supiq')}
                     />
 
                     <div className="absolute bottom-0 w-full p-2">

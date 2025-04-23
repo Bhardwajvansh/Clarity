@@ -24,6 +24,8 @@ import { KeyAccountsMatrix } from "./Components/Kaccounts/Kaccounts"
 import CompetitorAnalysisDashboard from "./Components/Canalysis/Canalysis"
 import VendorRiskAnalysisDashboard from "./Components/Vendorrisk/Vendorrisk"
 import { BrandSentimentDashboard } from "./Components/Brandiq/Brandiq"
+import SupplierIQDashboard from "./Components/Supiq/Supiq"
+import { Supiqnav } from "./Components/Supiq/Supiqnav"
 
 function App() {
   return (
@@ -56,8 +58,8 @@ function App() {
         <Route path="/eval" element={<EvalNav />} />
         <Route path="/virtual-analyst" element={<PlayNav />} />
 
-        <Route path="/supiq" element={<PlayNav />} />
-        
+        <Route path="/supiq" element={<Supiqnav />} />
+
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>

@@ -16,6 +16,13 @@ import {
     UserCircle,
     Building2,
     LineChartIcon,
+    Building,
+    Globe,
+    Calendar,
+    MapPin,
+    ExternalLink,
+    GitMerge,
+    Zap,
 } from 'lucide-react';
 import { Lightbulb, RefreshCw, Send, BrainCircuit, DollarSign } from 'lucide-react';
 import {
@@ -164,6 +171,7 @@ export const Supdash = () => {
         { name: 'Financial Analysis', icon: <LineChartIcon size={18} /> },
         { name: 'AI Insights', icon: <BrainCircuit size={18} /> },
         { name: 'Forecasting', icon: <BrainCircuit size={18} /> },
+        { name: 'Strategic Moves', icon: <BrainCircuit size={18} /> },
     ];
 
     const riskDistributionData = [
@@ -948,7 +956,7 @@ export const Supdash = () => {
 
     const VolumeForecastTrendAnalysis = () => {
         return (
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+            <div className="bg-gray-50 p-6">
                 <div className="flex justify-between items-center mb-6">
                     <div>
                         <h2 className="text-xl font-bold text-gray-800">Volume Forecast & Trend Analysis</h2>
@@ -977,7 +985,7 @@ export const Supdash = () => {
                 </div>
 
                 {/* Volume Chart */}
-                <div className="mb-6">
+                <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
                     <ResponsiveContainer width="100%" height={250}>
                         <BarChart data={volumeData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                             <CartesianGrid strokeDasharray="3 3" vertical={false} />
@@ -997,7 +1005,7 @@ export const Supdash = () => {
                 {/* Analysis Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* Volume Trend Analysis Panel */}
-                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                    <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
                         <div className="flex items-center mb-3">
                             <div className="bg-blue-100 p-1 rounded-full mr-2">
                                 <TrendingDown className="text-blue-600" size={18} />
@@ -1031,7 +1039,7 @@ export const Supdash = () => {
                     </div>
 
                     {/* Price Impact Analysis Panel */}
-                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                    <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
                         <div className="flex items-center mb-3">
                             <div className="bg-green-100 p-1 rounded-full mr-2">
                                 <DollarSign className="text-green-600" size={18} />
@@ -1055,7 +1063,7 @@ export const Supdash = () => {
                     </div>
 
                     {/* Risk & Mitigation Strategy Panel */}
-                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                    <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
                         <div className="flex items-center mb-3">
                             <div className="bg-red-100 p-1 rounded-full mr-2">
                                 <AlertTriangle className="text-red-600" size={18} />
@@ -1142,6 +1150,348 @@ export const Supdash = () => {
         );
     };
 
+    const StrategicAcquisitionsInvestments = () => {
+        return (
+            <div className="bg-gray-50 p-6">
+                <div className="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 className="text-xl font-bold text-gray-800">Strategic Acquisitions & Investments</h2>
+                        <p className="text-sm text-gray-500">Tracking key strategic moves and their market impact</p>
+                    </div>
+                    <div className="flex space-x-3">
+                        <div className="relative w-32">
+                            <select className="w-full p-2 border border-gray-200 rounded-lg bg-white shadow-sm appearance-none pr-8">
+                                <option>All Categories</option>
+                                <option>Acquisitions</option>
+                                <option>Investments</option>
+                            </select>
+                            <ChevronDown className="absolute right-2 top-3 text-gray-400" size={16} />
+                        </div>
+                        <div className="relative w-32">
+                            <select className="w-full p-2 border border-gray-200 rounded-lg bg-white shadow-sm appearance-none pr-8">
+                                <option>Last 3 Years</option>
+                                <option>Last Year</option>
+                                <option>All Time</option>
+                            </select>
+                            <ChevronDown className="absolute right-2 top-3 text-gray-400" size={16} />
+                        </div>
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                            <span>Update View</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-12 gap-6">
+                    {/* Left Column - Acquisitions */}
+                    <div className="col-span-12 lg:col-span-6">
+                        <div className="mb-6 flex items-center">
+                            <div className="bg-blue-100 p-1 rounded-full mr-2">
+                                <Building className="text-blue-600" size={18} />
+                            </div>
+                            <h3 className="font-bold text-gray-800">Recent Strategic Acquisitions</h3>
+                            <div className="ml-3 bg-blue-100 text-blue-600 px-2 py-0.5 text-xs rounded-full flex items-center">
+                                <Info size={12} className="mr-1" />
+                                <span>AI Insights</span>
+                            </div>
+                        </div>
+
+                        {/* IFF Pharma Solutions Acquisition */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex justify-between items-start mb-2">
+                                <h4 className="font-medium text-gray-800">IFF Pharma Solutions Acquisition</h4>
+                                <div className="flex items-center">
+                                    <span className="bg-blue-100 text-blue-600 px-2 py-0.5 text-xs rounded-full">In Progress</span>
+                                    <span className="ml-3 font-bold text-blue-600">$2.85bn</span>
+                                </div>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-3">
+                                Announced March 2024
+                            </p>
+                            <p className="text-sm text-gray-600 mb-3">
+                                Worldwide producer of excipients for oral dosage solutions. Enhances Roquette's US footprint and significantly expands its industry-leading formulation capabilities and drug delivery research and development.
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                <div className="flex items-center text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <Globe size={12} className="mr-1" />
+                                    <span>Global Presence</span>
+                                </div>
+                                <div className="flex items-center text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <Building size={12} className="mr-1" />
+                                    <span>Pharmaceuticals</span>
+                                </div>
+                                <div className="flex items-center text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <Calendar size={12} className="mr-1" />
+                                    <span>Expected completion: Q4 2024</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Qualicaps Acquisition */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex justify-between items-start mb-2">
+                                <h4 className="font-medium text-gray-800">Qualicaps Acquisition</h4>
+                                <div className="flex items-center">
+                                    <span className="bg-green-100 text-green-600 px-2 py-0.5 text-xs rounded-full">Completed</span>
+                                    <span className="ml-3 font-bold text-green-600">Undisclosed</span>
+                                </div>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-3">
+                                October 2023
+                            </p>
+                            <p className="text-sm text-gray-600 mb-3">
+                                Third largest producer of hard capsules for oral dosage solutions. With this acquisition, Roquette expects to expand the global footprint of its pharmaceutical business, as well as enrich its offering of oral dosage solutions.
+                            </p>
+                            <div className="flex flex-wrap gap-2 mb-3">
+                                <div className="flex items-center text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <MapPin size={12} className="mr-1" />
+                                    <span>Nara, Japan</span>
+                                </div>
+                                <div className="flex items-center text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <Building size={12} className="mr-1" />
+                                    <span>Hard Capsules Manufacturing</span>
+                                </div>
+                            </div>
+                            <div className="flex items-center text-xs text-green-600">
+                                <span>Integration in progress</span>
+                            </div>
+                        </div>
+
+                        {/* Potential Future Targets */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex justify-between items-start mb-2">
+                                <h4 className="font-medium text-gray-800">Potential Future Targets</h4>
+                                <div className="flex items-center">
+                                    <span className="bg-gray-100 text-gray-600 px-2 py-0.5 text-xs rounded-full">AI Prediction</span>
+                                </div>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-3">
+                                Based on Roquette's acquisition pattern, AI suggests the company may target smaller specialized excipient producers with strong innovation pipelines, particularly in Asia-Pacific and North America.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Right Column - Strategic Investments */}
+                    <div className="col-span-12 lg:col-span-6">
+                        <div className="mb-6">
+                            <h3 className="font-bold text-gray-800 flex items-center">
+                                <div className="bg-purple-100 p-1 rounded-full mr-2">
+                                    <DollarSign className="text-purple-600" size={18} />
+                                </div>
+                                Strategic Investments
+                            </h3>
+                        </div>
+
+                        {/* Lestrem Plant Investment */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex justify-between items-start mb-2">
+                                <h4 className="font-medium text-gray-800">Lestrem Plant Investment</h4>
+                                <div className="flex items-center">
+                                    <span className="font-bold text-purple-600">€25M</span>
+                                </div>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-3">
+                                Expansion of manufacturing facility in France. Will increase safety standards for FSMA, WA4 and consolidate industrial operations contributing to production performance improvement.
+                            </p>
+                            <div className="flex justify-between items-center mb-3">
+                                <span className="text-xs text-gray-500">Project Completion:</span>
+                                <div className="w-32 bg-gray-200 rounded-full h-2">
+                                    <div className="bg-purple-500 h-2 rounded-full" style={{ width: '65%' }}></div>
+                                </div>
+                                <span className="text-xs text-gray-500">65%</span>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                                <div className="flex items-center text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <MapPin size={12} className="mr-1" />
+                                    <span>France</span>
+                                </div>
+                                <div className="flex items-center text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <ExternalLink size={12} className="mr-1" />
+                                    <span>Largest polyol plant in the world</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Pharmaceutical Innovation Center */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex justify-between items-start mb-2">
+                                <h4 className="font-medium text-gray-800">Pharmaceutical Innovation Center</h4>
+                                <div className="flex items-center">
+                                    <span className="bg-blue-100 text-blue-600 px-2 py-0.5 text-xs rounded-full">Completed</span>
+                                </div>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-3">
+                                Opened brand-new innovation center near Philadelphia, Pennsylvania in April 2023. Located in the heart of the United States Northeast pharmaceutical corridor.
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                <div className="flex items-center text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <Building size={12} className="mr-1" />
+                                    <span>R&D Focus</span>
+                                </div>
+                                <div className="flex items-center text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <MapPin size={12} className="mr-1" />
+                                    <span>Pennsylvania, USA</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Plant Protein Expansion */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex justify-between items-start mb-2">
+                                <h4 className="font-medium text-gray-800">Plant Protein Expansion</h4>
+                                <div className="flex items-center">
+                                    <span className="bg-green-100 text-green-600 px-2 py-0.5 text-xs rounded-full">Ongoing</span>
+                                </div>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-3">
+                                Strategic expansion in the plant protein sector, meeting growing consumer demands for taste and nutritional value in plant-based ingredients.
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                <div className="flex items-center text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <MapPin size={12} className="mr-1" />
+                                    <span>Vic-sur-Aisne, France</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Strategic Impact Analysis */}
+                <div className="mt-6">
+                    <div className="mb-4 flex items-center">
+                        <h3 className="font-bold text-gray-800">Strategic Impact Analysis</h3>
+                        <div className="ml-2 bg-gray-100 rounded-full p-1">
+                            <Info size={14} className="text-gray-500" />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {/* Market Position Enhancement */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex items-start mb-2">
+                                <div className="bg-green-100 p-1 rounded-full mr-2 mt-1">
+                                    <TrendingUp className="text-green-600" size={16} />
+                                </div>
+                                <div>
+                                    <h4 className="font-medium text-gray-700 mb-1">Market Position Enhancement</h4>
+                                    <p className="text-xs text-gray-600">
+                                        The combined acquisitions strengthen Roquette's leadership position in oral dosage solutions, moving from a component supplier to offering complete drug delivery solutions. This strengthens margins overall while in the pharmaceutical segment.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Geographical Expansion */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex items-start mb-2">
+                                <div className="bg-blue-100 p-1 rounded-full mr-2 mt-1">
+                                    <Globe className="text-blue-600" size={16} />
+                                </div>
+                                <div>
+                                    <h4 className="font-medium text-gray-700 mb-1">Geographical Expansion</h4>
+                                    <p className="text-xs text-gray-600">
+                                        The strategic acquisitions expand Roquette's global footprint in the pharmaceutical sector. Qualicaps provides stronger facility in Japan and Asia, while the IFF Pharma acquisition strengthens presence in the US. These gains provide both direct market access and distribution channels.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Integration Challenges */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex items-start mb-2">
+                                <div className="bg-amber-100 p-1 rounded-full mr-2 mt-1">
+                                    <GitMerge className="text-amber-600" size={16} />
+                                </div>
+                                <div>
+                                    <h4 className="font-medium text-gray-700 mb-1">Integration Challenges</h4>
+                                    <p className="text-xs text-gray-600">
+                                        Multiple consecutive acquisitions pose integration challenges relating to cultural alignment, efficiency, technology harmonization, and supply chain realignment may cause temporary operational disruptions. Progress monitoring is essential during the 12-24 month integration period.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Innovation Acceleration */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex items-start mb-2">
+                                <div className="bg-purple-100 p-1 rounded-full mr-2 mt-1">
+                                    <Zap className="text-purple-600" size={16} />
+                                </div>
+                                <div>
+                                    <h4 className="font-medium text-gray-700 mb-1">Innovation Acceleration</h4>
+                                    <p className="text-xs text-gray-600">
+                                        Combined R&D operations and the new innovation center are expected to accelerate product development cycles. Patent activity monitoring suggests a 35% increase in innovation output is achievable within 18 months.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Implications for Takeda */}
+                <div className="my-6 bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="font-bold text-gray-800">Implications for Takeda</h3>
+                        <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Customer Impact Assessment</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {/* Pricing Pressure */}
+                        <div className="flex items-start">
+                            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 mr-3 mt-1 shrink-0">
+                                <span className="text-blue-700 text-sm font-medium">$</span>
+                            </div>
+                            <div>
+                                <h4 className="font-medium text-gray-700 mb-1">Pricing Pressure</h4>
+                                <p className="text-xs text-gray-600">
+                                    With Roquette's expanding in the excipients type on which Takeda's spending is focused (oral dosage solutions, e.g., sweeteners, cellulose-based excipients), it would be a medium-term risk. Actions needed to mitigate that these acquisition triggers price rises.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Contract Leverage */}
+                        <div className="flex items-start">
+                            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-green-100 mr-3 mt-1 shrink-0">
+                                <span className="text-green-700 text-sm font-medium">C</span>
+                            </div>
+                            <div>
+                                <h4 className="font-medium text-gray-700 mb-1">Contract Leverage</h4>
+                                <p className="text-xs text-gray-600">
+                                    Takeda maintains a small share of wallet for Roquette (5-2% of FY23 revenues), but has consolidated portfolio with Qualicaps. As Roquette consolidates more of Takeda's supply chain, opportunity to leverage volume commitments emerges.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Operational Efficiency */}
+                        <div className="flex items-start">
+                            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-amber-100 mr-3 mt-1 shrink-0">
+                                <span className="text-amber-700 text-sm font-medium">Op</span>
+                            </div>
+                            <div>
+                                <h4 className="font-medium text-gray-700 mb-1">Operational Efficiency</h4>
+                                <p className="text-xs text-gray-600">
+                                    Consolidation of suppliers through Roquette's acquisitions will likely be helpful, with target and consistent volumes. Opportunity exists for long-term supply agreements in exchange for pricing concessions.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Innovation Opportunities */}
+                        <div className="flex items-start">
+                            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-purple-100 mr-3 mt-1 shrink-0">
+                                <span className="text-purple-700 text-sm font-medium">I</span>
+                            </div>
+                            <div>
+                                <h4 className="font-medium text-gray-700 mb-1">Innovation Opportunities</h4>
+                                <p className="text-xs text-gray-600">
+                                    Roquette's expanded capabilities create opportunities for co-development projects. Early engagement with their new innovation center could secure preferential access to new technologies and formulations.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className="min-h-screen bg-gray-100">
             <header className="bg-white shadow-sm">
@@ -1198,6 +1548,7 @@ export const Supdash = () => {
                 {activeTab === 'Financial Analysis' && renderFinancialAnalysis()}
                 {activeTab === 'AI Insights' && SupplierIntelligenceDashboard()}
                 {activeTab === 'Forecasting' && VolumeForecastTrendAnalysis()}
+                {activeTab === 'Strategic Moves' && StrategicAcquisitionsInvestments()}
             </main>
         </div>
     );

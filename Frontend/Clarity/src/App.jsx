@@ -22,6 +22,7 @@ import StrategicDashboard from "./Components/Stdashboard/Stdashboard"
 import { RetailMegaTrendsHeatmap } from "./Components/Heatmap/Heatmap"
 import { KeyAccountsMatrix } from "./Components/Kaccounts/Kaccounts"
 import CompetitorAnalysisDashboard from "./Components/Canalysis/Canalysis"
+import VendorRiskAnalysisDashboard from "./Components/Vendorrisk/Vendorrisk"
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/stdashboard" element={<StrategicDashboard />} />
         <Route path="/kaccounts" element={<KeyAccountsMatrix />} />
         <Route path="/canalysis" element={<CompetitorAnalysisDashboard />} />
+        <Route path="/vendorrisk" element={<VendorRiskAnalysisDashboard />} />
         <Route path="/mtheatmap" element={<RetailMegaTrendsHeatmap />} />
         <Route path="/dashboard" element={<Navbar />} />
         <Route path="/automobile" element={<Automeganav />} />

@@ -171,7 +171,9 @@ export const StrategicDashboard = () => {
                                 </ResponsiveContainer>
                             </div>
                         </div>
-                        <div className="bg-white cursor-pointer rounded-lg shadow-sm p-4 border-t-4 border-gray-500 hover:shadow-lg transition-shadow duration-200">
+                        <div
+                            onClick={() => navigate('/vendorrisk')}
+                            className="bg-white cursor-pointer rounded-lg shadow-sm p-4 border-t-4 border-gray-500 hover:shadow-lg transition-shadow duration-200">
                             <div className="flex justify-between items-center mb-4">
                                 <div>
                                     <h3 className="text-base font-semibold">Vendor Risk Analysis</h3>

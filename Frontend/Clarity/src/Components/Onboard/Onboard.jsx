@@ -18,6 +18,7 @@ import {
     Package
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Footer } from '../Footer/Footer';
 
 export const UserOnboarding = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -530,42 +531,45 @@ export const UserOnboarding = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto p-6 bg-gray-50 rounded-lg shadow-sm">
-            <h1 className="text-2xl font-bold mb-6">User Onboarding</h1>
+        <div className="min-h-screen flex flex-col bg-gray-100" >
+            <div className="max-w-7xl mx-auto p-6 bg-gray-50 rounded-lg shadow-sm">
+                <h1 className="text-3xl font-bold mb-6">User Onboarding</h1>
 
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-                {renderStepContent()}
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                    {renderStepContent()}
 
-                {renderStepIndicator()}
+                    {renderStepIndicator()}
 
-                <div className="flex justify-between mt-6">
-                    {currentStep > 1 && (
-                        <button
-                            onClick={prevStep}
-                            className="flex items-center text-gray-600 hover:text-gray-800"
-                        >
-                            <ChevronLeft size={16} />
-                            <span className="ml-1">Previous: {currentStep === 2 ? 'Sectors' : currentStep === 3 ? 'Products' : currentStep === 4 ? 'Accounts' : 'Competitors'}</span>
-                        </button>
-                    )}
+                    <div className="flex justify-between mt-6">
+                        {currentStep > 1 && (
+                            <button
+                                onClick={prevStep}
+                                className="flex items-center text-gray-600 hover:text-gray-800"
+                            >
+                                <ChevronLeft size={16} />
+                                <span className="ml-1">Previous: {currentStep === 2 ? 'Sectors' : currentStep === 3 ? 'Products' : currentStep === 4 ? 'Accounts' : 'Competitors'}</span>
+                            </button>
+                        )}
 
-                    {currentStep < 5 ? (
-                        <button
-                            onClick={nextStep}
-                            className="ml-auto px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-                        >
-                            Continue
-                        </button>
-                    ) : (
-                        <button
-                            onClick={() => navigate('/stdashboard')}
-                            className="ml-auto px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
-                        >
-                            Complete Setup
-                        </button>
-                    )}
+                        {currentStep < 5 ? (
+                            <button
+                                onClick={nextStep}
+                                className="ml-auto px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                            >
+                                Continue
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => navigate('/stdashboard')}
+                                className="ml-auto px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
+                            >
+                                Complete Setup
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+            <Footer />
+        </div >
     );
 }

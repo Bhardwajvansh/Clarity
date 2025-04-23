@@ -18,6 +18,8 @@ import { Automeganav } from "./Components/Automeganav/Automeganav"
 import { Top50nav } from "./Components/Top50nav/Top50nav"
 import { Subcatnav } from "./Components/Subcatnav/Subcatnav"
 import { UserOnboarding } from "./Components/Onboard/Onboard"
+import StrategicDashboard from "./Components/Stdashboard/Stdashboard"
+import { RetailMegaTrendsHeatmap } from "./Components/Heatmap/Heatmap"
 
 function App() {
   return (
@@ -25,7 +27,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/onboard" element={<UserOnboarding />} />
-        <Route path="/stdashboard" element={<Navbar />} />
+        <Route path="/stdashboard" element={<StrategicDashboard />} />
+        <Route path="/mtheatmap" element={<RetailMegaTrendsHeatmap />} />
         <Route path="/dashboard" element={<Navbar />} />
         <Route path="/automobile" element={<Automeganav />} />
         <Route path="/healthcare" element={<AutoNav />} />

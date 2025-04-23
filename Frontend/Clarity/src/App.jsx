@@ -10,7 +10,6 @@ import { CourseNav } from "./Components/CourseNav/CourseNav"
 import { GeneratedNav } from "./Components/GeneratedNav/GeneratedNav"
 import { LibraryNav } from "./Components/LibraryNav/LibraryNav"
 import { Coal } from "./Components/Coal/Coal"
-import { Cdashnav } from "./Components/Cdashnav/Cdashnav"
 import { NewsNav } from "./Components/Newsnav/Newsnav"
 import { CompanyNav } from "./Components/Companynav/Companynav"
 import { EvalNav } from "./Components/Evalnav/Evalnav"
@@ -39,7 +38,8 @@ function App() {
         <Route path="/vendorrisk" element={<Vendornav />} />
         <Route path="/brandiq" element={<Brandnav />} />
         <Route path="/mtheatmap" element={<Heatnav />} />
-        <Route path="/dashboard" element={<Navbar />} />
+        <Route path="/dashboard" element={<Stdashnav />} />
+        {/* <Route path="/dashboard" element={<Navbar />} /> */}
         <Route path="/automobile" element={<Automeganav />} />
         <Route path="/healthcare" element={<AutoNav />} />
         <Route path="/technology" element={<AutoNav />} />

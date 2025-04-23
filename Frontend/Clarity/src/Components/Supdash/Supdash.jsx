@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
     Home,
-    FileText,
     Bell,
     Settings,
     Search,
@@ -14,8 +13,11 @@ import {
     CircleCheck,
     BarChart3,
     ArrowRight,
-    Plus
+    UserCircle,
+    Building2,
+    LineChartIcon,
 } from 'lucide-react';
+import { Lightbulb, RefreshCw, Send, BrainCircuit, DollarSign } from 'lucide-react';
 import {
     LineChart,
     Line,
@@ -29,18 +31,139 @@ import {
     ResponsiveContainer,
     PieChart,
     Pie,
-    Cell
+    Cell,
 } from 'recharts';
 
 export const Supdash = () => {
     const [activeTab, setActiveTab] = useState('Dashboard');
     const [selectedSupplier, setSelectedSupplier] = useState(null);
 
+    const nodes = [
+        { id: "roquette", name: "Roquette", type: "main", x: 300, y: 200 },
+        { id: "qualicaps", name: "Qualicaps", type: "acquisition", x: 150, y: 100 },
+        { id: "jrspharma", name: "JRS Pharma", type: "acquisition", x: 450, y: 100 },
+        { id: "huihui", name: "Huihui", type: "competitor", x: 150, y: 300 },
+        { id: "cartech", name: "CarTech", type: "competitor", x: 450, y: 300 },
+        { id: "basf", name: "BASF", type: "supplier", x: 200, y: 350 },
+        { id: "dowchem", name: "Dow Chemical", type: "supplier", x: 400, y: 350 }
+    ];
+
+    const links = [
+        { source: "roquette", target: "qualicaps", type: "acquisition", strength: "strong" },
+        { source: "roquette", target: "jrspharma", type: "acquisition", strength: "strong" },
+        { source: "roquette", target: "huihui", type: "competitor", strength: "weak" },
+        { source: "roquette", target: "cartech", type: "competitor", strength: "medium" },
+        { source: "qualicaps", target: "basf", type: "supplier", strength: "medium" },
+        { source: "jrspharma", target: "dowchem", type: "supplier", strength: "medium" },
+        { source: "huihui", target: "cartech", type: "partnership", strength: "weak" }
+    ];
+
+    const volumeData = [
+        { year: "2021", roquette: 780, qualicaps: 52, total: 832 },
+        { year: "2022", roquette: 538, qualicaps: 66, total: 604 },
+        { year: "2023", roquette: 538, qualicaps: 66, total: 604 },
+        { year: "2024", roquette: 418, qualicaps: 39, total: 457, forecast: true },
+        { year: "2025 H1", roquette: 327, qualicaps: 15, total: 342, forecast: true }
+    ];
+
+    const priceData = [
+        { year: "2021", volume: 832, price: 100 },
+        { year: "2022", volume: 604, price: 115 },
+        { year: "2023", volume: 604, price: 126 },
+        { year: "2024", volume: 457, price: 150 }
+    ];
+
+    const getNodeColor = (type) => {
+        switch (type) {
+            case "main": return "#3b82f6"; // blue-500
+            case "acquisition": return "#8b5cf6"; // purple-500
+            case "competitor": return "#f59e0b"; // amber-500
+            case "supplier": return "#10b981"; // emerald-500
+            default: return "#6b7280"; // gray-500
+        }
+    };
+
+    const getNodeSize = (type) => {
+        switch (type) {
+            case "main": return 60;
+            case "acquisition": return 45;
+            default: return 35;
+        }
+    };
+
+    const getLinkColor = (type, strength) => {
+        const opacity = strength === "strong" ? "1" : strength === "medium" ? "0.7" : "0.4";
+
+        switch (type) {
+            case "acquisition": return `rgba(139, 92, 246, ${opacity})`; // purple with opacity
+            case "competitor": return `rgba(245, 158, 11, ${opacity})`; // amber with opacity
+            case "partnership": return `rgba(16, 185, 129, ${opacity})`; // emerald with opacity
+            case "supplier": return `rgba(107, 114, 128, ${opacity})`; // gray with opacity
+            default: return `rgba(107, 114, 128, ${opacity})`;
+        }
+    };
+
+    const getLinkWidth = (strength) => {
+        switch (strength) {
+            case "strong": return 3;
+            case "medium": return 2;
+            default: return 1;
+        }
+    };
+
+    const [activeNode, setActiveNode] = React.useState(null);
+    const [tooltipContent, setTooltipContent] = React.useState("");
+    const [tooltipPosition, setTooltipPosition] = React.useState({ x: 0, y: 0 });
+    const [showTooltip, setShowTooltip] = React.useState(false);
+
+    const handleMouseOver = (node, event) => {
+        setActiveNode(node.id);
+        setTooltipContent(getTooltipContent(node));
+        setTooltipPosition({
+            x: event.nativeEvent.offsetX,
+            y: event.nativeEvent.offsetY
+        });
+        setShowTooltip(true);
+    };
+
+    const handleMouseOut = () => {
+        setActiveNode(null);
+        setShowTooltip(false);
+    };
+
+    const getTooltipContent = (node) => {
+        switch (node.type) {
+            case "main":
+                return `${node.name}: Primary company with recent acquisitions`;
+            case "acquisition":
+                return `${node.name}: Recently acquired by Roquette (2023-2024)`;
+            case "competitor":
+                return `${node.name}: Alternative supplier for qualification`;
+            case "supplier":
+                return `${node.name}: Raw material provider`;
+            default:
+                return node.name;
+        }
+    };
+
+    const getRelevantLinks = (nodeId) => {
+        if (!activeNode) return [];
+        return links.filter(link => link.source === nodeId || link.target === nodeId);
+    };
+
+    const isConnectedToActive = (nodeId) => {
+        if (!activeNode) return false;
+        return links.some(link =>
+            (link.source === activeNode && link.target === nodeId) ||
+            (link.target === activeNode && link.source === nodeId)
+        );
+    };
+
     const tabs = [
         { name: 'Dashboard', icon: <Home size={18} /> },
-        { name: 'Risk Benchmarking', icon: <FileText size={18} /> },
-        { name: 'Supplier Profiles', icon: <FileText size={18} /> },
-        { name: 'Financial Analysis', icon: <FileText size={18} /> },
+        { name: 'Financial Analysis', icon: <LineChartIcon size={18} /> },
+        { name: 'AI Insights', icon: <BrainCircuit size={18} /> },
+        { name: 'Forecasting', icon: <BrainCircuit size={18} /> },
     ];
 
     const riskDistributionData = [
@@ -92,100 +215,65 @@ export const Supdash = () => {
     ];
 
     const renderDashboard = () => (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Supplier Risk Dashboard</h1>
+        <div className="p-8">
+            <h1 className="text-3xl font-bold mb-8">Supplier Risk Dashboard</h1>
 
-            <div className="flex justify-between items-center mb-6">
-                <div className="relative w-64">
-                    <Search className="absolute left-3 top-3 text-gray-400" size={16} />
+            <div className="flex justify-between items-center mb-8">
+                <div className="relative w-72">
+                    <Search className="absolute left-3 top-3 text-gray-400" size={18} />
                     <input
                         type="text"
                         placeholder="Search suppliers..."
-                        className="pl-10 pr-4 py-2 border rounded w-full"
+                        className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg w-full focus:ring-2 focus:ring-blue-200"
                     />
                 </div>
 
-                <div className="flex space-x-2">
-                    <div className="relative">
-                        <button className="flex items-center space-x-2 px-4 py-2 border rounded">
-                            <span>All Industries</span>
-                            <ChevronDown size={16} />
-                        </button>
-                    </div>
-
-                    <div className="relative">
-                        <button className="flex items-center space-x-2 px-4 py-2 border rounded">
-                            <span>All Regions</span>
-                            <ChevronDown size={16} />
-                        </button>
-                    </div>
-
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded flex items-center space-x-2">
+                <div className="flex space-x-3">
+                    <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm hover:shadow transition">
+                        <span>All Industries</span>
+                        <ChevronDown size={16} />
+                    </button>
+                    <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm hover:shadow transition">
+                        <span>All Regions</span>
+                        <ChevronDown size={16} />
+                    </button>
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition flex items-center space-x-2">
                         <Filter size={16} />
                         <span>Advanced Filters</span>
                     </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-4 gap-6 mb-8">
-                <div className="bg-white p-4 rounded shadow">
-                    <div className="flex justify-between items-start">
-                        <div>
-                            <p className="text-sm text-gray-500">Suppliers</p>
-                            <h2 className="text-4xl font-bold">142</h2>
-                            <p className="text-xs text-gray-500">Active tracking</p>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+                {[{
+                    title: 'Suppliers', value: '142', subtitle: 'Active tracking', badge: '+6', info: '+4 this month', color: 'blue'
+                }, {
+                    title: 'Average Risk Score', value: '67.2', subtitle: 'Moderate risk', badge: <TrendingUp size={16} />, info: 'Trending up', color: 'yellow'
+                }, {
+                    title: 'High Risk Suppliers', value: '17', subtitle: 'Requiring attention', badge: '+3', info: '12% of total', color: 'red'
+                }, {
+                    title: 'Data Confidence', value: '94%', subtitle: 'Based on 50+ sources', badge: 'High', info: 'Updated hourly', color: 'green'
+                }].map((card, i) => (
+                    <div key={i} className="bg-white p-6 rounded-2xl shadow-md border border-gray-200">
+                        <div className="flex justify-between items-start">
+                            <div>
+                                <p className="text-sm text-gray-500">{card.title}</p>
+                                <h2 className="text-4xl font-bold">{card.value}</h2>
+                                <p className="text-xs text-gray-500">{card.subtitle}</p>
+                            </div>
+                            <span className={`bg-${card.color}-100 text-${card.color}-600 text-xs px-2 py-1 rounded-full`}>{card.badge}</span>
                         </div>
-                        <span className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">+6</span>
+                        <p className="text-xs text-gray-400 mt-2">{card.info}</p>
                     </div>
-                    <p className="text-xs text-gray-500 mt-2">+4 this month</p>
-                </div>
-
-                <div className="bg-white p-4 rounded shadow">
-                    <div className="flex justify-between items-start">
-                        <div>
-                            <p className="text-sm text-gray-500">Average Risk Score</p>
-                            <h2 className="text-4xl font-bold">67.2</h2>
-                            <p className="text-xs text-gray-500">Moderate risk</p>
-                        </div>
-                        <span className="bg-yellow-100 text-yellow-600 text-xs px-2 py-1 rounded">
-                            <TrendingUp size={16} className="inline" />
-                        </span>
-                    </div>
-                    <p className="text-xs text-gray-500 mt-2">Trending up</p>
-                </div>
-
-                <div className="bg-white p-4 rounded shadow">
-                    <div className="flex justify-between items-start">
-                        <div>
-                            <p className="text-sm text-gray-500">High Risk Suppliers</p>
-                            <h2 className="text-4xl font-bold">17</h2>
-                            <p className="text-xs text-gray-500">Requiring attention</p>
-                        </div>
-                        <span className="bg-red-100 text-red-600 text-xs px-2 py-1 rounded">+3</span>
-                    </div>
-                    <p className="text-xs text-gray-500 mt-2">12% of total</p>
-                </div>
-
-                <div className="bg-white p-4 rounded shadow">
-                    <div className="flex justify-between items-start">
-                        <div>
-                            <p className="text-sm text-gray-500">Data Confidence</p>
-                            <h2 className="text-4xl font-bold">94%</h2>
-                            <p className="text-xs text-gray-500">Based on 30+ sources</p>
-                        </div>
-                        <span className="bg-green-100 text-green-600 text-xs px-2 py-1 rounded">High</span>
-                    </div>
-                    <p className="text-xs text-gray-500 mt-2">Updated hourly</p>
-                </div>
+                ))}
             </div>
 
-            <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-white p-4 rounded shadow">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-200">
                     <div className="flex justify-between items-center mb-4">
                         <h3 className="font-bold">Risk Distribution</h3>
                         <Info size={16} className="text-gray-400" />
                     </div>
-
                     <div className="flex">
                         <div className="w-1/2">
                             <ResponsiveContainer width="100%" height={200}>
@@ -196,7 +284,6 @@ export const Supdash = () => {
                                         cy="50%"
                                         innerRadius={60}
                                         outerRadius={80}
-                                        paddingAngle={0}
                                         dataKey="value"
                                     >
                                         {riskDistributionData.map((entry, index) => (
@@ -206,73 +293,58 @@ export const Supdash = () => {
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
-
                         <div className="w-1/2 flex flex-col justify-center">
-                            <div className="mb-4">
-                                <div className="flex items-center mb-1">
-                                    <span className="inline-block w-3 h-3 rounded-full bg-green-500 mr-2"></span>
-                                    <span className="text-sm">Low Risk</span>
-                                    <span className="ml-auto text-sm">35%</span>
+                            {riskDistributionData.map((risk, idx) => (
+                                <div className="flex items-center mb-2" key={idx}>
+                                    <span className={`inline-block w-3 h-3 rounded-full mr-2`} style={{ backgroundColor: risk.color }}></span>
+                                    <span className="text-sm">{risk.name}</span>
+                                    <span className="ml-auto text-sm">{risk.percentage}%</span>
                                 </div>
-                                <div className="flex items-center mb-1">
-                                    <span className="inline-block w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
-                                    <span className="text-sm">Medium</span>
-                                    <span className="ml-auto text-sm">45%</span>
-                                </div>
-                                <div className="flex items-center">
-                                    <span className="inline-block w-3 h-3 rounded-full bg-red-500 mr-2"></span>
-                                    <span className="text-sm">High Risk</span>
-                                    <span className="ml-auto text-sm">20%</span>
-                                </div>
-                            </div>
-                            <div className="text-center">
+                            ))}
+                            <div className="text-center mt-4">
                                 <div className="font-bold text-xl">142</div>
-                                <div className="text-xs text-gray-500">Total Suppliers</div>
+                                <div className="text-xs text-gray-400">Total Suppliers</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-white p-4 rounded shadow">
+                <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-200">
                     <div className="flex justify-between items-center mb-4">
                         <h3 className="font-bold">Risk Factors Analysis</h3>
-                        <button className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded flex items-center">
-                            <span>AI Insights</span>
-                        </button>
+                        <button className="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full">AI Insights</button>
                     </div>
-
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                         {riskFactors.map((factor, index) => (
                             <div key={index}>
-                                <div className="flex justify-between items-center mb-1">
-                                    <span className="font-medium">{factor.name}</span>
-                                    <span className="text-gray-500 text-sm">{factor.score}/100</span>
+                                <div className="flex justify-between text-sm mb-1">
+                                    <span>{factor.name}</span>
+                                    <span className="text-gray-500">{factor.score}/100</span>
                                 </div>
-                                <div className="w-full bg-gray-200 rounded h-2">
+                                <div className="w-full bg-gray-200 rounded-full h-2">
                                     <div
-                                        className="rounded h-2"
-                                        style={{
-                                            width: `${factor.score}%`,
-                                            backgroundColor: factor.color
-                                        }}
+                                        className="h-2 rounded-full"
+                                        style={{ width: `${factor.score}%`, backgroundColor: factor.color }}
                                     ></div>
                                 </div>
-                                <p className="text-xs text-gray-500 mt-1">{factor.description}</p>
+                                <p className="text-xs text-gray-400 mt-1">{factor.description}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
 
-            <div className="bg-white p-4 rounded shadow mb-8">
+            <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-200 mb-10">
                 <div className="flex justify-between items-center mb-4">
                     <h3 className="font-bold">Top Suppliers by Risk Score</h3>
-                    <a href="#" className="text-blue-600 text-sm">View all <ArrowRight size={16} className="inline" /></a>
+                    <a href="#" className="text-blue-600 text-sm flex items-center space-x-1">
+                        <span>View all</span>
+                        <ArrowRight size={16} />
+                    </a>
                 </div>
-
-                <table className="w-full">
+                <table className="w-full text-sm text-gray-700">
                     <thead>
-                        <tr className="text-left text-xs text-gray-500 border-b">
+                        <tr className="text-xs text-gray-500 border-b border-gray-200">
                             <th className="pb-2">SUPPLIER</th>
                             <th className="pb-2">INDUSTRY</th>
                             <th className="pb-2">COUNTRY</th>
@@ -284,47 +356,30 @@ export const Supdash = () => {
                     </thead>
                     <tbody>
                         {suppliers.map((supplier) => (
-                            <tr key={supplier.id} className="border-b">
-                                <td className="py-3">
-                                    <div className="flex items-center">
-                                        <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded flex items-center justify-center mr-2">
-                                            {supplier.id}
-                                        </div>
-                                        <div>
-                                            <div className="font-medium">{supplier.name}</div>
-                                            <div className="text-xs text-gray-500">Top 10 pharma excipients provider</div>
-                                        </div>
+                            <tr key={supplier.id} className="border-b border-gray-100 hover:bg-gray-50">
+                                <td className="py-4 flex items-center space-x-2">
+                                    <div className="w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-semibold">
+                                        {supplier.id}
+                                    </div>
+                                    <div>
+                                        <div className="font-medium">{supplier.name}</div>
+                                        <div className="text-xs text-gray-400">Top 10 pharma excipients provider</div>
                                     </div>
                                 </td>
                                 <td>{supplier.industry}</td>
                                 <td>{supplier.country}</td>
                                 <td>{supplier.score}/100</td>
                                 <td>
-                                    <span
-                                        className={`px-2 py-1 rounded text-xs 
-                    ${supplier.status === 'Stable' ? 'bg-green-100 text-green-600' :
-                                                supplier.status === 'Monitoring' ? 'bg-yellow-100 text-yellow-600' :
-                                                    'bg-red-100 text-red-600'}`}
-                                    >
+                                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${supplier.status === 'Stable' ? 'bg-green-100 text-green-700' : supplier.status === 'Monitoring' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>
                                         {supplier.status}
                                     </span>
                                 </td>
                                 <td className={supplier.trend.includes('-') ? 'text-red-500' : 'text-green-500'}>
-                                    {supplier.trend.includes('-') ?
-                                        <TrendingDown size={16} className="inline mr-1" /> :
-                                        <TrendingUp size={16} className="inline mr-1" />}
+                                    {supplier.trend.includes('-') ? <TrendingDown size={16} className="inline mr-1" /> : <TrendingUp size={16} className="inline mr-1" />}
                                     {supplier.trend}
                                 </td>
                                 <td>
-                                    <button
-                                        className="text-blue-600 text-sm"
-                                        onClick={() => {
-                                            setSelectedSupplier('Roquette');
-                                            setActiveTab('Financial Analysis');
-                                        }}
-                                    >
-                                        View
-                                    </button>
+                                    <button className="text-blue-600 text-sm hover:underline">View</button>
                                 </td>
                             </tr>
                         ))}
@@ -332,58 +387,58 @@ export const Supdash = () => {
                 </table>
             </div>
 
-            <div className="bg-white p-4 rounded shadow">
+            <div className="bg-blue-50 p-6 rounded-2xl shadow-inner border border-blue-200">
                 <div className="flex items-center mb-4">
-                    <div className="w-8 h-8 bg-blue-600 text-white rounded flex items-center justify-center mr-2">
+                    <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center mr-2">
                         <Info size={16} />
                     </div>
-                    <span className="font-bold">AI Insights</span>
+                    <span className="font-bold text-blue-800">AI Insights</span>
                 </div>
-
-                <p className="text-sm">
-                    Risk alert: 3 pharmaceutical suppliers in Europe are showing signs of financial stress due to increased production costs.
-                    Consider dual-sourcing strategies for critical ingredients.
+                <p className="text-sm text-blue-900">
+                    Risk alert: 3 pharmaceutical suppliers in Europe are showing signs of financial stress due to increased production costs. Consider dual-sourcing strategies for critical ingredients.
                 </p>
-
-                <div className="mt-3">
-                    <button className="text-blue-600 text-sm">Get detailed report</button>
-                </div>
+                <button className="text-blue-600 text-sm mt-3 underline">Get detailed report</button>
             </div>
         </div>
     );
 
+
     const renderFinancialAnalysis = () => (
-        <div className="p-6">
-            <div className="flex items-center mb-6">
-                <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded flex items-center justify-center mr-3">
-                    RQ
-                </div>
-                <div>
-                    <h1 className="text-xl font-bold">Roquette</h1>
-                    <p className="text-sm text-gray-500">Financial Performance Analysis</p>
-                </div>
-                <span className="ml-4 px-2 py-1 rounded bg-yellow-100 text-yellow-600 text-sm">Monitoring</span>
-                <div className="ml-auto flex items-center">
-                    <div className="relative mr-4">
-                        <button className="flex items-center space-x-2 px-4 py-2 border rounded">
-                            <span>Last 5 Years</span>
-                            <ChevronDown size={16} />
-                        </button>
+        <div className="p-8">
+            <h1 className="text-3xl font-bold mb-8">Supplier Financial Analysis</h1>
+
+            <div className="flex justify-between items-center mb-8">
+                <div className="flex items-center">
+                    <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
+                        RQ
                     </div>
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded flex items-center space-x-2">
+                    <div>
+                        <h2 className="text-xl font-bold">Roquette</h2>
+                        <p className="text-sm text-gray-500">Financial Performance Analysis</p>
+                    </div>
+                    <span className="ml-4 px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-medium">Monitoring</span>
+                </div>
+
+                <div className="flex space-x-3">
+                    <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm hover:shadow transition">
+                        <span>Last 5 Years</span>
+                        <ChevronDown size={16} />
+                    </button>
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition flex items-center space-x-2">
                         <span>Export Data</span>
                     </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-white p-4 rounded shadow">
-                    <h3 className="font-bold mb-4">Net Sales</h3>
-                    <div className="flex items-center mb-1">
-                        <span>Bn/€</span>
-                        <span className="ml-auto text-red-500">-6%</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-200">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="font-bold">Net Sales</h3>
+                        <span className="text-red-500 flex items-center">
+                            <TrendingDown size={16} className="inline mr-1" />
+                            -6%
+                        </span>
                     </div>
-
                     <ResponsiveContainer width="100%" height={200}>
                         <BarChart data={salesData}>
                             <CartesianGrid strokeDasharray="3 3" />
@@ -395,15 +450,17 @@ export const Supdash = () => {
                             <Bar dataKey="lifescience" stackId="a" fill="#E57373" />
                         </BarChart>
                     </ResponsiveContainer>
+                    <p className="text-xs text-gray-400 mt-2">Bn/€ by business segment</p>
                 </div>
 
-                <div className="bg-white p-4 rounded shadow">
-                    <h3 className="font-bold mb-4">EBITDA pre</h3>
-                    <div className="flex items-center mb-1">
-                        <span>(%/€)</span>
-                        <span className="ml-auto text-red-500">-14%</span>
+                <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-200">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="font-bold">EBITDA pre</h3>
+                        <span className="text-red-500 flex items-center">
+                            <TrendingDown size={16} className="inline mr-1" />
+                            -14%
+                        </span>
                     </div>
-
                     <ResponsiveContainer width="100%" height={200}>
                         <BarChart data={salesData}>
                             <CartesianGrid strokeDasharray="3 3" />
@@ -415,18 +472,16 @@ export const Supdash = () => {
                             <Bar dataKey="lifescience" stackId="a" fill="#E57373" name="Life Science" />
                         </BarChart>
                     </ResponsiveContainer>
+                    <p className="text-xs text-gray-400 mt-2">(%/€) by business segment</p>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-white p-4 rounded shadow">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-200">
                     <div className="flex justify-between items-center mb-4">
                         <h3 className="font-bold">Credit Performance</h3>
-                        <button className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded flex items-center">
-                            <span>AI Analysis</span>
-                        </button>
+                        <button className="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full">AI Analysis</button>
                     </div>
-
                     <ResponsiveContainer width="100%" height={200}>
                         <LineChart data={creditData}>
                             <CartesianGrid strokeDasharray="3 3" />
@@ -438,15 +493,16 @@ export const Supdash = () => {
                             <Line yAxisId="right" type="monotone" dataKey="cpi" stroke="#FF0000" name="CPI/OWC (RHS)" />
                         </LineChart>
                     </ResponsiveContainer>
-
-                    <div className="mt-4 bg-yellow-50 p-2 rounded border border-yellow-200">
-                        <p className="text-xs">Best sources for data?</p>
+                    <div className="mt-4 bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+                        <p className="text-xs text-yellow-700">Best sources for data?</p>
                     </div>
                 </div>
 
-                <div className="bg-white p-4 rounded shadow">
-                    <h3 className="font-bold mb-4">Credit Performance</h3>
-
+                <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-200">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="font-bold">Credit Assessment</h3>
+                        <Info size={16} className="text-gray-400" />
+                    </div>
                     <div className="mb-4">
                         <h4 className="font-medium text-green-600 mb-2">Credit Strengths</h4>
                         <ul className="space-y-2">
@@ -458,7 +514,6 @@ export const Supdash = () => {
                             ))}
                         </ul>
                     </div>
-
                     <div>
                         <h4 className="font-medium text-red-600 mb-2">Credit Challenges</h4>
                         <ul className="space-y-2">
@@ -473,74 +528,666 @@ export const Supdash = () => {
                 </div>
             </div>
 
-            <div className="bg-white p-4 rounded shadow mb-8">
+            <div className="bg-blue-50 p-6 rounded-2xl shadow-inner border border-blue-200 mb-10">
                 <div className="flex items-center mb-4">
-                    <div className="w-8 h-8 bg-blue-600 text-white rounded flex items-center justify-center mr-2">
+                    <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center mr-2">
                         <BarChart3 size={16} />
                     </div>
-                    <span className="font-bold">AI-Generated Financial Insights</span>
+                    <span className="font-bold text-blue-800">AI-Generated Financial Insights</span>
                 </div>
-
-                <p className="text-sm mb-4">
+                <p className="text-sm text-blue-900 mb-4">
                     Roquette's financial performance shows a concerning trend with net sales declining by 6% in 2023 after several years of growth.
                     EBITDA has decreased by 14%, reducing the company's margin from 37% to 28%. This compression suggests cost management
                     challenges in the current economic environment.
                 </p>
-
-                <p className="text-sm mb-4">
+                <p className="text-sm text-blue-900 mb-4">
                     The credit performance indicates improving CPI/OWC ratio, but this may be driven more by debt reduction than operational improvements.
                     Key risk factors to monitor include ongoing capital expenditures related to the Qualicaps acquisition and potential supply chain disruptions.
                 </p>
-
-                <div className="mt-3">
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded flex items-center space-x-2">
-                        <span>Ask AI for Analysis</span>
-                    </button>
-                </div>
+                <button className="text-blue-600 text-sm underline">Ask AI for further analysis</button>
             </div>
         </div>
     );
 
-    return (
-        <div className="min-h-screen bg-gray-100">
-            <header className="bg-white shadow">
-                <div className="max-w-full mx-auto px-4 sm:px-6">
-                    <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="flex-shrink-0 flex items-center">
-                                <div className="w-10 h-10 bg-blue-600 text-white rounded flex items-center justify-center mr-2">
-                                    <span className="text-xl font-bold">S</span>
+    const SupplierIntelligenceDashboard = () => {
+        return (
+            <div className="bg-gray-50 p-6">
+                {/* Header Section */}
+                <div className="flex justify-between items-start mb-6">
+                    <div>
+                        <h1 className="text-2xl font-bold text-gray-800">AI-Powered Supplier Intelligence</h1>
+                        <p className="text-sm text-gray-500">Advanced AI analysis and actionable insights for strategic decision-making</p>
+                    </div>
+                    <div className="flex space-x-3">
+                        <div className="relative w-48">
+                            <select className="w-full p-2 border border-gray-200 rounded-lg bg-white shadow-sm appearance-none pr-8">
+                                <option>Roquette</option>
+                                <option>Other Suppliers</option>
+                            </select>
+                            <ChevronDown className="absolute right-2 top-3 text-gray-400" size={16} />
+                        </div>
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                            <RefreshCw size={16} />
+                            <span>Refresh Analysis</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Left Column - Key Insights */}
+                    <div>
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex items-center mb-4">
+                                <Lightbulb className="text-blue-500 mr-2" size={20} />
+                                <h2 className="font-bold text-gray-800">Key Insights for Roquette</h2>
+                            </div>
+
+                            {/* Price Risk Alert */}
+                            <div className="border-l-4 border-orange-400 bg-white p-4 rounded-r-lg shadow-sm mb-4">
+                                <div className="flex justify-between mb-1">
+                                    <div className="flex items-center">
+                                        <span className="font-medium text-gray-700">Price Risk Alert</span>
+                                        <span className="ml-2 px-2 py-0.5 bg-orange-100 text-orange-700 text-xs rounded-full">High Priority</span>
+                                    </div>
+                                    <div className="bg-blue-100 text-blue-600 rounded-full px-2 py-0.5 text-xs flex items-center">
+                                        <span>93% Confidence</span>
+                                    </div>
                                 </div>
+                                <p className="text-sm text-gray-600">
+                                    Pricing analysis indicates 13-20% probable increase through 2025. Recommend initiating contract negotiations in next 60 days to lock in rates before Qualicaps integration completes.
+                                </p>
+                            </div>
+
+                            {/* Supply Chain Vulnerability */}
+                            <div className="border-l-4 border-red-400 bg-white p-4 rounded-r-lg shadow-sm mb-4">
+                                <div className="flex justify-between mb-1">
+                                    <div className="flex items-center">
+                                        <span className="font-medium text-gray-700">Supply Chain Vulnerability</span>
+                                        <span className="ml-2 px-2 py-0.5 bg-red-100 text-red-700 text-xs rounded-full">Critical</span>
+                                    </div>
+                                    <div className="bg-blue-100 text-blue-600 rounded-full px-2 py-0.5 text-xs flex items-center">
+                                        <span>97% Confidence</span>
+                                    </div>
+                                </div>
+                                <p className="text-sm text-gray-600">
+                                    Dual-sourcing strategy for excipients is progressing well but 3 key products remain single-sourced with Roquette. Qualicaps acquisition further concentrates market power. Expedite qualification of alternatives.
+                                </p>
+                            </div>
+
+                            {/* Strategic Opportunity */}
+                            <div className="border-l-4 border-green-400 bg-white p-4 rounded-r-lg shadow-sm mb-4">
+                                <div className="flex justify-between mb-1">
+                                    <div className="flex items-center">
+                                        <span className="font-medium text-gray-700">Strategic Opportunity</span>
+                                        <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">Actionable</span>
+                                    </div>
+                                    <div className="bg-blue-100 text-blue-600 rounded-full px-2 py-0.5 text-xs flex items-center">
+                                        <span>91% Confidence</span>
+                                    </div>
+                                </div>
+                                <p className="text-sm text-gray-600">
+                                    Roquette's €25M investment in Lestrem plant creates negotiation leverage. Volume guarantees of 12-18% could secure 7-10% price concessions during the equipment transition period (Q3 2024-Q1 2025).
+                                </p>
+                            </div>
+
+                            {/* Innovation Pipeline Alert */}
+                            <div className="border-l-4 border-blue-400 bg-white p-4 rounded-r-lg shadow-sm">
+                                <div className="flex justify-between mb-1">
+                                    <div className="flex items-center">
+                                        <span className="font-medium text-gray-700">Innovation Pipeline Alert</span>
+                                        <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full">Monitor</span>
+                                    </div>
+                                    <div className="bg-blue-100 text-blue-600 rounded-full px-2 py-0.5 text-xs flex items-center">
+                                        <span>78% Confidence</span>
+                                    </div>
+                                </div>
+                                <p className="text-sm text-gray-600">
+                                    Patent analysis shows Roquette's increased R&D activity in moisture-resistant excipients, aligning with your pipeline needs for 2025. Consider joint development agreement to secure preferential access.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Strategic Recommendations */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <div className="flex justify-between items-center mb-4">
+                                <div className="flex items-center">
+                                    <BarChart3 className="text-purple-500 mr-2" size={20} />
+                                    <h2 className="font-bold text-gray-800">Strategic Recommendations</h2>
+                                </div>
+                                <span className="text-xs text-purple-600 bg-purple-50 px-2 py-1 rounded-full">Based on 55+ data points</span>
+                            </div>
+
+                            {/* Recommendation 1 */}
+                            <div className="mb-5">
+                                <div className="flex items-start mb-2">
+                                    <div className="bg-blue-100 text-blue-600 rounded-full h-6 w-6 flex items-center justify-center mr-2 mt-0.5">
+                                        <span className="text-sm font-medium">1</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-medium text-gray-800">Establish Long-Term Partnership Agreement</h3>
+                                        <p className="text-sm text-gray-600 mt-1">
+                                            Negotiate multi-year contract with guaranteed minimum volumes (450-500 tons annually) to secure pricing stability. Target completion by Q3 2024 to leverage Lestrem plant expansion.
+                                        </p>
+                                        <div className="flex items-center mt-2">
+                                            <span className="text-xs text-gray-500 mr-2">Implementation Complexity:</span>
+                                            <div className="bg-blue-100 text-blue-600 px-2 py-0.5 text-xs rounded-full">Medium</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Recommendation 2 */}
+                                <div className="mb-5">
+                                    <div className="flex items-start mb-2">
+                                        <div className="bg-blue-100 text-blue-600 rounded-full h-6 w-6 flex items-center justify-center mr-2 mt-0.5">
+                                            <span className="text-sm font-medium">2</span>
+                                        </div>
+                                        <div>
+                                            <h3 className="font-medium text-gray-800">Accelerate Secondary Supplier Qualification</h3>
+                                            <p className="text-sm text-gray-600 mt-1">
+                                                Prioritize qualification of Huihui and CarTech for the 3 critical single-sourced excipients. Target completion before Q1 2025 when Roquette integrates further consolidates.
+                                            </p>
+                                            <div className="flex items-center mt-2">
+                                                <span className="text-xs text-gray-500 mr-2">Implementation Complexity:</span>
+                                                <div className="bg-red-100 text-red-600 px-2 py-0.5 text-xs rounded-full">High</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Recommendation 3 */}
                                 <div>
-                                    <div className="font-bold text-blue-600">SupplierIQ</div>
-                                    <div className="text-xs text-gray-500">Live Data</div>
+                                    <div className="flex items-start mb-2">
+                                        <div className="bg-blue-100 text-blue-600 rounded-full h-6 w-6 flex items-center justify-center mr-2 mt-0.5">
+                                            <span className="text-sm font-medium">3</span>
+                                        </div>
+                                        <div>
+                                            <h3 className="font-medium text-gray-800">Explore Joint Innovation Initiative</h3>
+                                            <p className="text-sm text-gray-600 mt-1">
+                                                Leverage Roquette's new Pharmaceutical Innovation Center for co-development of next-gen moisture-resistant excipients needed for your 2025 pipeline products. Initial discussions in Q4 2024.
+                                            </p>
+                                            <div className="flex items-center mt-2">
+                                                <span className="text-xs text-gray-500 mr-2">Implementation Complexity:</span>
+                                                <div className="bg-blue-100 text-blue-600 px-2 py-0.5 text-xs rounded-full">Medium</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Column - Network Visualization & AI Assistant */}
+                    <div>
+                        {/* Supplier Intelligence Network */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex justify-between items-center mb-4">
+                                <div className="flex items-center">
+                                    <svg className="text-green-500 mr-2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M12 2a8 8 0 0 1 8 8"></path>
+                                        <path d="M12 12a2 2 0 1 0-2-2"></path>
+                                    </svg>
+                                    <h2 className="font-bold text-gray-800">Supplier Intelligence Network</h2>
+                                </div>
+                                <div className="flex items-center space-x-4">
+                                    <div className="flex items-center text-xs text-gray-500">
+                                        <svg className="mr-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="M12 16v-4"></path>
+                                            <path d="M12 8h.01"></path>
+                                        </svg>
+                                        <span>Interactive graph</span>
+                                    </div>
+                                    <div className="flex items-center text-xs bg-gray-100 px-2 py-1 rounded">
+                                        <svg className="mr-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M15 3h6v6"></path>
+                                            <path d="M10 14 21 3"></path>
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                        </svg>
+                                        <span>Expand</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <nav className="ml-6 flex">
+                            {/* Network Legend */}
+                            <div className="flex space-x-4 mb-3 text-xs">
+                                <div className="flex items-center">
+                                    <span className="inline-block w-3 h-3 rounded-full mr-1 bg-blue-500"></span>
+                                    <span>Main</span>
+                                </div>
+                                <div className="flex items-center">
+                                    <span className="inline-block w-3 h-3 rounded-full mr-1 bg-purple-500"></span>
+                                    <span>Acquisition</span>
+                                </div>
+                                <div className="flex items-center">
+                                    <span className="inline-block w-3 h-3 rounded-full mr-1 bg-amber-500"></span>
+                                    <span>Competitor</span>
+                                </div>
+                                <div className="flex items-center">
+                                    <span className="inline-block w-3 h-3 rounded-full mr-1 bg-emerald-500"></span>
+                                    <span>Supplier</span>
+                                </div>
+                            </div>
+
+                            {/* Network Visualization */}
+                            <div className="h-96 w-full bg-gray-50 relative rounded-lg border border-gray-100 overflow-hidden">
+                                <svg width="100%" height="100%" viewBox="0 0 600 400">
+                                    {/* Links */}
+                                    {links.map((link, idx) => {
+                                        const source = nodes.find(n => n.id === link.source);
+                                        const target = nodes.find(n => n.id === link.target);
+                                        const isHighlighted = activeNode && (link.source === activeNode || link.target === activeNode);
+
+                                        return (
+                                            <g key={`link-${idx}`}>
+                                                <line
+                                                    x1={source.x}
+                                                    y1={source.y}
+                                                    x2={target.x}
+                                                    y2={target.y}
+                                                    stroke={getLinkColor(link.type, link.strength)}
+                                                    strokeWidth={isHighlighted ? getLinkWidth(link.strength) + 1 : getLinkWidth(link.strength)}
+                                                    strokeOpacity={isHighlighted ? 1 : (activeNode ? 0.3 : 0.7)}
+                                                />
+                                                {/* Add directional markers for acquisition relationships */}
+                                                {link.type === "acquisition" && (
+                                                    <polygon
+                                                        points={`${target.x},${target.y} ${target.x - 5},${target.y - 3} ${target.x - 5},${target.y + 3}`}
+                                                        transform={`rotate(${Math.atan2(target.y - source.y, target.x - source.x) * 180 / Math.PI + 180}, ${target.x}, ${target.y})`}
+                                                        fill={getLinkColor(link.type, link.strength)}
+                                                        opacity={isHighlighted ? 1 : (activeNode ? 0.3 : 0.7)}
+                                                    />
+                                                )}
+                                            </g>
+                                        );
+                                    })}
+
+                                    {/* Nodes */}
+                                    {nodes.map((node) => {
+                                        const nodeSize = getNodeSize(node.type);
+                                        const isActive = activeNode === node.id;
+                                        const isConnected = isConnectedToActive(node.id);
+                                        const opacity = activeNode ? (isActive || isConnected ? 1 : 0.4) : 1;
+
+                                        return (
+                                            <g
+                                                key={node.id}
+                                                onMouseOver={(e) => handleMouseOver(node, e)}
+                                                onMouseOut={handleMouseOut}
+                                                style={{ cursor: 'pointer' }}
+                                            >
+                                                {/* Highlight effect for active node */}
+                                                {isActive && (
+                                                    <circle
+                                                        cx={node.x}
+                                                        cy={node.y}
+                                                        r={nodeSize + 5}
+                                                        fill="none"
+                                                        stroke="#3b82f6"
+                                                        strokeWidth="2"
+                                                        strokeDasharray="3,2"
+                                                    />
+                                                )}
+
+                                                <circle
+                                                    cx={node.x}
+                                                    cy={node.y}
+                                                    r={nodeSize}
+                                                    fill={getNodeColor(node.type)}
+                                                    opacity={opacity}
+                                                    stroke={isActive || isConnected ? "#ffffff" : "none"}
+                                                    strokeWidth="2"
+                                                />
+
+                                                <text
+                                                    x={node.x}
+                                                    y={node.y + (nodeSize + 15)}
+                                                    textAnchor="middle"
+                                                    fill="#4b5563"
+                                                    fontSize="12"
+                                                    opacity={opacity}
+                                                >
+                                                    {node.name}
+                                                </text>
+
+                                                {/* Add icon or initials to node */}
+                                                <text
+                                                    x={node.x}
+                                                    y={node.y + 4}
+                                                    textAnchor="middle"
+                                                    fill="#ffffff"
+                                                    fontSize={node.type === "main" ? "16" : "12"}
+                                                    fontWeight="bold"
+                                                >
+                                                    {node.name.substring(0, 2).toUpperCase()}
+                                                </text>
+                                            </g>
+                                        );
+                                    })}
+
+                                    {/* Tooltip */}
+                                    {showTooltip && (
+                                        <foreignObject
+                                            x={tooltipPosition.x + 10}
+                                            y={tooltipPosition.y - 15}
+                                            width="200"
+                                            height="50"
+                                            style={{ overflow: 'visible' }}
+                                        >
+                                            <div className="bg-gray-800 text-white px-3 py-2 rounded text-xs shadow-lg whitespace-nowrap">
+                                                {tooltipContent}
+                                            </div>
+                                        </foreignObject>
+                                    )}
+                                </svg>
+                            </div>
+
+                            <div className="bg-gray-50 p-3 rounded-lg border border-gray-100 mt-4">
+                                <div className="flex items-start">
+                                    <div className="bg-purple-100 text-purple-600 p-1 rounded mr-2">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="9" cy="7" r="4"></circle>
+                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-700 font-medium mb-1">Roquette Acquisitions</p>
+                                        <p className="text-xs text-gray-600">
+                                            Recent strategic acquisitions of Qualicaps (2023) and JRS Pharma (2024) have consolidated Roquette's market position in pharmaceutical excipients.
+                                        </p>
+                                        <p className="text-xs text-blue-600 hover:underline cursor-pointer mt-1">
+                                            Hover over nodes and connections to explore relationships
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* SupplierIQ AI Assistant */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <div className="flex items-center mb-4">
+                                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center mr-2">
+                                    <BrainCircuit size={18} />
+                                </div>
+                                <h2 className="font-bold text-gray-800">SupplierIQ AI Assistant</h2>
+                            </div>
+
+                            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 mb-4">
+                                <p className="text-sm text-blue-800 font-medium mb-1">
+                                    How will Roquette's acquisition of Qualicaps impact our supply chain?
+                                </p>
+                            </div>
+
+                            <div className="bg-gray-50 p-4 rounded-lg mb-4">
+                                <p className="text-sm text-gray-600 mb-2">
+                                    <span className="font-medium text-gray-800">SupplierIQ:</span> Based on my analysis, Roquette's acquisition of Qualicaps creates both challenges and opportunities:
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                    The acquisition consolidates their market position, potentially increasing pricing power for key excipients. However, it also creates integration opportunities where you can negotiate volume-based agreements during their transition period over the next 8-12 months.
+                                </p>
+                            </div>
+
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    placeholder="Ask anything about Roquette or supplier strategies..."
+                                    className="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200"
+                                />
+                                <button className="absolute right-2 top-2 bg-blue-600 text-white p-1 rounded-md">
+                                    <Send size={18} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    const VolumeForecastTrendAnalysis = () => {
+        return (
+            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                <div className="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 className="text-xl font-bold text-gray-800">Volume Forecast & Trend Analysis</h2>
+                        <p className="text-sm text-gray-500">Projected volumes and trending patterns for Roquette supplies</p>
+                    </div>
+                    <div className="flex space-x-3">
+                        <div className="relative w-48">
+                            <select className="w-full p-2 border border-gray-200 rounded-lg bg-white shadow-sm appearance-none pr-8">
+                                <option>All Product Lines</option>
+                                <option>Excipients</option>
+                                <option>Active Ingredients</option>
+                            </select>
+                        </div>
+                        <div className="relative w-48">
+                            <select className="w-full p-2 border border-gray-200 rounded-lg bg-white shadow-sm appearance-none pr-8">
+                                <option>5-Year Forecast</option>
+                                <option>3-Year Forecast</option>
+                                <option>1-Year Forecast</option>
+                            </select>
+                        </div>
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                            <RefreshCw size={16} />
+                            <span>Update Forecast</span>
+                        </button>
+                    </div>
+                </div>
+
+                {/* Volume Chart */}
+                <div className="mb-6">
+                    <ResponsiveContainer width="100%" height={250}>
+                        <BarChart data={volumeData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                            <XAxis dataKey="year" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar name="Roquette (tons)" dataKey="roquette" fill="#cc2828" />
+                            <Bar name="Qualicaps (tons)" dataKey="qualicaps" fill="#e74c3c" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                    <p className="text-xs text-gray-600 text-center mt-2">
+                        Volumes are forecasted to decrease by 24% in FY24 and another 35% in FY25 due to demand drop and dual-sourcing
+                    </p>
+                </div>
+
+                {/* Analysis Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Volume Trend Analysis Panel */}
+                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <div className="flex items-center mb-3">
+                            <div className="bg-blue-100 p-1 rounded-full mr-2">
+                                <TrendingDown className="text-blue-600" size={18} />
+                            </div>
+                            <h3 className="font-medium text-gray-800">Volume Trend Analysis</h3>
+                        </div>
+
+                        <ul className="space-y-3">
+                            <li className="flex items-start text-sm">
+                                <span className="text-red-500 mr-2">⮯</span>
+                                <span className="text-gray-600">Continuous volume reduction since 2021 with accelerating decline rate</span>
+                            </li>
+                            <li className="flex items-start text-sm">
+                                <span className="text-gray-500 mr-2">◉</span>
+                                <span className="text-gray-600">Qualicaps volumes maintaining proportional share despite overall decline</span>
+                            </li>
+                            <li className="flex items-start text-sm">
+                                <span className="text-blue-500 mr-2">◉</span>
+                                <span className="text-gray-600">Dual-sourcing strategy successfully reducing dependency by 59% from peak</span>
+                            </li>
+                            <li className="flex items-start text-sm">
+                                <span className="text-gray-500 mr-2">↗</span>
+                                <span className="text-gray-600">Correlation between volume decreases and increase in average price point</span>
+                            </li>
+                        </ul>
+
+                        <div className="mt-3 text-xs text-gray-500 flex items-center">
+                            <span className="mr-1">Confidence Score:</span>
+                            <span className="font-medium">92%</span>
+                        </div>
+                    </div>
+
+                    {/* Price Impact Analysis Panel */}
+                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <div className="flex items-center mb-3">
+                            <div className="bg-green-100 p-1 rounded-full mr-2">
+                                <DollarSign className="text-green-600" size={18} />
+                            </div>
+                            <h3 className="font-medium text-gray-800">Price Impact Analysis</h3>
+                        </div>
+
+                        <div className="h-36">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <LineChart data={priceData} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+                                    <Line type="monotone" dataKey="volume" stroke="#3b82f6" dot={{ r: 4 }} />
+                                    <Line type="monotone" dataKey="price" stroke="#10b981" dot={{ r: 4 }} />
+                                    <XAxis dataKey="year" />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        <p className="text-xs text-gray-600 mt-3">
+                            The inverse relationship between volume and price suggests price increases of 15% in FY22 and 20% in FY23. Forecast models predict additional 19-25% price increases through 2025 as volume declines continue.
+                        </p>
+                    </div>
+
+                    {/* Risk & Mitigation Strategy Panel */}
+                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                        <div className="flex items-center mb-3">
+                            <div className="bg-red-100 p-1 rounded-full mr-2">
+                                <AlertTriangle className="text-red-600" size={18} />
+                            </div>
+                            <h3 className="font-medium text-gray-800">Risk & Mitigation Strategy</h3>
+                        </div>
+
+                        <div className="mb-4">
+                            <div className="flex justify-between text-xs mb-1">
+                                <span className="text-gray-600">Price Risk</span>
+                                <span className="text-red-600 font-medium">High</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div className="bg-red-500 h-2 rounded-full" style={{ width: '85%' }}></div>
+                            </div>
+                        </div>
+
+                        <div className="mb-4">
+                            <div className="flex justify-between text-xs mb-1">
+                                <span className="text-gray-600">Supply Continuity</span>
+                                <span className="text-amber-600 font-medium">Medium</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div className="bg-amber-500 h-2 rounded-full" style={{ width: '55%' }}></div>
+                            </div>
+                        </div>
+
+                        <div className="mb-4">
+                            <div className="flex justify-between text-xs mb-1">
+                                <span className="text-gray-600">Quality Consistency</span>
+                                <span className="text-green-600 font-medium">Low</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div className="bg-green-500 h-2 rounded-full" style={{ width: '25%' }}></div>
+                            </div>
+                        </div>
+
+                        <h4 className="text-sm font-medium text-gray-700 mb-2">Recommended Mitigation Strategies</h4>
+                        <ul className="space-y-2">
+                            <li className="flex items-start text-xs">
+                                <span className="text-green-600 mr-1">◉</span>
+                                <span className="text-gray-600">Lock in multi-year contract with 15-18% volume guarantee</span>
+                            </li>
+                            <li className="flex items-start text-xs">
+                                <span className="text-amber-600 mr-1">◉</span>
+                                <span className="text-gray-600">Accelerate alternate supplier qualification timeline</span>
+                            </li>
+                            <li className="flex items-start text-xs">
+                                <span className="text-blue-600 mr-1">◉</span>
+                                <span className="text-gray-600">Monitor Roquette's polyol plant expansion to negotiate concessions</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                {/* AI Insights Section */}
+                <div className="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    <div className="flex items-center mb-2">
+                        <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center mr-2">
+                            <Info size={16} />
+                        </div>
+                        <h3 className="font-medium text-blue-800">AI-Generated Forecast Insights</h3>
+                    </div>
+                    <p className="text-sm text-gray-700 mb-3">
+                        Analysis of historical volumes and pricing data suggests that the continued volume decrease is primarily driven by strategic dual-sourcing decisions rather than demand fluctuations for end products. The transition patterns show Qualicaps, JRS Pharma indicate a strategic shift toward higher-margin market segments.
+                    </p>
+                    <p className="text-sm text-gray-700">
+                        While volumes are projected to decrease by ~59% from 2021 to 2025, this may create negotiation leverage if synchronized with Roquette's capacity expansion timeline in the Lestrem site. Consider long-term partnership proposals with contingent volume commitments that could secure 12-15% price advantages compared to spot market rates.
+                    </p>
+                    <div className="flex mt-3">
+                        <button className="bg-blue-600 text-white px-3 py-2 rounded-lg flex items-center text-xs mr-3">
+                            <span>Run What-if Scenario</span>
+                        </button>
+                        <button className="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg flex items-center text-xs mr-3">
+                            <span>Export Analysis</span>
+                        </button>
+                        <button className="bg-blue-100 text-blue-700 px-3 py-2 rounded-lg flex items-center text-xs">
+                            <span>Ask AI for more details</span>
+                            <ArrowRight size={14} className="ml-1" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    return (
+        <div className="min-h-screen bg-gray-100">
+            <header className="bg-white shadow-sm">
+                <div className="max-w-full mx-auto px-4 sm:px-6">
+                    <div className="flex justify-between items-center h-20">
+                        {/* Left Side - Logo & Brand */}
+                        <div className="flex items-center space-x-4">
+                            <div className="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center">
+                                <Building2 size={24} />
+                            </div>
+                            <div>
+                                <div className="font-semibold text-gray-800 text-sm">SupplierIQ</div>
+                                <div className="text-xs text-green-500 font-medium">● Live Data</div>
+                            </div>
+
+                            {/* Navigation */}
+                            <nav className="ml-10 flex space-x-4">
                                 {tabs.map((tab) => (
                                     <button
                                         key={tab.name}
-                                        className={`inline-flex items-center px-4 border-b-2 text-sm font-medium ${activeTab === tab.name
-                                            ? 'border-blue-500 text-blue-600'
-                                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                        className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-medium transition-all ${activeTab === tab.name
+                                            ? 'bg-blue-50 text-blue-600'
+                                            : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'
                                             }`}
                                         onClick={() => setActiveTab(tab.name)}
                                     >
                                         {tab.icon}
-                                        <span className="ml-2">{tab.name}</span>
+                                        <span className="ml-1">{tab.name}</span>
                                     </button>
                                 ))}
                             </nav>
                         </div>
 
-                        <div className="flex items-center">
-                            <span className="text-xs text-gray-500 mr-4">Updated: 2h ago</span>
-                            <button className="rounded-full bg-gray-200 p-1">
-                                <Bell size={18} />
+                        {/* Right Side - Status & Actions */}
+                        <div className="flex items-center space-x-4">
+                            <div className="text-xs text-blue-500 bg-blue-50 px-2 py-1 rounded-full">
+                                Updated: 2h ago
+                            </div>
+                            <button className="rounded-full bg-gray-100 p-2 hover:bg-gray-200">
+                                <Bell size={18} className="text-gray-600" />
                             </button>
-                            <button className="rounded-full bg-gray-200 p-1 ml-2">
-                                <Settings size={18} />
+                            <button className="rounded-full bg-gray-100 p-2 hover:bg-gray-200">
+                                <Settings size={18} className="text-gray-600" />
+                            </button>
+                            <button className="rounded-full bg-gray-100 p-2 hover:bg-gray-200">
+                                <UserCircle size={20} className="text-gray-600" />
                             </button>
                         </div>
                     </div>
@@ -549,6 +1196,8 @@ export const Supdash = () => {
             <main>
                 {activeTab === 'Dashboard' && renderDashboard()}
                 {activeTab === 'Financial Analysis' && renderFinancialAnalysis()}
+                {activeTab === 'AI Insights' && SupplierIntelligenceDashboard()}
+                {activeTab === 'Forecasting' && VolumeForecastTrendAnalysis()}
             </main>
         </div>
     );

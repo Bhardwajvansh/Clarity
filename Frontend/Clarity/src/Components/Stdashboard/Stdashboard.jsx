@@ -118,7 +118,9 @@ export const StrategicDashboard = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
-                        <div className="bg-white cursor-pointer rounded-lg shadow-sm p-4 border-t-4 border-green-500 hover:shadow-lg transition-shadow duration-200">
+                        <div
+                            onClick={() => navigate('/kaccounts')}
+                            className="bg-white cursor-pointer rounded-lg shadow-sm p-4 border-t-4 border-green-500 hover:shadow-lg transition-shadow duration-200">
                             <div className="flex justify-between items-center mb-4">
                                 <div>
                                     <h3 className="text-base font-semibold">Key Accounts</h3>

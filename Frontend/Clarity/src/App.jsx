@@ -20,6 +20,7 @@ import { Subcatnav } from "./Components/Subcatnav/Subcatnav"
 import { UserOnboarding } from "./Components/Onboard/Onboard"
 import StrategicDashboard from "./Components/Stdashboard/Stdashboard"
 import { RetailMegaTrendsHeatmap } from "./Components/Heatmap/Heatmap"
+import { KeyAccountsMatrix } from "./Components/Kaccounts/Kaccounts"
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/onboard" element={<UserOnboarding />} />
         <Route path="/stdashboard" element={<StrategicDashboard />} />
+        <Route path="/kaccounts" element={<KeyAccountsMatrix />} />
         <Route path="/mtheatmap" element={<RetailMegaTrendsHeatmap />} />
         <Route path="/dashboard" element={<Navbar />} />
         <Route path="/automobile" element={<Automeganav />} />

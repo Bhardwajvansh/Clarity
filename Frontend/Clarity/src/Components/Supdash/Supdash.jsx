@@ -23,8 +23,10 @@ import {
     ExternalLink,
     GitMerge,
     Zap,
+    Swords,
+    BarChartIcon,
 } from 'lucide-react';
-import { Lightbulb, RefreshCw, Send, BrainCircuit, DollarSign } from 'lucide-react';
+import { Lightbulb, RefreshCw, Send, BrainCircuit, DollarSign, AlertCircle } from 'lucide-react';
 import {
     LineChart,
     Line,
@@ -32,6 +34,7 @@ import {
     Bar,
     XAxis,
     YAxis,
+    ZAxis,
     CartesianGrid,
     Tooltip,
     Legend,
@@ -39,8 +42,9 @@ import {
     PieChart,
     Pie,
     Cell,
+    ScatterChart,
+    Scatter,
 } from 'recharts';
-
 export const Supdash = () => {
     const [activeTab, setActiveTab] = useState('Dashboard');
     const [selectedSupplier, setSelectedSupplier] = useState(null);
@@ -53,6 +57,71 @@ export const Supdash = () => {
         { id: "cartech", name: "CarTech", type: "competitor", x: 450, y: 300 },
         { id: "basf", name: "BASF", type: "supplier", x: 200, y: 350 },
         { id: "dowchem", name: "Dow Chemical", type: "supplier", x: 400, y: 350 }
+    ];
+
+    const marketShareData = [
+        { name: 'Roquette', value: 17, color: '#3b82f6' },
+        { name: 'FUJIFILM', value: 15, color: '#84cc16' },
+        { name: 'CRODA', value: 7, color: '#f59e0b' },
+        { name: 'Ashland', value: 6, color: '#a855f7' },
+        { name: 'EVONIK', value: 4, color: '#ec4899' },
+        { name: 'Others', value: 51, color: '#9ca3af' }
+    ];
+
+    const positioningData = [
+        { name: 'Roquette', x: 60, y: 75, size: 17, color: '#3b82f6' },
+        { name: 'FUJIFILM', x: 80, y: 85, size: 15, color: '#84cc16' },
+        { name: 'CRODA', x: 70, y: 65, size: 7, color: '#f59e0b' },
+        { name: 'Ashland', x: 55, y: 60, size: 6, color: '#a855f7' },
+        { name: 'EVONIK', x: 45, y: 50, size: 4, color: '#ec4899' },
+        { name: 'Generic Suppliers', x: 30, y: 25, size: 11, color: '#9ca3af' }
+    ];
+
+    const CompetitivePositioningMap = () => {
+        const renderTooltip = (props) => {
+            const { payload } = props;
+            if (payload && payload.length > 0) {
+                const data = payload[0].payload;
+                return (
+                    <div className="bg-white p-2 border border-gray-200 shadow-md rounded-md">
+                        <p className="font-medium">{data.name}</p>
+                        <p className="text-sm text-gray-600">Market Share: {data.size}%</p>
+                    </div>
+                );
+            }
+            return null;
+        };
+    }
+
+    const renderTooltip = (props) => {
+        const { payload } = props;
+        if (payload && payload.length > 0) {
+            const data = payload[0].payload;
+            return (
+                <div className="bg-white p-2 border border-gray-200 shadow-md rounded-md">
+                    <p className="font-medium">{data.name}</p>
+                    <p className="text-sm text-gray-600">Market Share: {data.size}%</p>
+                </div>
+            );
+        }
+        return null;
+    };
+
+    const productPortfolioData = [
+        { name: 'H.C.D. 60 DEUR GL STAND GR.', value: 2 },
+        { name: 'INF FINAL SIRB TYP I CPI', value: 2 },
+        { name: 'H.C.D. STAND 60 OT', value: 2 },
+        { name: 'H.C.D. STAND 80 OT', value: 2 },
+        { name: 'MANNITOL (ROQUETTE)', value: 2 },
+        { name: 'H.C.Q. 30 DEUR GL STAND GR.', value: 1 },
+        { name: 'Other (20)', value: 5 }
+    ];
+
+    const spendEvolutionData = [
+        { name: 'FY20', value: 8, percentage: '17%', baseline: true, colors: { top: '#ef4444', bottom: '#fca5a5' } },
+        { name: 'FY21', value: 12, percentage: '25%', growth: '+50%', colors: { top: '#ef4444', bottom: '#fca5a5' } },
+        { name: 'FY22', value: 9, percentage: '20%', growth: '-25%', colors: { top: '#ef4444', bottom: '#fca5a5' } },
+        { name: 'FY23', value: 15, percentage: '35%', growth: '+67%', colors: { top: '#ef4444', bottom: '#fca5a5' } }
     ];
 
     const links = [
@@ -170,8 +239,9 @@ export const Supdash = () => {
         { name: 'Dashboard', icon: <Home size={18} /> },
         { name: 'Financial Analysis', icon: <LineChartIcon size={18} /> },
         { name: 'AI Insights', icon: <BrainCircuit size={18} /> },
-        { name: 'Forecasting', icon: <BrainCircuit size={18} /> },
-        { name: 'Strategic Moves', icon: <BrainCircuit size={18} /> },
+        { name: 'Forecasting', icon: <TrendingUp size={18} /> },
+        { name: 'Strategic Moves', icon: <Swords size={18} /> },
+        { name: 'Market Positions', icon: <BarChartIcon size={18} /> },
     ];
 
     const riskDistributionData = [
@@ -224,7 +294,7 @@ export const Supdash = () => {
 
     const renderDashboard = () => (
         <div className="p-8">
-            <h1 className="text-3xl font-bold mb-8">Supplier Risk Dashboard</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-8">Supplier Risk Dashboard</h1>
 
             <div className="flex justify-between items-center mb-8">
                 <div className="relative w-72">
@@ -413,7 +483,7 @@ export const Supdash = () => {
 
     const renderFinancialAnalysis = () => (
         <div className="p-8">
-            <h1 className="text-3xl font-bold mb-8">Supplier Financial Analysis</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-8">Supplier Financial Analysis</h1>
 
             <div className="flex justify-between items-center mb-8">
                 <div className="flex items-center">
@@ -563,7 +633,7 @@ export const Supdash = () => {
                 {/* Header Section */}
                 <div className="flex justify-between items-start mb-6">
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-800">AI-Powered Supplier Intelligence</h1>
+                        <h1 className="text-3xl font-bold text-gray-800">AI-Powered Supplier Intelligence</h1>
                         <p className="text-sm text-gray-500">Advanced AI analysis and actionable insights for strategic decision-making</p>
                     </div>
                     <div className="flex space-x-3">
@@ -959,7 +1029,7 @@ export const Supdash = () => {
             <div className="bg-gray-50 p-6">
                 <div className="flex justify-between items-center mb-6">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-800">Volume Forecast & Trend Analysis</h2>
+                        <h2 className="text-3xl font-bold text-gray-800">Volume Forecast & Trend Analysis</h2>
                         <p className="text-sm text-gray-500">Projected volumes and trending patterns for Roquette supplies</p>
                     </div>
                     <div className="flex space-x-3">
@@ -1155,7 +1225,7 @@ export const Supdash = () => {
             <div className="bg-gray-50 p-6">
                 <div className="flex justify-between items-center mb-6">
                     <div>
-                        <h2 className="text-xl font-bold text-gray-800">Strategic Acquisitions & Investments</h2>
+                        <h2 className="text-3xl font-bold text-gray-800">Strategic Acquisitions & Investments</h2>
                         <p className="text-sm text-gray-500">Tracking key strategic moves and their market impact</p>
                     </div>
                     <div className="flex space-x-3">
@@ -1492,6 +1562,298 @@ export const Supdash = () => {
         );
     };
 
+    const MarketPositionDashboard = () => {
+        return (
+            <div className="bg-gray-50 p-6">
+                {/* Header Section */}
+                <div className="flex justify-between items-start mb-6">
+                    <div>
+                        <h1 className="text-3xl font-bold text-gray-800">Market Position & Competitors</h1>
+                        <p className="text-sm text-gray-500">Analysis of suppliers' competitive landscape and market share</p>
+                    </div>
+                    <div className="flex space-x-3">
+                        <div className="relative w-48">
+                            <select className="w-full p-2 border border-gray-200 rounded-lg bg-white shadow-sm appearance-none pr-8">
+                                <option>Pharmaceutical Industry</option>
+                                <option>Food Industry</option>
+                                <option>Cosmetics Industry</option>
+                            </select>
+                            <ChevronDown className="absolute right-2 top-3 text-gray-400" size={16} />
+                        </div>
+                        <div className="relative w-32">
+                            <select className="w-full p-2 border border-gray-200 rounded-lg bg-white shadow-sm appearance-none pr-8">
+                                <option>Global View</option>
+                                <option>Regional View</option>
+                                <option>Local View</option>
+                            </select>
+                            <ChevronDown className="absolute right-2 top-3 text-gray-400" size={16} />
+                        </div>
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                            <RefreshCw size={16} />
+                            <span>Update View</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Left Column - Market Share & Competitive Positioning */}
+                    <div>
+                        {/* Market Share Chart */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex justify-between items-center mb-4">
+                                <div className="flex items-center">
+                                    <h2 className="font-bold text-gray-800">Market Share - Excipients Category</h2>
+                                    <Info className="ml-2 text-gray-400" size={16} />
+                                </div>
+                            </div>
+
+                            <div className="flex justify-center">
+                                <div className="relative" style={{ width: '280px', height: '280px' }}>
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <PieChart>
+                                            <Pie
+                                                data={marketShareData}
+                                                cx="50%"
+                                                cy="50%"
+                                                innerRadius={70}
+                                                outerRadius={110}
+                                                paddingAngle={0}
+                                                dataKey="value"
+                                            >
+                                                {marketShareData.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                                ))}
+                                            </Pie>
+                                            <Tooltip formatter={(value) => `${value}%`} />
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                                        <p className="font-bold text-gray-800">Excipients</p>
+                                        <p className="text-xs text-gray-500">FY23 Market</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-2 grid grid-cols-3 gap-2">
+                                {marketShareData.map((item) => (
+                                    <div key={item.name} className="flex items-center text-xs">
+                                        <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: item.color }}></div>
+                                        <span className="text-gray-700">{item.name} - {item.value}%</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="text-xs text-gray-500 mt-4">
+                                Data Source: Internal spend reporting
+                            </div>
+                        </div>
+
+                        {/* Competitive Positioning Map */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <div className="flex justify-between items-center mb-4">
+                                <h2 className="font-bold text-gray-800">Competitive Positioning Map</h2>
+                                <div>
+                                    <button className="text-gray-500 hover:text-gray-700">
+                                        <ExternalLink size={18} />
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div style={{ width: '100%', height: 320 }}>
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <ScatterChart
+                                        margin={{ top: 30, right: 20, bottom: 50, left: 40 }}
+                                    >
+                                        <CartesianGrid stroke="#f0f0f0" strokeWidth={0.5} />
+                                        <XAxis
+                                            type="number"
+                                            dataKey="x"
+                                            domain={[0, 100]}
+                                            tickLine={false}
+                                            axisLine={{ stroke: '#e5e7eb' }}
+                                            tick={{ fontSize: 10, fill: '#6b7280' }}
+                                            tickFormatter={() => ''}
+                                            label={{
+                                                value: 'Lower Price',
+                                                position: 'bottom',
+                                                offset: 0,
+                                                fill: '#6b7280',
+                                                fontSize: 12
+                                            }}
+                                        />
+                                        <YAxis
+                                            type="number"
+                                            dataKey="y"
+                                            domain={[0, 100]}
+                                            tickLine={false}
+                                            axisLine={{ stroke: '#e5e7eb' }}
+                                            tick={{ fontSize: 10, fill: '#6b7280' }}
+                                            tickFormatter={() => ''}
+                                            label={{
+                                                value: 'Standard Quality',
+                                                position: 'left',
+                                                angle: -90,
+                                                offset: 0,
+                                                fill: '#6b7280',
+                                                fontSize: 12,
+                                                style: { textAnchor: 'middle' }
+                                            }}
+                                        />
+                                        <ZAxis
+                                            type="number"
+                                            dataKey="size"
+                                            range={[40, 80]}
+                                            domain={[0, 20]}
+                                        />
+                                        <Tooltip content={renderTooltip} />
+                                        <Scatter data={positioningData}>
+                                            {positioningData.map((entry, index) => (
+                                                <Cell
+                                                    key={`cell-${index}`}
+                                                    fill={entry.color}
+                                                    fillOpacity={0.8}
+                                                />
+                                            ))}
+                                        </Scatter>
+                                    </ScatterChart>
+                                </ResponsiveContainer>
+                            </div>
+
+                            <div className="mt-6 text-xs text-gray-600">
+                                Bubble size represents relative market share. Position based on average price point and quality perception.
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Column - Products Analysis & Spend Evolution */}
+                    <div>
+                        {/* Product Portfolio Analysis */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex justify-between items-center mb-4">
+                                <h2 className="font-bold text-gray-800">Product Portfolio Analysis</h2>
+                                <div className="bg-blue-100 text-blue-600 text-xs px-3 py-1 rounded-full flex items-center">
+                                    <Info size={12} className="mr-1" />
+                                    <span>AI Insights</span>
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                {productPortfolioData.map((item, index) => (
+                                    <div key={index} className="flex items-center justify-between">
+                                        <div className="text-sm text-gray-700">{item.name}</div>
+                                        <div className="flex items-center">
+                                            <div className="w-16 h-2 bg-blue-100 rounded-full mr-2">
+                                                <div
+                                                    className="h-full bg-blue-600 rounded-full"
+                                                    style={{ width: `${(item.value / 5) * 100}%` }}
+                                                ></div>
+                                            </div>
+                                            <div className="text-sm text-blue-600">{item.value}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="mt-6 pt-4 border-t border-gray-100">
+                                <div className="flex justify-between items-center">
+                                    <div className="text-sm font-medium text-gray-700">Total</div>
+                                    <div className="text-sm font-medium text-blue-600">15</div>
+                                </div>
+                                <div className="text-xs text-gray-500 mt-1">
+                                    Portfolio of Roquette excipients in FY23, QY
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Annual Spend Evolution */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-6">
+                            <div className="flex justify-between items-center mb-4">
+                                <h2 className="font-bold text-gray-800">Annual Spend Evolution</h2>
+                                <div className="text-sm text-gray-500">
+                                    2021-2023, QoY
+                                </div>
+                            </div>
+
+                            <div style={{ width: '100%', height: 250 }}>
+                                <ResponsiveContainer>
+                                    <BarChart
+                                        data={spendEvolutionData}
+                                        margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+                                    >
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} opacity={0.2} />
+                                        <XAxis dataKey="name" axisLine={false} tickLine={false} />
+                                        <YAxis hide={true} />
+                                        <Tooltip />
+                                        <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                                            {spendEvolutionData.map((entry, index) => (
+                                                <Cell
+                                                    key={`cell-${index}`}
+                                                    fill={entry.colors.top}
+                                                />
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+
+                            {/* Legend below chart */}
+                            <div className="grid grid-cols-4 gap-2 mt-2">
+                                {spendEvolutionData.map((item, index) => (
+                                    <div key={index} className="text-center">
+                                        <div className="text-xs font-medium text-gray-600">{item.percentage}</div>
+                                        {item.growth && (
+                                            <div className={`text-xs ${item.growth.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
+                                                {item.growth}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Key Insights */}
+                        <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <div className="flex items-center mb-4">
+                                <h2 className="font-bold text-gray-800">Key Insights</h2>
+                            </div>
+
+                            <div className="space-y-3">
+                                <div className="flex items-start">
+                                    <TrendingUp className="text-orange-500 mt-0.5 mr-2 flex-shrink-0" size={16} />
+                                    <p className="text-sm text-gray-700">
+                                        <span className="font-medium">Volumes with Roquette are not increasing</span> in FY22 onwards (in fact decreasing) - increased spend due to price increases
+                                    </p>
+                                </div>
+
+                                <div className="flex items-start">
+                                    <AlertCircle className="text-red-500 mt-0.5 mr-2 flex-shrink-0" size={16} />
+                                    <p className="text-sm text-gray-700">
+                                        <span className="font-medium">Volumes with Qualicaps are not decreasing</span> - increased spend due to price increases
+                                    </p>
+                                </div>
+
+                                <div className="flex items-start">
+                                    <Info className="text-blue-500 mt-0.5 mr-2 flex-shrink-0" size={16} />
+                                    <p className="text-sm text-gray-700">
+                                        Competitive analysis indicates increasing pricing pressure from FUJIFILM (15% share), which is positioned similarly in the premium quality segment. The forecasted 24% volume decrease in FY24 suggests a strategic contraction that may require strategic repositioning.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="mt-4 flex">
+                                <button className="bg-blue-600 text-white text-sm px-4 py-2 rounded flex items-center">
+                                    <span>Detailed Competitive Analysis</span>
+                                </button>
+                                <button className="ml-2 bg-white text-blue-600 text-sm px-4 py-2 rounded border border-blue-600 flex items-center">
+                                    <span>Ask AI about market trends</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-gray-100">
             <header className="bg-white shadow-sm">
@@ -1549,6 +1911,7 @@ export const Supdash = () => {
                 {activeTab === 'AI Insights' && SupplierIntelligenceDashboard()}
                 {activeTab === 'Forecasting' && VolumeForecastTrendAnalysis()}
                 {activeTab === 'Strategic Moves' && StrategicAcquisitionsInvestments()}
+                {activeTab === 'Market Positions' && MarketPositionDashboard()}
             </main>
         </div>
     );

@@ -95,7 +95,9 @@ export default function SupplierIQDashboard() {
                         <BarChart2 size={18} className="mr-2" />
                         Explore Dashboard
                     </button>
-                    <button className="flex items-center bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 transition">
+                    <button
+                        onClick={() => navigate('/virtual-analyst')}
+                        className="flex items-center bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 transition">
                         <Bot size={18} className="mr-2" />
                         Ask AI Assistant
                     </button>

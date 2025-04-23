@@ -90,7 +90,7 @@ export default function SupplierIQDashboard() {
 
                 <div className="flex mt-4 space-x-4">
                     <button
-                        onClick={() => navigate('/supiqdashboard')}
+                        onClick={() => navigate('/supdash')}
                         className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
                         <BarChart2 size={18} className="mr-2" />
                         Explore Dashboard

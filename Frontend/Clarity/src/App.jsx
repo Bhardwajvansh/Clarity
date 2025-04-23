@@ -18,14 +18,14 @@ import { Automeganav } from "./Components/Automeganav/Automeganav"
 import { Top50nav } from "./Components/Top50nav/Top50nav"
 import { Subcatnav } from "./Components/Subcatnav/Subcatnav"
 import { UserOnboarding } from "./Components/Onboard/Onboard"
-import StrategicDashboard from "./Components/Stdashboard/Stdashboard"
-import { RetailMegaTrendsHeatmap } from "./Components/Heatmap/Heatmap"
-import { KeyAccountsMatrix } from "./Components/Kaccounts/Kaccounts"
-import CompetitorAnalysisDashboard from "./Components/Canalysis/Canalysis"
-import VendorRiskAnalysisDashboard from "./Components/Vendorrisk/Vendorrisk"
-import { BrandSentimentDashboard } from "./Components/Brandiq/Brandiq"
-import SupplierIQDashboard from "./Components/Supiq/Supiq"
 import { Supiqnav } from "./Components/Supiq/Supiqnav"
+import { Stdashnav } from "./Components/Stdashboard/Stdashnav"
+import { Kaccnav } from "./Components/Kaccounts/Kaccnav"
+import { Supdashnav } from "./Components/Supdash/Supdashnav"
+import { Cananav } from "./Components/Canalysis/Cananav"
+import { Vendornav } from "./Components/Vendorrisk/Vendornav"
+import { Brandnav } from "./Components/Brandiq/Brandnav"
+import { Heatnav } from "./Components/Heatmap/Heatnav"
 
 function App() {
   return (
@@ -33,12 +33,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/onboard" element={<UserOnboarding />} />
-        <Route path="/stdashboard" element={<StrategicDashboard />} />
-        <Route path="/kaccounts" element={<KeyAccountsMatrix />} />
-        <Route path="/canalysis" element={<CompetitorAnalysisDashboard />} />
-        <Route path="/vendorrisk" element={<VendorRiskAnalysisDashboard />} />
-        <Route path="/brandiq" element={<BrandSentimentDashboard />} />
-        <Route path="/mtheatmap" element={<RetailMegaTrendsHeatmap />} />
+        <Route path="/stdashboard" element={<Stdashnav />} />
+        <Route path="/kaccounts" element={<Kaccnav />} />
+        <Route path="/canalysis" element={<Cananav />} />
+        <Route path="/vendorrisk" element={<Vendornav />} />
+        <Route path="/brandiq" element={<Brandnav />} />
+        <Route path="/mtheatmap" element={<Heatnav />} />
         <Route path="/dashboard" element={<Navbar />} />
         <Route path="/automobile" element={<Automeganav />} />
         <Route path="/healthcare" element={<AutoNav />} />
@@ -59,6 +59,7 @@ function App() {
         <Route path="/virtual-analyst" element={<PlayNav />} />
 
         <Route path="/supiq" element={<Supiqnav />} />
+        <Route path="/supdash" element={<Supdashnav />} />
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />

@@ -22,7 +22,7 @@ const Login = () => {
             //     alert(response.data);
             // }
             if (email === "admin@gmail.com" || password === "admin") {
-                navigate('/dashboard');
+                navigate('/onboard');
                 return;
             }
             else{

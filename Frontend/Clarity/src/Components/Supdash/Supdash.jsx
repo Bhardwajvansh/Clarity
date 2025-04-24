@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     Home,
     Bell,
@@ -25,6 +25,8 @@ import {
     Zap,
     Swords,
     BarChartIcon,
+    ChevronRight,   
+    ChevronLeft,
 } from 'lucide-react';
 import { Lightbulb, RefreshCw, Send, BrainCircuit, DollarSign, AlertCircle } from 'lucide-react';
 import {
@@ -48,6 +50,9 @@ import {
 export const Supdash = () => {
     const [activeTab, setActiveTab] = useState('Dashboard');
     const [selectedSupplier, setSelectedSupplier] = useState(null);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(false);
+    const scrollContainerRef = useRef(null);
 
     const nodes = [
         { id: "roquette", name: "Roquette", type: "main", x: 300, y: 200 },
@@ -242,6 +247,9 @@ export const Supdash = () => {
         { name: 'Forecasting', icon: <TrendingUp size={18} /> },
         { name: 'Strategic Moves', icon: <Swords size={18} /> },
         { name: 'Market Positions', icon: <BarChartIcon size={18} /> },
+        { name: 'Market Positions', icon: <BarChartIcon size={18} /> },
+        { name: 'Market Positions', icon: <BarChartIcon size={18} /> },
+        { name: 'Market Positions', icon: <BarChartIcon size={18} /> },
     ];
 
     const riskDistributionData = [
@@ -291,6 +299,46 @@ export const Supdash = () => {
         'Increasing competition in target selling drugs and a complicated late-stage pipeline',
         'Event risk related to future strategic investments'
     ];
+
+    const checkForScrollPosition = () => {
+        if (!scrollContainerRef.current) return;
+
+        const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+        setCanScrollLeft(scrollLeft > 0);
+        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1); // -1 for rounding errors
+    };
+
+    // Scroll handlers
+    const scrollLeft = () => {
+        if (!scrollContainerRef.current) return;
+        scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    };
+
+    const scrollRight = () => {
+        if (!scrollContainerRef.current) return;
+        scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    };
+
+    // Set up scroll event listeners
+    useEffect(() => {
+        const scrollContainer = scrollContainerRef.current;
+        if (scrollContainer) {
+            // Initial check
+            checkForScrollPosition();
+
+            // Add event listener
+            scrollContainer.addEventListener('scroll', checkForScrollPosition);
+
+            // Check when window resizes
+            window.addEventListener('resize', checkForScrollPosition);
+
+            // Clean up
+            return () => {
+                scrollContainer.removeEventListener('scroll', checkForScrollPosition);
+                window.removeEventListener('resize', checkForScrollPosition);
+            };
+        }
+    }, []);
 
     const renderDashboard = () => (
         <div className="p-8">
@@ -1860,31 +1908,60 @@ export const Supdash = () => {
                 <div className="max-w-full mx-auto px-4 sm:px-6">
                     <div className="flex justify-between items-center h-20">
                         {/* Left Side - Logo & Brand */}
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center">
                             <div className="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center">
                                 <Building2 size={24} />
                             </div>
-                            <div>
+                            <div className="ml-4">
                                 <div className="font-semibold text-gray-800 text-sm">SupplierIQ</div>
                                 <div className="text-xs text-green-500 font-medium">● Live Data</div>
                             </div>
 
-                            {/* Navigation */}
-                            <nav className="ml-10 flex space-x-4">
-                                {tabs.map((tab) => (
+                            {/* Navigation - Now Scrollable with buttons */}
+                            <div className="ml-10 relative flex items-center">
+                                {/* Left scroll button */}
+                                {canScrollLeft && (
                                     <button
-                                        key={tab.name}
-                                        className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-medium transition-all ${activeTab === tab.name
-                                            ? 'bg-blue-50 text-blue-600'
-                                            : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'
-                                            }`}
-                                        onClick={() => setActiveTab(tab.name)}
+                                        onClick={scrollLeft}
+                                        className="absolute left-0 z-10 bg-white bg-opacity-90 rounded-full p-1 shadow-md hover:bg-gray-100"
                                     >
-                                        {tab.icon}
-                                        <span className="ml-1">{tab.name}</span>
+                                        <ChevronLeft size={16} className="text-gray-600" />
                                     </button>
-                                ))}
-                            </nav>
+                                )}
+
+                                {/* Scrollable navigation */}
+                                <div
+                                    ref={scrollContainerRef}
+                                    className="max-w-4xl overflow-x-auto scrollbar-hide px-4"
+                                    onScroll={checkForScrollPosition}
+                                >
+                                    <nav className="flex space-x-4 py-1" style={{ minWidth: 'max-content' }}>
+                                        {tabs.map((tab) => (
+                                            <button
+                                                key={tab.name}
+                                                className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-medium transition-all whitespace-nowrap ${activeTab === tab.name
+                                                    ? 'bg-blue-50 text-blue-600'
+                                                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'
+                                                    }`}
+                                                onClick={() => setActiveTab(tab.name)}
+                                            >
+                                                {tab.icon}
+                                                <span className="ml-1">{tab.name}</span>
+                                            </button>
+                                        ))}
+                                    </nav>
+                                </div>
+
+                                {/* Right scroll button */}
+                                {canScrollRight && (
+                                    <button
+                                        onClick={scrollRight}
+                                        className="absolute right-0 z-10 bg-white bg-opacity-90 rounded-full p-1 shadow-md hover:bg-gray-100"
+                                    >
+                                        <ChevronRight size={16} className="text-gray-600" />
+                                    </button>
+                                )}
+                            </div>
                         </div>
 
                         {/* Right Side - Status & Actions */}
@@ -1904,6 +1981,17 @@ export const Supdash = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* Add custom CSS to hide scrollbar */}
+                <style jsx>{`
+                    .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
+                    }
+                    .scrollbar-hide {
+                    -ms-overflow-style: none;  /* IE and Edge */
+                    scrollbar-width: none;  /* Firefox */
+                    }
+                `}</style>
             </header>
             <main>
                 {activeTab === 'Dashboard' && renderDashboard()}

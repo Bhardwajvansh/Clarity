@@ -31,6 +31,17 @@ import {
     FileText,
     MoreVertical,
     CheckCircle2,
+    FileCog,
+    Plus,
+    BarChart2,
+    Truck,
+    Save,
+    Trash2,
+    Expand,
+    FileSpreadsheet,
+    FileChartColumn,
+    Users,
+    PieChartIcon,
 } from 'lucide-react';
 import { Lightbulb, RefreshCw, Send, BrainCircuit, DollarSign, AlertCircle } from 'lucide-react';
 import {
@@ -212,6 +223,50 @@ export const Supdash = () => {
         setShowTooltip(true);
     };
 
+    const [selectedSuppliers, setSelectedSuppliers] = useState({
+        'Roquette': true,
+        'Qualicaps': true,
+        'Towa Sobi': false,
+        'FUJIFILM': false,
+        'Ingredion': false
+    });
+
+    const [selectedMetrics, setSelectedMetrics] = useState({
+        'Financial': true,
+        'Supply Chain': false,
+        'Performance': false,
+        'Risk': false
+    });
+
+    const [reportSections, setReportSections] = useState([
+        { id: 1, title: 'Executive Summary', isAiGenerated: true },
+        { id: 2, title: 'Supplier Risk Summary', isAiGenerated: false },
+        { id: 3, title: 'Financial Performance Comparison', isAiGenerated: false }
+    ]);
+
+    const toggleSupplier = (supplier) => {
+        setSelectedSuppliers({
+            ...selectedSuppliers,
+            [supplier]: !selectedSuppliers[supplier]
+        });
+    };
+
+    const toggleMetric = (metric) => {
+        setSelectedMetrics({
+            ...selectedMetrics,
+            [metric]: !selectedMetrics[metric]
+        });
+    };
+
+    const removeSection = (id) => {
+        setReportSections(reportSections.filter(section => section.id !== id));
+    };
+
+    const addSection = () => {
+        const newId = reportSections.length ? Math.max(...reportSections.map(s => s.id)) + 1 : 1;
+        setReportSections([...reportSections, { id: newId, title: 'New Section', isAiGenerated: false }]);
+    };
+
     const handleMouseOut = () => {
         setActiveNode(null);
         setShowTooltip(false);
@@ -253,6 +308,7 @@ export const Supdash = () => {
         { name: 'Forecasting', icon: <TrendingUp size={18} /> },
         { name: 'Strategic Moves', icon: <Swords size={18} /> },
         { name: 'Market Positions', icon: <BarChartIcon size={18} /> },
+        { name: 'Report Builder', icon: <FileCog size={18} /> },
     ];
 
     const riskDistributionData = [
@@ -2172,6 +2228,301 @@ export const Supdash = () => {
         );
     };
 
+    const CustomReportBuilder = () => {
+        return (
+            <div className="bg-gray-50 min-h-screen p-6 font-sans">
+                <h1 className="text-3xl font-bold text-gray-800">Custom Report Builder</h1>
+                <p className="text-gray-600 mb-6">Create tailored reports combining different data points and insights from your supplier intelligence</p>
+
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                    {/* Left Panel - Report Components */}
+                    <div className="lg:col-span-1">
+                        <div className="bg-white rounded shadow p-4 mb-6">
+                            <h2 className="font-medium text-lg mb-4">Report Components</h2>
+
+                            {/* Select Suppliers */}
+                            <div className="mb-6">
+                                <div className="flex justify-between mb-2">
+                                    <h3 className="text-sm font-medium text-gray-700">Select Suppliers</h3>
+                                    <span className="text-xs text-gray-500">Required</span>
+                                </div>
+
+                                <div className="space-y-2">
+                                    {Object.keys(selectedSuppliers).map((supplier) => (
+                                        <div key={supplier} className="flex items-center">
+                                            <input
+                                                type="checkbox"
+                                                id={`supplier-${supplier}`}
+                                                checked={selectedSuppliers[supplier]}
+                                                onChange={() => toggleSupplier(supplier)}
+                                                className="h-4 w-4 text-blue-600 rounded"
+                                            />
+                                            <label htmlFor={`supplier-${supplier}`} className="ml-2 text-sm text-gray-700">
+                                                {supplier}
+                                            </label>
+                                        </div>
+                                    ))}
+                                    <button className="text-blue-600 text-sm flex items-center mt-2">
+                                        <Plus size={16} className="mr-1" /> Add more suppliers
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Select Metrics */}
+                            <div>
+                                <div className="flex justify-between mb-2">
+                                    <h3 className="text-sm font-medium text-gray-700">Select Metrics</h3>
+                                    <span className="text-xs text-gray-500">Min. 1 required</span>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-2 mb-2">
+                                    <button
+                                        className={`p-3 rounded flex flex-col items-center justify-center text-xs transition ${selectedMetrics['Financial'] ? 'bg-blue-50 border-2 border-blue-500 text-blue-700' : 'border border-gray-300'}`}
+                                        onClick={() => toggleMetric('Financial')}
+                                    >
+                                        <BarChart2 size={20} className={selectedMetrics['Financial'] ? 'text-blue-600' : 'text-gray-500'} />
+                                        <span className="mt-1">Financial</span>
+                                    </button>
+
+                                    <button
+                                        className={`p-3 rounded flex flex-col items-center justify-center text-xs transition ${selectedMetrics['Supply Chain'] ? 'bg-blue-50 border-2 border-blue-500 text-blue-700' : 'border border-gray-300'}`}
+                                        onClick={() => toggleMetric('Supply Chain')}
+                                    >
+                                        <Truck size={20} className={selectedMetrics['Supply Chain'] ? 'text-blue-600' : 'text-gray-500'} />
+                                        <span className="mt-1">Supply Chain</span>
+                                    </button>
+
+                                    <button
+                                        className={`p-3 rounded flex flex-col items-center justify-center text-xs transition ${selectedMetrics['Performance'] ? 'bg-blue-50 border-2 border-blue-500 text-blue-700' : 'border border-gray-300'}`}
+                                        onClick={() => toggleMetric('Performance')}
+                                    >
+                                        <LineChartIcon size={20} className={selectedMetrics['Performance'] ? 'text-blue-600' : 'text-gray-500'} />
+                                        <span className="mt-1">Performance</span>
+                                    </button>
+
+                                    <button
+                                        className={`p-3 rounded flex flex-col items-center justify-center text-xs transition ${selectedMetrics['Risk'] ? 'bg-blue-50 border-2 border-blue-500 text-blue-700' : 'border border-gray-300'}`}
+                                        onClick={() => toggleMetric('Risk')}
+                                    >
+                                        <PieChartIcon size={20} className={selectedMetrics['Risk'] ? 'text-blue-600' : 'text-gray-500'} />
+                                        <span className="mt-1">Risk</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button className="w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                            <Save size={16} className="mr-2" /> Save as Draft
+                        </button>
+                    </div>
+
+                    {/* Middle Panel - Report Layout */}
+                    <div className="lg:col-span-2">
+                        <div className="bg-white rounded shadow p-4 mb-6">
+                            <div className="flex justify-between items-center mb-4">
+                                <h2 className="font-medium text-lg">Report Layout</h2>
+                                <div className="flex space-x-2">
+                                    <button className="p-1 text-gray-600 hover:text-gray-800">
+                                        <RefreshCw size={16} />
+                                    </button>
+                                    <button className="p-1 text-gray-600 hover:text-gray-800">
+                                        <Trash2 size={16} />
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="border-2 border-dashed border-gray-300 rounded-md p-4 min-h-64">
+                                {reportSections.map((section) => (
+                                    <div key={section.id} className="mb-4 p-3 bg-gray-50 border border-gray-200 rounded flex justify-between items-center">
+                                        <div className="flex items-center">
+                                            <FileText size={16} className="mr-2 text-gray-600" />
+                                            <span className="text-sm">{section.title}</span>
+                                            {section.isAiGenerated && (
+                                                <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-xs">
+                                                    AI Generated
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <button className="p-1 text-gray-500 hover:text-gray-700">
+                                                <LineChart size={14} />
+                                            </button>
+                                            <button className="p-1 text-gray-500 hover:text-gray-700">
+                                                <BarChart2 size={14} />
+                                            </button>
+                                            <button className="p-1 text-gray-500 hover:text-gray-700" onClick={() => removeSection(section.id)}>
+                                                <Trash2 size={14} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <button
+                                onClick={addSection}
+                                className="mt-4 w-full py-2 flex items-center justify-center border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50"
+                            >
+                                <Plus size={16} className="mr-1" /> Add Section
+                            </button>
+                        </div>
+
+                        <div className="mb-6">
+                            <h2 className="font-medium text-lg mb-4">Report Templates</h2>
+                            <div className="grid grid-cols-3 gap-4">
+                                <div className="border border-gray-200 rounded p-4 flex flex-col items-center text-center hover:border-blue-500 cursor-pointer">
+                                    <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center mb-2">
+                                        <FileText size={16} className="text-blue-600" />
+                                    </div>
+                                    <h3 className="text-sm font-medium">Executive Brief</h3>
+                                    <p className="text-xs text-gray-500 mt-1">Concise overview</p>
+                                </div>
+
+                                <div className="border border-gray-200 rounded p-4 flex flex-col items-center text-center hover:border-blue-500 cursor-pointer">
+                                    <div className="w-8 h-8 bg-green-100 rounded flex items-center justify-center mb-2">
+                                        <BarChart2 size={16} className="text-green-600" />
+                                    </div>
+                                    <h3 className="text-sm font-medium">Financial Deep Dive</h3>
+                                    <p className="text-xs text-gray-500 mt-1">Detailed analysis</p>
+                                </div>
+
+                                <div className="border border-gray-200 rounded p-4 flex flex-col items-center text-center hover:border-blue-500 cursor-pointer">
+                                    <div className="w-8 h-8 bg-red-100 rounded flex items-center justify-center mb-2">
+                                        <PieChartIcon size={16} className="text-red-600" />
+                                    </div>
+                                    <h3 className="text-sm font-medium">Risk Assessment</h3>
+                                    <p className="text-xs text-gray-500 mt-1">Focused on risks</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Panel - Report Preview and Export */}
+                    <div className="lg:col-span-2">
+                        <div className="bg-white rounded shadow p-4 mb-6">
+                            <div className="flex justify-between items-center mb-4">
+                                <h2 className="font-medium text-lg">Report Preview</h2>
+                                <button className="text-blue-600 text-sm flex items-center">
+                                    <Expand size={16} className="mr-1" /> Expand Preview
+                                </button>
+                            </div>
+
+                            <div className="border border-gray-200 rounded-md p-4">
+                                <div className="p-4 bg-white border border-gray-200 rounded">
+                                    <h3 className="font-medium text-sm mb-1">Roquette & Qualicaps: Strategic Analysis</h3>
+                                    <p className="text-xs text-gray-500 mb-4">Generated May 31, 2024</p>
+
+                                    <div className="space-y-4">
+                                        <div>
+                                            <h4 className="text-sm font-medium mb-2 border-b border-gray-200 pb-1">Executive Summary</h4>
+                                            <div className="h-2 bg-gray-200 rounded w-full mb-1"></div>
+                                            <div className="h-2 bg-gray-200 rounded w-3/4"></div>
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <h4 className="text-sm font-medium mb-2">Risk Overview</h4>
+                                                <div className="h-20 bg-gray-100 rounded flex items-center justify-center">
+                                                    <PieChartIcon size={24} className="text-gray-400" />
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h4 className="text-sm font-medium mb-2">Financial Metrics</h4>
+                                                <div className="h-20 bg-gray-100 rounded flex items-center justify-center">
+                                                    <BarChart2 size={24} className="text-gray-400" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h4 className="text-sm font-medium mb-2">Market Position Comparison</h4>
+                                            <div className="h-20 bg-gray-100 rounded flex items-center justify-center">
+                                                <LineChartIcon size={24} className="text-gray-400" />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h4 className="text-sm font-medium mb-2 border-b border-gray-200 pb-1">Strategic Recommendations</h4>
+                                            <div className="h-2 bg-gray-200 rounded w-full mb-1"></div>
+                                            <div className="h-2 bg-gray-200 rounded w-2/3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-white rounded shadow p-4">
+                            <h2 className="font-medium text-lg mb-4">Export & Share</h2>
+
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between p-3 border border-gray-200 rounded">
+                                    <div className="flex items-center">
+                                        <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center mr-3">
+                                            <FileText size={16} className="text-blue-600" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-sm font-medium">PDF Report</h3>
+                                            <p className="text-xs text-gray-500">High quality document</p>
+                                        </div>
+                                    </div>
+                                    <button className="text-blue-600 px-3 py-1 text-sm">Export</button>
+                                </div>
+
+                                <div className="flex items-center justify-between p-3 border border-gray-200 rounded">
+                                    <div className="flex items-center">
+                                        <div className="w-8 h-8 bg-green-100 rounded flex items-center justify-center mr-3">
+                                            <FileSpreadsheet size={16} className="text-green-600" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-sm font-medium">Excel Export</h3>
+                                            <p className="text-xs text-gray-500">Data tables and metrics</p>
+                                        </div>
+                                    </div>
+                                    <button className="text-green-600 px-3 py-1 text-sm">Export</button>
+                                </div>
+
+                                <div className="flex items-center justify-between p-3 border border-gray-200 rounded">
+                                    <div className="flex items-center">
+                                        <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center mr-3">
+                                            <FileChartColumn size={16} className="text-purple-600" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-sm font-medium">PowerPoint</h3>
+                                            <p className="text-xs text-gray-500">Presentation ready</p>
+                                        </div>
+                                    </div>
+                                    <button className="text-purple-600 px-3 py-1 text-sm">Export</button>
+                                </div>
+
+                                <div className="flex items-center justify-between p-3 border border-gray-200 rounded">
+                                    <div className="flex items-center">
+                                        <div className="w-8 h-8 bg-red-100 rounded flex items-center justify-center mr-3">
+                                            <Users size={16} className="text-red-600" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-sm font-medium">Share Report</h3>
+                                            <p className="text-xs text-gray-500">With team members</p>
+                                        </div>
+                                    </div>
+                                    <button className="text-red-600 px-3 py-1 text-sm">Share</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="fixed right-6 bottom-6 flex items-center">
+                    <button className="bg-white border border-gray-300 rounded px-4 py-2 mr-2 flex items-center shadow-sm">
+                        <span className="text-gray-700">Preview</span>
+                    </button>
+                    <button className="bg-blue-600 text-white rounded px-4 py-2 flex items-center shadow-sm">
+                        <span className="mr-2">Export</span>
+                    </button>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className="min-h-screen bg-gray-100">
             <header className="bg-white shadow-sm">
@@ -2271,6 +2622,7 @@ export const Supdash = () => {
                 {activeTab === 'Strategic Moves' && StrategicAcquisitionsInvestments()}
                 {activeTab === 'Market Positions' && MarketPositionDashboard()}
                 {activeTab === 'Supplier Profiles' && RoquetteDashboard()}
+                {activeTab === 'Report Builder' && CustomReportBuilder()}
             </main>
         </div>
     );

@@ -69,6 +69,35 @@ export const Supdash = () => {
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(false);
     const scrollContainerRef = useRef(null);
+    const [timeFilter, setTimeFilter] = useState('5years');
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [forecastPeriod, setForecastPeriod] = useState('3-year');
+    const currentYear = 2025;
+
+    const fiveYearData = [
+        { year: '2020', electronics: 4.2, healthcare: 3.7, lifescience: 5.1 },
+        { year: '2021', electronics: 4.8, healthcare: 3.2, lifescience: 5.5 },
+        { year: '2022', electronics: 5.3, healthcare: 2.8, lifescience: 5.7 },
+        { year: '2023', electronics: 4.9, healthcare: 3.0, lifescience: 5.2 },
+        { year: '2024', electronics: 4.5, healthcare: 2.6, lifescience: 4.8 }
+    ];
+
+    const threeYearData = [
+        { year: '2022', electronics: 5.3, healthcare: 2.8, lifescience: 5.7 },
+        { year: '2023', electronics: 4.9, healthcare: 3.0, lifescience: 5.2 },
+        { year: '2024', electronics: 4.5, healthcare: 2.6, lifescience: 4.8 }
+    ];
+
+    const salesData = timeFilter === '5years' ? fiveYearData : threeYearData;
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
+    };
+
+    const selectTimeFilter = (filter) => {
+        setTimeFilter(filter);
+        setDropdownOpen(false);
+    };
 
     const nodes = [
         { id: "roquette", name: "Roquette", type: "main", x: 300, y: 200 },
@@ -90,13 +119,30 @@ export const Supdash = () => {
     ];
 
     const positioningData = [
-        { name: 'Roquette', x: 60, y: 75, size: 17, color: '#3b82f6' },
-        { name: 'FUJIFILM', x: 80, y: 85, size: 15, color: '#84cc16' },
-        { name: 'CRODA', x: 70, y: 65, size: 7, color: '#f59e0b' },
-        { name: 'Ashland', x: 55, y: 60, size: 6, color: '#a855f7' },
-        { name: 'EVONIK', x: 45, y: 50, size: 4, color: '#ec4899' },
-        { name: 'Generic Suppliers', x: 30, y: 25, size: 11, color: '#9ca3af' }
+        { name: "Roquette", share: 17, quality: 75, price: 65, color: "#4285F4" },
+        { name: "FUJIFILM", share: 15, quality: 68, price: 60, color: "#34A853" },
+        { name: "CRODA", share: 7, quality: 82, price: 75, color: "#FBBC05" },
+        { name: "Ashland", share: 6, quality: 63, price: 55, color: "#A259FF" },
+        { name: "EVONIK", share: 4, quality: 58, price: 45, color: "#EA4C89" },
+        { name: "Generic Suppliers", share: 51, quality: 30, price: 25, color: "#9AA0A6" }
     ];
+
+    const width = 800;
+    const height = 500;
+    const padding = 80;
+
+    // Function to scale market share to visual size
+    const getRadius = (share) => {
+        return Math.sqrt(share * 150); // Square root to scale area proportionally
+    };
+
+    // Function to calculate position based on quality and price
+    const calculatePosition = (quality, price) => {
+        // Convert quality and price to SVG coordinates
+        const x = padding + (price / 100) * (width - 2 * padding);
+        const y = height - padding - (quality / 100) * (height - 2 * padding);
+        return { x, y };
+    };
 
     const CompetitivePositioningMap = () => {
         const renderTooltip = (props) => {
@@ -155,13 +201,23 @@ export const Supdash = () => {
         { source: "huihui", target: "cartech", type: "partnership", strength: "weak" }
     ];
 
-    const volumeData = [
-        { year: "2021", roquette: 780, qualicaps: 52, total: 832 },
-        { year: "2022", roquette: 538, qualicaps: 66, total: 604 },
-        { year: "2023", roquette: 538, qualicaps: 66, total: 604 },
-        { year: "2024", roquette: 418, qualicaps: 39, total: 457, forecast: true },
-        { year: "2025 H1", roquette: 327, qualicaps: 15, total: 342, forecast: true }
+    const threeYearForecast = [
+        { year: currentYear, roquette: 1250, qualicaps: 950 },
+        { year: currentYear + 1, roquette: 950, qualicaps: 720 }, // 24% decrease
+        { year: currentYear + 2, roquette: 620, qualicaps: 470 }, // 35% decrease
+        { year: currentYear + 3, roquette: 500, qualicaps: 380 }, // continued decrease
     ];
+
+    const oneYearForecast = [
+        { year: currentYear, roquette: 1250, qualicaps: 950 },
+        { year: currentYear + 1, roquette: 950, qualicaps: 720 }, // 24% decrease
+    ];
+
+    const volumeData = forecastPeriod === '3-year' ? threeYearForecast : oneYearForecast;
+
+    const handleForecastChange = (e) => {
+        setForecastPeriod(e.target.value.toLowerCase().includes('3') ? '3-year' : '1-year');
+    };
 
     const priceData = [
         { year: "2021", volume: 832, price: 100 },
@@ -330,13 +386,7 @@ export const Supdash = () => {
         { id: 'TS', name: 'Teivos Syrjä', industry: 'Pharmaceuticals', country: 'France', score: 45, status: 'At Risk', trend: '-5pts', color: '#F44336' },
     ];
 
-    const salesData = [
-        { year: '2019', lifescience: 2.1, healthcare: 4.1, electronics: 2.9, total: 9.1 },
-        { year: '2020', lifescience: 2.7, healthcare: 4.7, electronics: 3.2, total: 10.6 },
-        { year: '2021', lifescience: 3.1, healthcare: 5.1, electronics: 3.5, total: 11.7 },
-        { year: '2022', lifescience: 3.4, healthcare: 5.8, electronics: 4.0, total: 13.2 },
-        { year: '2023', lifescience: 3.2, healthcare: 5.2, electronics: 3.8, total: 12.2 },
-    ];
+
 
     const creditData = [
         { year: '2019', dso: 25, cpi: 32 },
@@ -632,21 +682,41 @@ export const Supdash = () => {
 
             <div className="flex justify-between items-center mb-8">
                 <div className="flex items-center">
-                    <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-3">
+                    <div className="w-10 h-10 bg-blue-100 font-bold text-blue-600 rounded-md flex items-center justify-center mr-3">
                         RQ
                     </div>
                     <div>
-                        <h2 className="text-xl font-bold">Roquette</h2>
+                        <h1 className="text-xl font-bold">Roquette</h1>
                         <p className="text-sm text-gray-500">Financial Performance Analysis</p>
                     </div>
                     <span className="ml-4 px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-medium">Monitoring</span>
                 </div>
 
                 <div className="flex space-x-3">
-                    <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm hover:shadow transition">
-                        <span>Last 5 Years</span>
+                    <button
+                        className="flex items-center space-x-2 px-4 py-2 border border-gray-300 bg-white rounded-lg shadow-sm hover:shadow transition"
+                        onClick={toggleDropdown}
+                    >
+                        <span>{timeFilter === '5years' ? 'Last 5 Years' : 'Last 3 Years'}</span>
                         <ChevronDown size={16} />
                     </button>
+
+                    {dropdownOpen && (
+                        <div className="absolute mt-10 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+                            <button
+                                className="w-full text-left px-4 py-2 hover:bg-gray-100 transition rounded-t-lg"
+                                onClick={() => selectTimeFilter('5years')}
+                            >
+                                Last 5 Years
+                            </button>
+                            <button
+                                className="w-full text-left px-4 py-2 hover:bg-gray-100 transition rounded-b-lg"
+                                onClick={() => selectTimeFilter('3years')}
+                            >
+                                Last 3 Years
+                            </button>
+                        </div>
+                    )}
                     <button className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition flex items-center space-x-2">
                         <span>Export Data</span>
                     </button>
@@ -668,9 +738,9 @@ export const Supdash = () => {
                             <XAxis dataKey="year" />
                             <YAxis />
                             <Tooltip />
-                            <Bar dataKey="electronics" stackId="a" fill="#9E9E9E" />
-                            <Bar dataKey="healthcare" stackId="a" fill="#F44336" />
-                            <Bar dataKey="lifescience" stackId="a" fill="#E57373" />
+                            <Bar dataKey="electronics" stackId="a" fill="#9E9E9E" name="Electronics" />
+                            <Bar dataKey="healthcare" stackId="a" fill="#F44336" name="Healthcare" />
+                            <Bar dataKey="lifescience" stackId="a" fill="#E57373" name="Life Science" />
                         </BarChart>
                     </ResponsiveContainer>
                     <p className="text-xs text-gray-400 mt-2">Bn/€ by business segment</p>
@@ -698,6 +768,7 @@ export const Supdash = () => {
                     <p className="text-xs text-gray-400 mt-2">(%/€) by business segment</p>
                 </div>
             </div>
+
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                 <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-200">
@@ -1186,8 +1257,11 @@ export const Supdash = () => {
                             </select>
                         </div>
                         <div className="relative w-48">
-                            <select className="w-full p-2 border border-gray-200 rounded-lg bg-white shadow-sm appearance-none pr-8">
-                                <option>5-Year Forecast</option>
+                            <select
+                                className="w-full p-2 border border-gray-200 rounded-lg bg-white shadow-sm appearance-none pr-8"
+                                onChange={handleForecastChange}
+                                defaultValue="3-Year Forecast"
+                            >
                                 <option>3-Year Forecast</option>
                                 <option>1-Year Forecast</option>
                             </select>
@@ -1208,12 +1282,14 @@ export const Supdash = () => {
                             <YAxis />
                             <Tooltip />
                             <Legend />
-                            <Bar name="Roquette (tons)" dataKey="roquette" fill="#cc2828" />
-                            <Bar name="Qualicaps (tons)" dataKey="qualicaps" fill="#e74c3c" />
+                            <Bar name="Roquette (tons)" dataKey="roquette" fill="lightgreen" />
+                            <Bar name="Qualicaps (tons)" dataKey="qualicaps" fill="Orange" />
                         </BarChart>
                     </ResponsiveContainer>
                     <p className="text-xs text-gray-600 text-center mt-2">
-                        Volumes are forecasted to decrease by 24% in FY24 and another 35% in FY25 due to demand drop and dual-sourcing
+                        {forecastPeriod === '3-year'
+                            ? "Volumes are forecasted to decrease by 24% in FY26, another 35% in FY27, and stabilize with a slight decrease in FY28 due to demand drop and dual-sourcing strategy"
+                            : "Volumes are forecasted to decrease by 24% in FY26 due to demand drop and dual-sourcing strategy"}
                     </p>
                 </div>
 
@@ -1803,67 +1879,73 @@ export const Supdash = () => {
                                 </div>
                             </div>
 
-                            <div style={{ width: '100%', height: 320 }}>
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <ScatterChart
-                                        margin={{ top: 30, right: 20, bottom: 50, left: 40 }}
-                                    >
-                                        <CartesianGrid stroke="#f0f0f0" strokeWidth={0.5} />
-                                        <XAxis
-                                            type="number"
-                                            dataKey="x"
-                                            domain={[0, 100]}
-                                            tickLine={false}
-                                            axisLine={{ stroke: '#e5e7eb' }}
-                                            tick={{ fontSize: 10, fill: '#6b7280' }}
-                                            tickFormatter={() => ''}
-                                            label={{
-                                                value: 'Lower Price',
-                                                position: 'bottom',
-                                                offset: 0,
-                                                fill: '#6b7280',
-                                                fontSize: 12
-                                            }}
-                                        />
-                                        <YAxis
-                                            type="number"
-                                            dataKey="y"
-                                            domain={[0, 100]}
-                                            tickLine={false}
-                                            axisLine={{ stroke: '#e5e7eb' }}
-                                            tick={{ fontSize: 10, fill: '#6b7280' }}
-                                            tickFormatter={() => ''}
-                                            label={{
-                                                value: 'Standard Quality',
-                                                position: 'left',
-                                                angle: -90,
-                                                offset: 0,
-                                                fill: '#6b7280',
-                                                fontSize: 12,
-                                                style: { textAnchor: 'middle' }
-                                            }}
-                                        />
-                                        <ZAxis
-                                            type="number"
-                                            dataKey="size"
-                                            range={[40, 80]}
-                                            domain={[0, 20]}
-                                        />
-                                        <Tooltip content={renderTooltip} />
-                                        <Scatter data={positioningData}>
-                                            {positioningData.map((entry, index) => (
-                                                <Cell
-                                                    key={`cell-${index}`}
-                                                    fill={entry.color}
-                                                    fillOpacity={0.8}
+                            <div className="relative w-full" style={{ height: '500px' }}>
+                                {/* Main SVG Chart */}
+                                <svg width="100%" height="100%" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet">
+                                    {/* Grid lines */}
+                                    <line x1={width / 2} y1={padding} x2={width / 2} y2={height - padding} stroke="#e5e7eb" strokeWidth="1" strokeDasharray="5,5" />
+                                    <line x1={padding} y1={height / 2} x2={width - padding} y2={height / 2} stroke="#e5e7eb" strokeWidth="1" strokeDasharray="5,5" />
+
+                                    {/* Axis labels */}
+                                    <text x={width - padding + 10} y={height - padding + 30} fontSize="14" fill="#6b7280" textAnchor="middle">Higher Price</text>
+                                    <text x={padding - 10} y={height - padding + 30} fontSize="14" fill="#6b7280" textAnchor="middle">Lower Price</text>
+                                    <text x={padding - 40} y={padding - 20} fontSize="14" fill="#6b7280" textAnchor="middle">Premium Quality</text>
+                                    <text x={padding - 40} y={height - padding + 20} fontSize="14" fill="#6b7280" textAnchor="middle">Standard Quality</text>
+
+                                    {/* Render each competitor bubble */}
+                                    {positioningData.map((comp) => {
+                                        const { x, y } = calculatePosition(comp.quality, comp.price);
+                                        const radius = getRadius(comp.share);
+
+                                        return (
+                                            <g key={comp.name}>
+                                                {/* Bubble */}
+                                                <circle
+                                                    cx={x}
+                                                    cy={y}
+                                                    r={radius}
+                                                    fill={comp.color}
+                                                    fillOpacity="0.7"
+                                                    stroke={comp.color}
+                                                    strokeWidth="1"
                                                 />
-                                            ))}
-                                        </Scatter>
-                                    </ScatterChart>
-                                </ResponsiveContainer>
+
+                                                {/* Company Name */}
+                                                <text
+                                                    x={x}
+                                                    y={y - 5}
+                                                    fontSize={radius > 40 ? 16 : 14}
+                                                    fontWeight="bold"
+                                                    fill={comp.share > 25 ? "#fff" : "#000"}
+                                                    textAnchor="middle"
+                                                >
+                                                    {comp.name}
+                                                </text>
+
+                                                {/* Percentage */}
+                                                <text
+                                                    x={x}
+                                                    y={y + 15}
+                                                    fontSize={radius > 40 ? 14 : 12}
+                                                    fontWeight="bold"
+                                                    fill={comp.share > 25 ? "#fff" : "#000"}
+                                                    textAnchor="middle"
+                                                >
+                                                    {comp.share}%
+                                                </text>
+                                            </g>
+                                        );
+                                    })}
+                                </svg>
+
+                                {/* Four quadrant labels */}
+                                <div className="absolute top-10 left-1/4 text-gray-600 text-xs">Value Leader</div>
+                                <div className="absolute top-10 right-1/4 text-gray-600 text-xs">Premium Leader</div>
+                                <div className="absolute bottom-10 left-1/4 text-gray-600 text-xs">Budget Option</div>
+                                <div className="absolute bottom-10 right-1/4 text-gray-600 text-xs">Mid-Market</div>
                             </div>
 
-                            <div className="mt-6 text-xs text-gray-600">
+                            <div className="mt-4 text-xs text-gray-600">
                                 Bubble size represents relative market share. Position based on average price point and quality perception.
                             </div>
                         </div>

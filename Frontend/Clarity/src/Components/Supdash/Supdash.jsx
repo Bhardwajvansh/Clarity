@@ -25,8 +25,12 @@ import {
     Zap,
     Swords,
     BarChartIcon,
-    ChevronRight,   
+    ChevronRight,
     ChevronLeft,
+    User2,
+    FileText,
+    MoreVertical,
+    CheckCircle2,
 } from 'lucide-react';
 import { Lightbulb, RefreshCw, Send, BrainCircuit, DollarSign, AlertCircle } from 'lucide-react';
 import {
@@ -49,6 +53,7 @@ import {
 } from 'recharts';
 export const Supdash = () => {
     const [activeTab, setActiveTab] = useState('Dashboard');
+    const [activeTab2, setActiveTab2] = useState('Overview');
     const [selectedSupplier, setSelectedSupplier] = useState(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(false);
@@ -242,13 +247,11 @@ export const Supdash = () => {
 
     const tabs = [
         { name: 'Dashboard', icon: <Home size={18} /> },
+        { name: 'Supplier Profiles', icon: <User2 size={18} /> },
         { name: 'Financial Analysis', icon: <LineChartIcon size={18} /> },
         { name: 'AI Insights', icon: <BrainCircuit size={18} /> },
         { name: 'Forecasting', icon: <TrendingUp size={18} /> },
         { name: 'Strategic Moves', icon: <Swords size={18} /> },
-        { name: 'Market Positions', icon: <BarChartIcon size={18} /> },
-        { name: 'Market Positions', icon: <BarChartIcon size={18} /> },
-        { name: 'Market Positions', icon: <BarChartIcon size={18} /> },
         { name: 'Market Positions', icon: <BarChartIcon size={18} /> },
     ];
 
@@ -318,6 +321,44 @@ export const Supdash = () => {
         if (!scrollContainerRef.current) return;
         scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
     };
+
+    const riskData = [
+        { name: 'Overall Score', score: 72, color: 'bg-yellow-400' },
+        { name: 'Financial Health', score: 80, color: 'bg-green-500' },
+        { name: 'Supply Chain', score: 60, color: 'bg-yellow-400' },
+        { name: 'Market Position', score: 88, color: 'bg-green-500' },
+        { name: 'Regulatory', score: 78, color: 'bg-green-500' },
+        { name: 'Geo-Political', score: 52, color: 'bg-red-500' }
+    ];
+
+    // Sample data for recent news
+    const newsEvents = [
+        { date: 'May 9, 2023', title: 'Launched ProTec Mannitol Starch Blend' },
+        { date: 'May 6, 2024', title: 'ST 730 Plant-based Ingredient Launch' },
+        { date: 'October 2023', title: 'Qualicaps Acquisition Completed' }
+    ];
+
+    // Sample data for competitors
+    const competitors = [
+        {
+            name: 'Cargill',
+            letter: 'C',
+            description: 'Major player in the pharmaceutical excipients market, known for its starch derivatives and pharmaceutical ingredients, based in the United States.'
+        },
+        {
+            name: 'Tereos Syral',
+            letter: 'T',
+            description: 'Specializes in starch and its derivatives, making it a key competitor in pharmaceutical formulations, based in France.'
+        },
+        {
+            name: 'Ingredion',
+            letter: 'I',
+            description: 'Offers a wide range of innovative starch derivatives and specialized ingredients for pharmaceutical use, based in the United States.'
+        }
+    ];
+
+    const tabs2 = ['Overview', 'Financial Performance', 'Supply Chain', 'Market Position', 'Strategic Moves', 'ESG & Compliance'];
+
 
     // Set up scroll event listeners
     useEffect(() => {
@@ -1902,6 +1943,235 @@ export const Supdash = () => {
         );
     }
 
+    const RoquetteDashboard = () => {
+        return (
+            <div className="bg-gray-50 min-h-screen">
+                {/* Header */}
+                <div className="p-6 flex items-start justify-between bg-white">
+                    <div className="flex items-center">
+                        <div className="w-10 h-10 bg-blue-100 rounded-md flex items-center justify-center mr-3">
+                            <span className="font-bold text-blue-600">RQ</span>
+                        </div>
+                        <div>
+                            <div className="flex items-center">
+                                <h1 className="text-xl font-bold">Roquette</h1>
+                                <span className="ml-3 px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-700 text-xs font-medium">Monitoring</span>
+                            </div>
+                            <p className="text-sm text-gray-500">Top 10 provider of pharmaceutical excipients</p>
+                        </div>
+                    </div>
+                    <div className="flex space-x-3">
+                        <button className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                            <FileText size={16} />
+                            <span>Export Profile</span>
+                        </button>
+                        <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 bg-white rounded-md hover:bg-gray-50 transition">
+                            <Bell size={16} />
+                            <span>Set Alert</span>
+                        </button>
+                        <button className="flex items-center justify-center w-10 h-10 border border-gray-300 bg-white rounded-md hover:bg-gray-50 transition">
+                            <MoreVertical size={16} />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Tabs */}
+                <div className="border-t border-b border-gray-200 bg-white">
+                    <div className="flex">
+                        {tabs2.map((tab) => (
+                            <button
+                                key={tab}
+                                onClick={() => setActiveTab2(tab)}
+                                className={`py-4 px-6 text-sm relative ${activeTab2 === tab
+                                    ? 'text-blue-600 border-b-2 border-blue-600'
+                                    : 'text-gray-600 hover:text-gray-800'
+                                    }`}
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Company Overview */}
+                        <div className="bg-white p-6 rounded shadow">
+                            <h2 className="text-lg font-medium mb-4">Company Overview</h2>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="flex justify-between border-b border-gray-200 pb-2">
+                                    <span className="text-gray-500 text-sm">Ownership model:</span>
+                                    <span className="text-sm font-medium">Private</span>
+                                </div>
+                                <div className="flex justify-between border-b border-gray-200 pb-2">
+                                    <span className="text-gray-500 text-sm">Country:</span>
+                                    <span className="text-sm font-medium">France</span>
+                                </div>
+                                <div className="flex justify-between border-b border-gray-200 pb-2">
+                                    <span className="text-gray-500 text-sm">Founded:</span>
+                                    <span className="text-sm font-medium">1933</span>
+                                </div>
+                                <div className="flex justify-between border-b border-gray-200 pb-2">
+                                    <span className="text-gray-500 text-sm"># FTEs:</span>
+                                    <span className="text-sm font-medium">~10,000</span>
+                                </div>
+                                <div className="flex justify-between border-b border-gray-200 pb-2">
+                                    <span className="text-gray-500 text-sm">Geography:</span>
+                                    <span className="text-sm font-medium">Global</span>
+                                </div>
+                                <div className="flex justify-between border-b border-gray-200 pb-2">
+                                    <span className="text-gray-500 text-sm">Turnover:</span>
+                                    <span className="text-sm font-medium">EUR 5bn</span>
+                                </div>
+                                <div className="flex justify-between border-b border-gray-200 pb-2">
+                                    <span className="text-gray-500 text-sm">Industrial sites:</span>
+                                    <span className="text-sm font-medium">+30</span>
+                                </div>
+                                <div className="flex justify-between border-b border-gray-200 pb-2">
+                                    <span className="text-gray-500 text-sm">Countries served:</span>
+                                    <span className="text-sm font-medium">+100</span>
+                                </div>
+                                <div className="flex justify-between border-b border-gray-200 pb-2">
+                                    <span className="text-gray-500 text-sm">Experience:</span>
+                                    <span className="text-sm font-medium">90 years</span>
+                                </div>
+                                <div className="flex justify-between border-b border-gray-200 pb-2">
+                                    <span className="text-gray-500 text-sm">Patents/year:</span>
+                                    <span className="text-sm font-medium">30</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Business Description */}
+                        <div className="bg-white p-6 rounded shadow">
+                            <h2 className="text-lg font-medium mb-4">Business Description</h2>
+                            <ul className="space-y-3">
+                                <li className="flex items-start">
+                                    <div className="min-w-4 mt-1 mr-2">•</div>
+                                    <span className="text-sm">Roquette offers plant-based ingredients and is a Top 10 provider of pharmaceutical excipients</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <div className="min-w-4 mt-1 mr-2">•</div>
+                                    <span className="text-sm">The company offers products produced from maize, wheat, potato or pea such as Proteins and derivatives, Fibers, Polyols, Cereal sugars, Native and modified starches, and cyclodextrins, Organic acids and organic salts</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <div className="min-w-4 mt-1 mr-2">•</div>
+                                    <span className="text-sm">The company serves its products to BioPharma, Pharma & nutraceuticals, Cosmetics, Food & nutrition, Animal nutrition, and industrial markets</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        {/* Top Competitors */}
+                        <div className="bg-white p-6 rounded shadow">
+                            <h2 className="text-lg font-medium mb-4">Top Competitors</h2>
+                            <div className="space-y-4">
+                                {competitors.map((competitor, index) => (
+                                    <div key={index} className="flex">
+                                        <div className="mr-3 mt-1">
+                                            <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs font-medium">
+                                                {competitor.letter}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h3 className="font-medium text-sm">{competitor.name}</h3>
+                                            <p className="text-xs text-gray-500 mt-1">{competitor.description}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Growth Strategy */}
+                        <div className="bg-white p-6 rounded shadow">
+                            <h2 className="text-lg font-medium mb-4">Growth Strategy</h2>
+                            <div className="space-y-4">
+                                <div className="flex">
+                                    <div className="mr-3 mt-1">
+                                        <div className="w-6 h-6 text-blue-500">
+                                            <CheckCircle2 size={20} />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-medium text-sm">Expanding Plant Protein Footprint</h3>
+                                        <p className="text-xs text-gray-500 mt-1">Investing in plant-based elements for taste and nutritional value with a focus on the top priority.</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex">
+                                    <div className="mr-3 mt-1">
+                                        <div className="w-6 h-6 text-blue-500">
+                                            <CheckCircle2 size={20} />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-medium text-sm">Innovation Centers</h3>
+                                        <p className="text-xs text-gray-500 mt-1">Officially opened brand-new Pharmaceutical Innovation Center near Philadelphia, Pennsylvania in April 2023.</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex">
+                                    <div className="mr-3 mt-1">
+                                        <div className="w-6 h-6 text-blue-500">
+                                            <CheckCircle2 size={20} />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-medium text-sm">Strategic Acquisitions</h3>
+                                        <p className="text-xs text-gray-500 mt-1">Completed acquisition of Qualicaps, expanding global footprint in pharmaceutical solutions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                        {/* Risk Assessment */}
+                        <div className="bg-white p-6 rounded shadow mt-6">
+                            <h2 className="text-lg font-medium mb-4">Risk Assessment</h2>
+                            <div className="space-y-3">
+                                {riskData.map((item, index) => (
+                                    <div key={index} className="mb-3">
+                                        <div className="flex justify-between mb-1">
+                                            <span className="text-sm">{item.name}</span>
+                                            <span className="font-medium text-sm">{item.score}/100</span>
+                                        </div>
+                                        <div className="w-full bg-gray-200 rounded-full h-2">
+                                            <div
+                                                className={`${item.color} h-2 rounded-full`}
+                                                style={{ width: `${item.score}%` }}
+                                            ></div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Recent News & Events */}
+                        <div className="bg-white max-h-3/4 p-6 rounded shadow mt-6">
+                            <div className="flex justify-between mb-4">
+                                <h2 className="text-lg font-medium">Recent News & Events</h2>
+                                <a href="#" className="text-blue-600 text-sm flex items-center">
+                                    View all news <ChevronRight size={16} className="ml-1" />
+                                </a>
+                            </div>
+                            <div className="space-y-4">
+                                {newsEvents.map((item, index) => (
+                                    <div key={index} className="border-l-4 border-blue-500 pl-4">
+                                        <p className="text-sm font-medium">{item.title}</p>
+                                        <p className="text-xs text-gray-500 mt-1">{item.date}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className="min-h-screen bg-gray-100">
             <header className="bg-white shadow-sm">
@@ -1983,7 +2253,7 @@ export const Supdash = () => {
                 </div>
 
                 {/* Add custom CSS to hide scrollbar */}
-                <style jsx>{`
+                <style>{`
                     .scrollbar-hide::-webkit-scrollbar {
                     display: none;
                     }
@@ -2000,6 +2270,7 @@ export const Supdash = () => {
                 {activeTab === 'Forecasting' && VolumeForecastTrendAnalysis()}
                 {activeTab === 'Strategic Moves' && StrategicAcquisitionsInvestments()}
                 {activeTab === 'Market Positions' && MarketPositionDashboard()}
+                {activeTab === 'Supplier Profiles' && RoquetteDashboard()}
             </main>
         </div>
     );

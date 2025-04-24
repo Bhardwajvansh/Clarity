@@ -16,8 +16,6 @@ import {
     ChevronDown,
     Handshake,
 } from "lucide-react";
-import { Dashboard } from "../Dashboard/Dashboard";
-import { Footer } from "../Footer/Footer";
 import SupplierIQDashboard from "./Supiq";
 
 const COLORS = [
@@ -266,7 +264,6 @@ export const Supiqnav = () => {
             >
                 <div>
                     <SupplierIQDashboard />
-                    <Footer />
                 </div>
             </div>
         </>

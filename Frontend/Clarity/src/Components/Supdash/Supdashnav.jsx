@@ -16,7 +16,6 @@ import {
     ChevronDown,
     Handshake,
 } from "lucide-react";
-import { Footer } from "../Footer/Footer";
 import { Supdash } from "./Supdash";
 
 const COLORS = [
@@ -265,7 +264,6 @@ export const Supdashnav = () => {
             >
                 <div>
                     <Supdash />
-                    <Footer />
                 </div>
             </div>
         </>

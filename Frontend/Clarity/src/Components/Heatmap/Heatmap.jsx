@@ -106,12 +106,9 @@ export const RetailMegaTrendsHeatmap = () => {
         }
     };
 
-    // Get border color for active cell
-    const getCellBorder = (trendMaturity, trendGrowth, cellValue) => {
-        if ((trendMaturity === cellValue) || (trendGrowth === cellValue)) {
-            return 'border-2 border-blue-600';
-        }
-        return 'border border-gray-200';
+    // Check if cell should show rank number
+    const shouldShowRank = (trend, maturity, growth) => {
+        return (trend.marketMaturity === maturity && trend.growthPotential === growth);
     };
 
     // Get color for year-over-year indicator
@@ -216,16 +213,78 @@ export const RetailMegaTrendsHeatmap = () => {
 
                                 {/* Heatmap Cells */}
                                 <div className="col-span-5 grid grid-cols-5 gap-1">
-                                    <div className={`h-12 w-full rounded ${getCellColor('Very Low')} ${getCellBorder(trend.marketMaturity, trend.growthPotential, 'Very Low')}`}></div>
-                                    <div className={`h-12 w-full rounded ${getCellColor('Low')} ${getCellBorder(trend.marketMaturity, trend.growthPotential, 'Low')}`}></div>
-                                    <div className={`h-12 w-full rounded ${getCellColor('Medium')} ${getCellBorder(trend.marketMaturity, trend.growthPotential, 'Medium')}`}></div>
-                                    <div className={`h-12 w-full rounded ${getCellColor('High')} ${getCellBorder(trend.marketMaturity, trend.growthPotential, 'High')}`}></div>
-                                    <div className={`h-12 w-full rounded ${getCellColor('Very High')} ${getCellBorder(trend.marketMaturity, trend.growthPotential, 'Very High')}`}></div>
+                                    <div className={`h-12 w-full rounded ${getCellColor('Very Low')} relative`}>
+                                        {shouldShowRank(trend, 'Very Low', 'Very Low') && (
+                                            <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                                {trend.rank}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className={`h-12 w-full rounded ${getCellColor('Low')} relative`}>
+                                        {shouldShowRank(trend, 'Low', 'Low') && (
+                                            <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                                {trend.rank}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className={`h-12 w-full rounded ${getCellColor('Medium')} relative`}>
+                                        {shouldShowRank(trend, 'Medium', 'Medium') && (
+                                            <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                                {trend.rank}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className={`h-12 w-full rounded ${getCellColor('High')} relative`}>
+                                        {shouldShowRank(trend, 'High', 'High') && (
+                                            <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                                {trend.rank}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className={`h-12 w-full rounded ${getCellColor('Very High')} relative`}>
+                                        {shouldShowRank(trend, 'Very High', 'Very High') && (
+                                            <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                                {trend.rank}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
+
+                                {/* Handle specific position cases */}
+                                {trend.marketMaturity === 'Medium' && trend.growthPotential === 'Very High' && (
+                                    <div className="absolute ml-[520px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                        {trend.rank}
+                                    </div>
+                                )}
+                                {trend.marketMaturity === 'Medium' && trend.growthPotential === 'High' && (
+                                    <div className="absolute ml-[452px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                        {trend.rank}
+                                    </div>
+                                )}
+                                {trend.marketMaturity === 'High' && trend.growthPotential === 'Medium' && (
+                                    <div className="absolute ml-[384px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                        {trend.rank}
+                                    </div>
+                                )}
+                                {trend.marketMaturity === 'Low' && trend.growthPotential === 'Very High' && (
+                                    <div className="absolute ml-[520px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                        {trend.rank}
+                                    </div>
+                                )}
+                                {trend.marketMaturity === 'Low' && trend.growthPotential === 'High' && (
+                                    <div className="absolute ml-[452px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                        {trend.rank}
+                                    </div>
+                                )}
+                                {trend.marketMaturity === 'Low' && trend.growthPotential === 'Medium' && (
+                                    <div className="absolute ml-[384px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
+                                        {trend.rank}
+                                    </div>
+                                )}
 
                                 <div className="col-span-2"></div>
                                 <div className="col-span-5 mt-2">
-                                    <div className="bg-gray-200 h-3 rounded-full w-full border border-gray-300">
+                                    <div className="bg-gray-200 h-3 rounded-full w-full">
                                         <div
                                             className="bg-blue-500 h-3 rounded-full shadow-sm"
                                             style={{ width: `${trend.percentage}%` }}
@@ -247,19 +306,19 @@ export const RetailMegaTrendsHeatmap = () => {
 
                     {/* Color Legend */}
                     <div className="flex items-center mt-4 space-x-2 p-3 bg-white rounded-md border border-gray-200">
-                        <div className="w-4 h-4 bg-blue-50 border border-gray-300 rounded"></div>
+                        <div className="w-4 h-4 bg-blue-50 rounded"></div>
                         <span className="text-xs text-gray-600 mr-2">Very Low</span>
 
-                        <div className="w-4 h-4 bg-blue-100 border border-gray-300 rounded"></div>
+                        <div className="w-4 h-4 bg-blue-100 rounded"></div>
                         <span className="text-xs text-gray-600 mr-2">Low</span>
 
-                        <div className="w-4 h-4 bg-blue-200 border border-gray-300 rounded"></div>
+                        <div className="w-4 h-4 bg-blue-200 rounded"></div>
                         <span className="text-xs text-gray-600 mr-2">Medium</span>
 
-                        <div className="w-4 h-4 bg-blue-300 border border-gray-300 rounded"></div>
+                        <div className="w-4 h-4 bg-blue-300 rounded"></div>
                         <span className="text-xs text-gray-600 mr-2">High</span>
 
-                        <div className="w-4 h-4 bg-blue-500 border border-gray-300 rounded"></div>
+                        <div className="w-4 h-4 bg-blue-500 rounded"></div>
                         <span className="text-xs text-gray-600">Very High</span>
                     </div>
                 </div>

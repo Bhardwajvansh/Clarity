@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Home, BarChart2, Zap, Bell, Settings, Search, MoreHorizontal, ChevronDown, Hexagon, PieChart, AlertTriangle } from 'lucide-react';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ScatterChart, Scatter, ZAxis } from 'recharts';
 import { useNavigate } from 'react-router-dom';
+import Img1 from '../../assets/img1.png';
+import Img2 from '../../assets/img2.png';
+import Img3 from '../../assets/img3.png';
+import Img4 from '../../assets/img4.png';
+import Img5 from '../../assets/img5.png';
 
 export const StrategicDashboard = () => {
     const navigate = useNavigate();
@@ -89,7 +94,7 @@ export const StrategicDashboard = () => {
                 </div>
             </div>
             <div className="flex-1 overflow-auto p-6">
-                <div className={` transition-opacity duration-500 ${animate ? 'opacity-100' : 'opacity-0'}`}>
+                <div className={`transition-opacity duration-500 ${animate ? 'opacity-100' : 'opacity-0'}`}>
                     <div
                         onClick={() => navigate('/mtheatmap')}
                         className="bg-white cursor-pointer border-t-4 border-blue-500 rounded-lg shadow-sm mb-6 p-4 hover:shadow-lg transition-shadow duration-200">
@@ -107,17 +112,15 @@ export const StrategicDashboard = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="flex h-56 bg-gray-50 rounded-md">
-                            <div className="flex-1 flex items-center justify-center">
-                                <Hexagon className="text-gray-800" size={36} />
-                            </div>
-                            <div className="flex-1 flex items-center justify-center">
-                                <BarChart2 className="text-gray-800" size={36} />
-                            </div>
+                        <div className="w-full h-56 bg-gray-50 rounded-md overflow-hidden">
+                            <img
+                                src={Img1}
+                                alt="Sector Analysis Screenshot"
+                                className="w-full h-full object-cover"
+                            />
                         </div>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div
                             onClick={() => navigate('/kaccounts')}
                             className="bg-white cursor-pointer rounded-lg shadow-sm p-4 border-t-4 border-green-500 hover:shadow-lg transition-shadow duration-200">
@@ -130,20 +133,12 @@ export const StrategicDashboard = () => {
                                     <MoreHorizontal size={18} />
                                 </button>
                             </div>
-                            <div className="h-48">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <ScatterChart
-                                        margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-                                    >
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis type="number" dataKey="x" name="value" />
-                                        <YAxis type="number" dataKey="y" name="potential" />
-                                        <ZAxis type="number" dataKey="z" range={[60, 400]} name="score" />
-                                        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-                                        <Scatter name="Accounts" data={scatterData} fill="#8884d8" />
-                                        <Scatter name="Accounts" data={[{ x: 30, y: 30, z: 100, name: 'Client C' }]} fill="#82ca9d" />
-                                    </ScatterChart>
-                                </ResponsiveContainer>
+                            <div className="w-full h-48 bg-gray-50 rounded-md overflow-hidden">
+                                <img
+                                    src={Img2}
+                                    alt="Key Accounts Screenshot"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                         </div>
                         <div
@@ -158,17 +153,12 @@ export const StrategicDashboard = () => {
                                     <MoreHorizontal size={18} />
                                 </button>
                             </div>
-                            <div className="h-48">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
-                                        <PolarGrid />
-                                        <PolarAngleAxis dataKey="subject" tick={{ fill: '#666', fontSize: 10 }} />
-                                        <PolarRadiusAxis angle={30} domain={[0, 150]} />
-                                        <Radar name="Competitor" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.2} />
-                                        <Radar name="Your Company" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.2} />
-                                        <Tooltip />
-                                    </RadarChart>
-                                </ResponsiveContainer>
+                            <div className="w-full h-48 bg-gray-50 rounded-md overflow-hidden">
+                                <img
+                                    src={Img3}
+                                    alt="Competitor Analysis Screenshot"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                         </div>
                         <div
@@ -183,19 +173,12 @@ export const StrategicDashboard = () => {
                                     <MoreHorizontal size={18} />
                                 </button>
                             </div>
-                            <div className="h-48">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart
-                                        data={vendorData}
-                                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                                    >
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis dataKey="name" />
-                                        <YAxis />
-                                        <Tooltip />
-                                        <Bar dataKey="risk" fill="#d1d5db" />
-                                    </BarChart>
-                                </ResponsiveContainer>
+                            <div className="w-full h-48 bg-gray-50 rounded-md overflow-hidden">
+                                <img
+                                    src={Img4}
+                                    alt="Vendor Risk Analysis Screenshot"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                         </div>
                         <div
@@ -210,21 +193,12 @@ export const StrategicDashboard = () => {
                                     <MoreHorizontal size={18} />
                                 </button>
                             </div>
-                            <div className="h-48 flex items-end justify-center space-x-6">
-                                {sentimentData.map((item, index) => (
-                                    <div key={index} className="flex flex-col items-center">
-                                        <div
-                                            className="w-16 rounded-t-lg transition-all duration-1000"
-                                            style={{
-                                                height: `${item.value}px`,
-                                                backgroundColor: item.color,
-                                                opacity: animate ? 1 : 0,
-                                                transform: animate ? 'translateY(0)' : 'translateY(20px)'
-                                            }}
-                                        ></div>
-                                        <p className="text-xs mt-2">{item.name}</p>
-                                    </div>
-                                ))}
+                            <div className="w-full h-48 bg-gray-50 rounded-md overflow-hidden">
+                                <img
+                                    src={Img5}
+                                    alt="Brand IQ Screenshot"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                         </div>
                     </div>

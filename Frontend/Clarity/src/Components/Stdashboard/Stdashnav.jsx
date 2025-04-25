@@ -265,7 +265,6 @@ export const Stdashnav = () => {
             >
                 <div>
                     <StrategicDashboard />
-                    <Footer />
                 </div>
             </div>
         </>

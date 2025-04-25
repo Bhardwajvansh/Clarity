@@ -279,39 +279,6 @@ export const StrategicDashboard = () => {
                                                             )}
                                                         </div>
                                                     </div>
-
-                                                    {/* Handle specific position cases */}
-                                                    {trend.marketMaturity === 'Medium' && trend.growthPotential === 'Very High' && (
-                                                        <div className="absolute ml-[520px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                                            {trend.rank}
-                                                        </div>
-                                                    )}
-                                                    {trend.marketMaturity === 'Medium' && trend.growthPotential === 'High' && (
-                                                        <div className="absolute ml-[452px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                                            {trend.rank}
-                                                        </div>
-                                                    )}
-                                                    {trend.marketMaturity === 'High' && trend.growthPotential === 'Medium' && (
-                                                        <div className="absolute ml-[384px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                                            {trend.rank}
-                                                        </div>
-                                                    )}
-                                                    {trend.marketMaturity === 'Low' && trend.growthPotential === 'Very High' && (
-                                                        <div className="absolute ml-[520px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                                            {trend.rank}
-                                                        </div>
-                                                    )}
-                                                    {trend.marketMaturity === 'Low' && trend.growthPotential === 'High' && (
-                                                        <div className="absolute ml-[452px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                                            {trend.rank}
-                                                        </div>
-                                                    )}
-                                                    {trend.marketMaturity === 'Low' && trend.growthPotential === 'Medium' && (
-                                                        <div className="absolute ml-[384px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                                            {trend.rank}
-                                                        </div>
-                                                    )}
-
                                                     <div className="col-span-2"></div>
                                                     <div className="col-span-5 mt-2">
                                                         <div className="bg-gray-200 h-3 rounded-full w-full">

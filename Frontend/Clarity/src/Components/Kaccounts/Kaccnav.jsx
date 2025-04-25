@@ -265,7 +265,6 @@ export const Kaccnav = () => {
             >
                 <div>
                     <KeyAccountsMatrix />
-                    <Footer />
                 </div>
             </div>
         </>

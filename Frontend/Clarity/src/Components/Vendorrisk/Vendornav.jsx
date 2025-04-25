@@ -265,7 +265,6 @@ export const Vendornav = () => {
             >
                 <div>
                     <VendorRiskAnalysisDashboard />
-                    <Footer />
                 </div>
             </div>
         </>

@@ -265,7 +265,6 @@ export const Heatnav = () => {
             >
                 <div>
                     <RetailMegaTrendsHeatmap />
-                    <Footer />
                 </div>
             </div>
         </>

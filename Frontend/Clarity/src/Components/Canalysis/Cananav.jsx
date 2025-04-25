@@ -265,7 +265,6 @@ export const Cananav = () => {
             >
                 <div>
                     <CompetitorAnalysisDashboard />
-                    <Footer />
                 </div>
             </div>
         </>

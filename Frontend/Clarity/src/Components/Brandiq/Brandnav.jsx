@@ -265,7 +265,6 @@ export const Brandnav = () => {
             >
                 <div>
                     <BrandSentimentDashboard />
-                    <Footer />
                 </div>
             </div>
         </>

@@ -25,6 +25,7 @@ import { Cananav } from "./Components/Canalysis/Cananav"
 import { Vendornav } from "./Components/Vendorrisk/Vendornav"
 import { Brandnav } from "./Components/Brandiq/Brandnav"
 import { Heatnav } from "./Components/Heatmap/Heatnav"
+import { Acciqnav } from "./Components/Acciq/Acciqnav"
 
 function App() {
   return (
@@ -60,6 +61,9 @@ function App() {
 
         <Route path="/supiq" element={<Supiqnav />} />
         <Route path="/supdash" element={<Supdashnav />} />
+
+        <Route path="/acciq" element={<Acciqnav />} />
+
 
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />

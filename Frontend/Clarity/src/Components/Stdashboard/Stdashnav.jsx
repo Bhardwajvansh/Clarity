@@ -18,7 +18,6 @@ import {
     Handshake,
 } from "lucide-react";
 import { Footer } from "../Footer/Footer";
-import StrategicDashboard from "./Stdashboard";
 import { AutomotiveDashboard } from "./Supdash1";
 
 const COLORS = [

@@ -3,11 +3,15 @@ import { useState } from 'react'
 import { BarChart2, TrendingUp } from 'lucide-react'
 import { Search, Plus, Filter, ArrowUpRight, ChevronDown, MoreHorizontal, AlertCircle, Database, BarChart, LineChart, Bell } from 'lucide-react';
 import { Info, ExternalLink, ChevronRight, Lightbulb, BookOpen, Users } from 'lucide-react';
+import { Globe, Star, CheckCircle2, Clipboard, ArrowRight, ThumbsUp } from 'lucide-react';
 
 
 export const Acciq = () => {
     const [activeTab, setActiveTab] = useState("Customer Dashboard");
     const [showMoreDecisionMakers, setShowMoreDecisionMakers] = useState(false);
+    const [activeTab2, setActiveTab2] = useState('Person Details');
+    const [activeTab3, setActiveTab3] = useState('sequences');
+
     const [accounts, setAccounts] = useState([
         {
             id: 1,
@@ -47,6 +51,243 @@ export const Acciq = () => {
         }
     ]);
 
+    
+
+    const ICPIdentificationPlatform = () => {
+
+        const tabs2 = ['Person Details', 'Department Insights', 'Department Dynamics', 'Buying Committee', 'Tech Stack'];
+
+        return (
+            <div className="flex flex-col bg-gray-50">
+                <div className="flex-1 overflow-hidden">
+                    <div className="p-4">
+                        <div className="mb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="bg-black text-white w-8 h-8 flex items-center justify-center rounded-md">B</div>
+                                <div>
+                                    <div className="text-sm font-medium">Brex</div>
+                                    <div className="text-xs text-gray-500">Key Decision Makers</div>
+                                </div>
+                                <div className="ml-auto">
+                                    <button className="bg-indigo-600 text-white text-xs py-1 px-3 rounded-full">Prospect</button>
+                                    <button className="border border-gray-300 text-gray-600 text-xs py-1 px-3 rounded-full ml-2">Export</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex space-x-2 mb-4 text-xs">
+                            {tabs2.map(tab => (
+                                <button
+                                    key={tab}
+                                    className={`px-2 py-1 rounded-lg ${activeTab2 === tab ? 'bg-indigo-100 text-indigo-700' : 'text-gray-500'}`}
+                                    onClick={() => setActiveTab2(tab)}
+                                >
+                                    {tab}
+                                </button>
+                            ))}
+                        </div>
+                        <div className="grid grid-cols-3 gap-6">
+                            <div className="col-span-1">
+                                <div className="space-y-3">
+                                    <div className="bg-white rounded-lg shadow p-3 border-l-4 border-blue-500">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs text-blue-600">LP</div>
+                                            <div>
+                                                <div className="text-sm font-medium">Lloyd C</div>
+                                                <div className="text-xs text-gray-500">Head of Information Technology</div>
+                                            </div>
+                                            <div className="ml-auto text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-600">IT Department</div>
+                                        </div>
+                                        <div className="text-xs mt-2 flex justify-between">
+                                            <span className="text-green-500">90% Match Rate</span>
+                                            <span>Very Likely To Reply</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-white rounded-lg shadow p-3">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-xs text-purple-600">PE</div>
+                                            <div>
+                                                <div className="text-sm font-medium">Paige Edwards</div>
+                                                <div className="text-xs text-gray-500">Director, Workplace and Employee Experience</div>
+                                            </div>
+                                            <div className="ml-auto text-xs px-2 py-0.5 rounded-full bg-purple-100 text-purple-600">HR & Operations</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-white rounded-lg shadow p-3">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center text-xs text-red-600">CM</div>
+                                            <div>
+                                                <div className="text-sm font-medium">Candela Mateo</div>
+                                                <div className="text-xs text-gray-500">Chief Operating Officer</div>
+                                                <div className="flex items-center mt-1">
+                                                    <Star size={12} className="text-yellow-400 fill-yellow-400" />
+                                                    <span className="text-xs text-red-600 ml-1">Match Your Target</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Lloyd Profile Card */}
+                                <div className="mt-6 bg-white rounded-lg shadow p-6">
+                                    <div className="flex items-start">
+                                        <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400">
+                                            LC
+                                        </div>
+                                        <div className="ml-4">
+                                            <h3 className="font-semibold">Lloyd C</h3>
+                                            <p className="text-sm text-gray-600">Head of Information Technology</p>
+                                            <p className="text-xs text-gray-500 mt-1">Brex • San Francisco, CA</p>
+
+                                            <div className="mt-3 flex items-center">
+                                                <button className="bg-indigo-600 text-white text-xs py-1 px-3 rounded-md">View</button>
+                                                <button className="border border-gray-200 text-xs py-1 px-3 rounded-md ml-2">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-6">
+                                        <h4 className="text-xs text-gray-500 uppercase font-medium mb-2">CONTACT DETAILS</h4>
+                                        <div className="space-y-3">
+                                            <div className="flex items-center text-sm">
+                                                <Info size={16} className="text-gray-400 mr-2" />
+                                                <span>lloyd.c@brex.com</span>
+                                            </div>
+                                            <div className="flex items-center text-sm">
+                                                <Info size={16} className="text-gray-400 mr-2" />
+                                                <span>+1 (415) 555-1234</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-6">
+                                        <h4 className="text-xs text-gray-500 uppercase font-medium mb-2">BACKGROUND</h4>
+                                        <p className="text-sm text-gray-600">
+                                            Leads the IT department at Brex, focusing on digital transformation initiatives to improve operational efficiency across the organization.
+                                        </p>
+
+                                        <div className="mt-4 flex text-xs text-gray-500 divide-x divide-gray-200">
+                                            <span className="pr-2">Brex • 3 years</span>
+                                            <span className="px-2">Previously: GitLab</span>
+                                            <span className="pl-2">Stanford • CS</span>
+                                        </div>
+
+                                        <div className="mt-4 flex text-xs text-gray-500">
+                                            <span className="pr-2">Agile Certification</span>
+                                            <span className="px-2">Cloud Computing</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Right Column - AI Generated Insights */}
+                            <div className="col-span-2">
+                                <div className="bg-white rounded-lg shadow p-6">
+                                    <h3 className="font-semibold">AI Generated Insights</h3>
+
+                                    <div className="mt-6">
+                                        <div className="border border-gray-200 rounded-lg p-4">
+                                            <h4 className="font-medium mb-2">Role in Buying Committee</h4>
+                                            <p className="text-sm text-gray-600">
+                                                Lloyd is a key decision maker in the IT department. He would be responsible for IT strategy, managing IT consultants, and working with the vendor management team.
+                                            </p>
+
+                                            <div className="mt-4 bg-blue-50 border border-blue-100 rounded-lg p-3">
+                                                <p className="text-sm text-blue-800">
+                                                    "I'm constantly looking for solutions that can help us streamline operations and improve productivity."
+                                                </p>
+                                            </div>
+
+                                            <div className="mt-4">
+                                                <h5 className="font-medium text-sm mb-2">Responsibilities & Pain Points</h5>
+                                                <ul className="text-sm text-gray-600 space-y-2">
+                                                    <li className="flex items-start">
+                                                        <CheckCircle2 size={16} className="text-green-500 mr-2 mt-0.5" />
+                                                        <span>Implementing IT infrastructure with amazing reliability</span>
+                                                    </li>
+                                                    <li className="flex items-start">
+                                                        <CheckCircle2 size={16} className="text-green-500 mr-2 mt-0.5" />
+                                                        <span>Balancing security concerns with user productivity</span>
+                                                    </li>
+                                                    <li className="flex items-start">
+                                                        <CheckCircle2 size={16} className="text-green-500 mr-2 mt-0.5" />
+                                                        <span>Governance / Security and compliance initiatives</span>
+                                                    </li>
+                                                    <li className="flex items-start">
+                                                        <CheckCircle2 size={16} className="text-green-500 mr-2 mt-0.5" />
+                                                        <span>Supporting from operations with outdated IT processes</span>
+                                                    </li>
+                                                    <li className="flex items-start">
+                                                        <CheckCircle2 size={16} className="text-green-500 mr-2 mt-0.5" />
+                                                        <span>Sluggish team collaboration across global offices</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div className="mt-6">
+                                                <h5 className="font-medium text-sm mb-2">AI Recommended Approach</h5>
+                                                <p className="text-sm text-gray-600 mb-4">
+                                                    Focus on how your solution helps streamline internal communication and enhances team collaboration through centralized data repositories. Emphasize time savings, operational efficiencies, better data security features, and integration capabilities with their existing tech stack.
+                                                </p>
+
+                                                <div className="bg-green-50 border border-green-100 rounded-lg p-3">
+                                                    <p className="text-sm text-green-800">
+                                                        <span className="font-medium">Suggested conversation starter:</span> "The ACME toolkit might be especially helpful for organizations like yours planning to scale their infrastructure to support this growth?"
+                                                    </p>
+                                                </div>
+
+                                                <div className="mt-4 bg-orange-50 border border-orange-100 rounded-lg p-3">
+                                                    <p className="text-sm text-orange-800">
+                                                        <span className="font-medium">Common objection warning:</span> Most challenges you may face with team collaboration across different regions.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-3 gap-6 mt-6">
+                                    <div className="bg-white rounded-lg shadow p-4 flex flex-col">
+                                        <div className="flex items-center mb-3">
+                                            <Search size={16} className="text-indigo-600 mr-2" />
+                                            <h4 className="text-sm font-medium">Advanced Contact Discovery</h4>
+                                        </div>
+                                        <p className="text-xs text-gray-500 flex-1">
+                                            Automatically identify and profile key decision makers based on signal fit and role.
+                                        </p>
+                                        <ChevronRight size={16} className="text-gray-400 self-end mt-2" />
+                                    </div>
+
+                                    <div className="bg-white rounded-lg shadow p-4 flex flex-col">
+                                        <div className="flex items-center mb-3">
+                                            <Users size={16} className="text-purple-600 mr-2" />
+                                            <h4 className="text-sm font-medium">Committee Mapping</h4>
+                                        </div>
+                                        <p className="text-xs text-gray-500 flex-1">
+                                            Map entire organizational hierarchies and decision-making structure with precision.
+                                        </p>
+                                        <ChevronRight size={16} className="text-gray-400 self-end mt-2" />
+                                    </div>
+
+                                    <div className="bg-white rounded-lg shadow p-4 flex flex-col">
+                                        <div className="flex items-center mb-3">
+                                            <Globe size={16} className="text-green-600 mr-2" />
+                                            <h4 className="text-sm font-medium">Integrated Engagement Guidance</h4>
+                                        </div>
+                                        <p className="text-xs text-gray-500 flex-1">
+                                            Get AI-personalized outreach recommendations to boost to-field contacts rate and pitch rate.
+                                        </p>
+                                        <ChevronRight size={16} className="text-gray-400 self-end mt-2" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     const CustomerIntelligenceReport = () => {
         return (
@@ -530,12 +771,22 @@ export const Acciq = () => {
                                 Intelligence Report
                             </div>
                         </button>
+                        <button
+                            className={`px-3 py-1 text-xs rounded-md ${activeTab === "ICP Identification Platform" ? "bg-blue-100 text-blue-700" : "text-gray-600 hover:bg-gray-100"}`}
+                            onClick={() => setActiveTab("ICP Identification Platform")}
+                        >
+                            <div className="flex items-center">
+                                <TrendingUp size={14} className="mr-1" />
+                                ICP Identification Platform
+                            </div>
+                        </button>
                     </div>
                 </div>
             </header>
             <main>
                 {activeTab === 'Customer Dashboard' && CustomerDashboard()}
                 {activeTab === 'Customer Intelligence Report' && CustomerIntelligenceReport()}
+                {activeTab === 'ICP Identification Platform' && ICPIdentificationPlatform()}
             </main>
         </div>
     )

@@ -5,6 +5,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import { PieChart, Pie, Cell } from 'recharts';
 import {
     LayoutDashboard,
+    UserCheck2Icon,
     Car,
     Stethoscope,
     Laptop,
@@ -756,6 +757,12 @@ export const Coal = () => {
                         icon={<Handshake />}
                         label="Supplier IQ"
                         onClick={() => navigate('/supiq')}
+                    />
+
+                    <SidebarItem
+                        icon={<UserCheck2Icon />}
+                        label="Account IQ"
+                        onClick={() => navigate('/acciq')}
                     />
 
                     <div className="absolute bottom-0 w-full p-2">

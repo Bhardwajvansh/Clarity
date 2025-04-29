@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
     LayoutDashboard,
+    UserCheck2Icon,
     Car,
     Stethoscope,
     Laptop,
@@ -18,6 +19,7 @@ import {
 } from "lucide-react";
 import { Footer } from "../Footer/Footer";
 import StrategicDashboard from "./Stdashboard";
+import { AutomotiveDashboard } from "./Supdash1";
 
 const COLORS = [
     '#8A4FFF',
@@ -244,6 +246,12 @@ export const Stdashnav = () => {
                         onClick={() => navigate('/supiq')}
                     />
 
+                    <SidebarItem
+                        icon={<UserCheck2Icon />}
+                        label="Account IQ"
+                        onClick={() => navigate('/acciq')}
+                    />
+
                     <div className="absolute bottom-0 w-full p-2">
                         <SidebarItem
                             icon={<LogOut />}
@@ -264,7 +272,8 @@ export const Stdashnav = () => {
                 `}
             >
                 <div>
-                    <StrategicDashboard />
+                    {/* <StrategicDashboard /> */}
+                    <AutomotiveDashboard />
                 </div>
             </div>
         </>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
     LayoutDashboard,
+    UserCheck2Icon,
     Car,
     Stethoscope,
     Laptop,
@@ -239,6 +240,12 @@ export const Cdashnav = () => {
                         icon={<Handshake />}
                         label="Supplier IQ"
                         onClick={() => navigate('/supiq')}
+                    />
+
+                    <SidebarItem
+                        icon={<UserCheck2Icon />}
+                        label="Account IQ"
+                        onClick={() => navigate('/acciq')}
                     />
 
                     <div className="absolute bottom-0 w-full p-2">

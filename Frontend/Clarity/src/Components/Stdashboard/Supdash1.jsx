@@ -606,6 +606,14 @@ export const AutomotiveDashboard = () => {
             { name: 'Premium Tech', x: 75, y: 25, color: '#8b5cf6' }
         ];
 
+        const brandSentimentData = [
+            { name: 'TechBrand', value: 85, color: '#22c55e' },
+            { name: 'FoodCo', value: 65, color: '#3b82f6' },
+            { name: 'RetailX', value: 80, color: '#9ca3af' },
+            { name: 'ElectroGoods', value: -35, color: '#e5e7eb' },
+            { name: 'AutoParts', value: -75, color: '#ef4444' }
+        ];
+
         return (
             <div className="flex flex-col h-screen bg-gray-50 text-gray-800 font-sans">
                 <div className="p-6 pb-0">
@@ -1090,10 +1098,48 @@ export const AutomotiveDashboard = () => {
                                         <MoreHorizontal size={18} />
                                     </button>
                                 </div>
-                                <div className="h-48 bg-gray-50 rounded-md">
-                                    {/* PLACE YOUR BRAND IQ MINI CONTENT HERE */}
+                                <div className="bg-gray-50 rounded-md">
                                     <div className="w-full h-full opacity-80 p-2">
-                                        {/* This is where you'll insert your sentiment analysis preview */}
+                                        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mx-auto">
+                                            <div>
+                                                <h1 className="text-xl font-bold text-gray-800">Brand IQ</h1>
+                                                <h2 className="text-lg font-medium text-gray-700 mt-1 border-b-2 border-gray-500 inline-block pb-1">News Sentiment Analysis</h2>
+                                            </div>
+                                            <br />
+                                            <div className="flex justify-between items-end h-64 mb-2">
+                                                {brandSentimentData.map((brand, idx) => (
+                                                    <div key={idx} className="flex flex-col items-center w-1/5">
+                                                        <div className="h-48 flex items-end justify-center w-full">
+                                                            <div
+                                                                className="w-16 rounded-t-md"
+                                                                style={{
+                                                                    height: `${Math.abs(brand.value) * 0.45}%`,
+                                                                    backgroundColor: brand.color
+                                                                }}
+                                                            ></div>
+                                                        </div>
+                                                        <div className="mt-2 text-sm text-center">{brand.name}</div>
+                                                        <div className={`mt-1 font-medium ${brand.value > 0 ? 'text-green-500' : brand.value < 0 ? 'text-red-500' : 'text-gray-500'}`}>
+                                                            {brand.value > 0 ? '+' : ''}{brand.value}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <div className="flex justify-center items-center text-xs text-gray-600 space-x-4 mt-4">
+                                                <div className="flex items-center">
+                                                    <div className="w-3 h-3 rounded-full bg-red-500 mr-1"></div>
+                                                    <span>Very Negative</span>
+                                                </div>
+                                                <div className="flex items-center">
+                                                    <div className="w-3 h-3 rounded-full bg-gray-400 mr-1"></div>
+                                                    <span>Neutral</span>
+                                                </div>
+                                                <div className="flex items-center">
+                                                    <div className="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
+                                                    <span>Very Positive</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

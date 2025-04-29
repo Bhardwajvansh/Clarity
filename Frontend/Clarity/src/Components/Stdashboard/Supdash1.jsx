@@ -12,12 +12,19 @@ import {
     Cpu,
     MapPin,
     ShieldAlert,
-    Zap
+    Zap,
+    Users,
+    Star,
+    Award,
+    Target,
+    Flag,
+    AlertCircle,
 } from "lucide-react";
 import { useEffect } from "react";
 import { Home, Bell, Settings, Search, MoreHorizontal, ChevronDown, Hexagon, PieChart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { X, Info, ArrowRight, ArrowUpRight, ArrowDownRight, Download, LightbulbIcon } from 'lucide-react';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveContainer } from 'recharts';
 
 
 const Landingdash = () => {
@@ -591,6 +598,14 @@ export const AutomotiveDashboard = () => {
             }
         ];
 
+        const competitorData = [
+            { name: 'Your Company', x: 55, y: 65, color: '#2563eb' },
+            { name: 'Innovate Corp', x: 85, y: 75, color: '#10b981' },
+            { name: 'TechDisruptor', x: 65, y: 45, color: '#f59e0b' },
+            { name: 'Global Solutions', x: 35, y: 35, color: '#ef4444' },
+            { name: 'Premium Tech', x: 75, y: 25, color: '#8b5cf6' }
+        ];
+
         return (
             <div className="flex flex-col h-screen bg-gray-50 text-gray-800 font-sans">
                 <div className="p-6 pb-0">
@@ -856,7 +871,126 @@ export const AutomotiveDashboard = () => {
                                 </div>
                                 <div className=" bg-gray-50 rounded-md">
                                     <div className="w-full h-full opacity-80 p-2">
-                                        {/* This is where you'll insert your radar chart preview */}
+                                        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mx-auto">
+                                            <div>
+                                                <h1 className="text-xl font-bold text-gray-800">Competitor Analysis</h1>
+                                                <h2 className="text-lg font-medium text-gray-700 mt-1 border-b-2 border-orange-400 inline-block pb-1">Service & Client Alignment RADAR</h2>
+                                            </div>
+                                            {/* <div className="border border-gray-200 w-full rounded-lg p-4 bg-gray-50">
+                                                <h3 className="text-base font-medium mb-2">Competitive Positioning RADAR</h3>
+                                                <div className="h-80">
+                                                    <ResponsiveContainer width="100%" height="100%">
+                                                        <ScatterChart
+                                                            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                                                        >
+                                                            <CartesianGrid strokeDasharray="3 3" />
+                                                            <XAxis
+                                                                type="number"
+                                                                dataKey="x"
+                                                                name="Market Coverage"
+                                                                domain={[0, 100]}
+                                                                label={{ value: 'Market Coverage', position: 'bottom', offset: 0 }}
+                                                                axisLine={{ stroke: '#E5E7EB' }}
+                                                                tick={{ fill: '#6B7280', fontSize: 10 }}
+                                                            />
+                                                            <YAxis
+                                                                type="number"
+                                                                dataKey="y"
+                                                                name="Client Engagement"
+                                                                domain={[0, 100]}
+                                                                label={{ value: 'High Client Engagement', position: 'left', angle: -90, offset: 10 }}
+                                                                axisLine={{ stroke: '#E5E7EB' }}
+                                                                tick={{ fill: '#6B7280', fontSize: 10 }}
+                                                            />
+                                                            <Tooltip
+                                                                formatter={(value, name) => [value, name]}
+                                                                labelFormatter={() => ''}
+                                                                content={({ payload }) => {
+                                                                    if (payload && payload.length) {
+                                                                        const data = payload[0].payload;
+                                                                        return (
+                                                                            <div className="bg-white p-2 border border-gray-200 shadow-sm rounded">
+                                                                                <p className="font-medium text-sm">{data.name}</p>
+                                                                                <p className="text-xs text-gray-600">Market Coverage: {data.x}%</p>
+                                                                                <p className="text-xs text-gray-600">Client Engagement: {data.y}%</p>
+                                                                                <p className="text-xs text-gray-500 mt-1">{getQuadrantName(data.x, data.y)}</p>
+                                                                            </div>
+                                                                        );
+                                                                    }
+                                                                    return null;
+                                                                }}
+                                                            />
+                                                            <Scatter data={competitorData}>
+                                                                {competitorData.map((entry, index) => (
+                                                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                                                ))}
+                                                            </Scatter>
+                                                        </ScatterChart>
+                                                    </ResponsiveContainer>
+                                                </div>
+                                                <div className="flex items-center text-xs text-gray-500 mt-4">
+                                                    <Info size={14} className="mr-1" />
+                                                    <span>Distance from center indicates stronger performance in each dimension</span>
+                                                </div>
+                                            </div> */}
+                                            <br />
+                                            <div className="border border-gray-200 w-full rounded-lg p-4 bg-gray-50">
+                                                <h3 className="text-base font-medium mb-2">Service & Client Alignment Matrix</h3>
+                                                <div className="h-80 relative">
+                                                    <div className="absolute inset-0 grid grid-cols-2 grid-rows-2">
+                                                        <div className="border-r border-b border-gray-200 bg-blue-50 flex items-center justify-center">
+                                                            <div className="text-center p-4">
+                                                                <Star className="text-blue-500 mx-auto mb-2" size={20} />
+                                                                <p className="text-sm font-medium">Market Leaders</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="border-b border-gray-200 bg-green-50 flex items-center justify-center">
+                                                            <div className="text-center p-4">
+                                                                <Award className="text-green-500 mx-auto mb-2" size={20} />
+                                                                <p className="text-sm font-medium">Service Innovators</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="border-r border-gray-200 bg-yellow-50 flex items-center justify-center">
+                                                            <div className="text-center p-4">
+                                                                <Users className="text-yellow-500 mx-auto mb-2" size={20} />
+                                                                <p className="text-sm font-medium">Client Centric</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="bg-red-50 flex items-center justify-center">
+                                                            <div className="text-center p-4">
+                                                                <Target className="text-red-500 mx-auto mb-2" size={20} />
+                                                                <p className="text-sm font-medium">Commodity Players</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {competitorData.map((comp, idx) => {
+                                                        const posX = (comp.x / 100) * 100 + '%';
+                                                        const posY = (1 - comp.y / 100) * 100 + '%';
+
+                                                        return (
+                                                            <div
+                                                                key={idx}
+                                                                className="absolute w-3 h-3 rounded-full transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+                                                                style={{
+                                                                    left: posX,
+                                                                    top: posY,
+                                                                    backgroundColor: comp.color,
+                                                                }}
+                                                                title={comp.name}
+                                                            />
+                                                        );
+                                                    })}
+
+                                                    <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-500">
+                                                        <span>← Low Service Alignment</span>
+                                                        <span>High Service Alignment →</span>
+                                                    </div>
+                                                </div>
+                                                <div className="flex justify-center text-xs text-gray-500 mt-4">
+                                                    <span>Client Engagement</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -875,10 +1009,69 @@ export const AutomotiveDashboard = () => {
                                         <MoreHorizontal size={18} />
                                     </button>
                                 </div>
-                                <div className="h-48 bg-gray-50 rounded-md">
-                                    {/* PLACE YOUR VENDOR RISK ANALYSIS MINI CONTENT HERE */}
+                                <div className="bg-gray-50 rounded-md">
                                     <div className="w-full h-full opacity-80 p-2">
-                                        {/* This is where you'll insert your bar chart preview */}
+                                        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mx-auto">
+                                            <div>
+                                                <h1 className="text-xl font-bold text-gray-800">Vendor Risk Analysis</h1>
+                                                <h2 className="text-lg font-medium text-gray-700 mt-1 border-b-2 border-gray-500 inline-block pb-1">Supply Chain Risk & Spend Contribution</h2>
+                                            </div>
+                                            <br />
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                                <div className="border border-gray-200 rounded-lg p-4 bg-white">
+                                                    <h3 className="text-xs text-gray-500 mb-2">Risk Score</h3>
+                                                    <div className="flex items-center mb-1">
+                                                        <AlertTriangle size={18} className="text-yellow-600 mr-2" />
+                                                        <span className="text-3xl font-bold text-gray-800">64</span>
+                                                    </div>
+                                                    <p className="text-xs text-gray-500">Medium Risk</p>
+                                                </div>
+                                                <div className="border border-gray-200 rounded-lg p-4 bg-white relative">
+                                                    <div className="absolute top-4 right-4">
+                                                        <div className="p-2 bg-red-100 rounded-full">
+                                                            <Flag size={16} className="text-red-500" />
+                                                        </div>
+                                                    </div>
+                                                    <h3 className="text-xs text-gray-500 mb-2">Critical Suppliers</h3>
+                                                    <div className="flex items-center mb-1">
+                                                        <span className="text-3xl font-bold text-gray-800">7</span>
+                                                    </div>
+                                                    <div className="flex justify-between">
+                                                        <p className="text-xs text-gray-500">Total Suppliers</p>
+                                                        <p className="text-xs text-gray-500">25</p>
+                                                    </div>
+                                                    <p className="text-xs text-red-500">28% of all suppliers</p>
+                                                </div>
+                                                <div className="border border-gray-200 rounded-lg p-4 bg-white relative">
+                                                    <div className="absolute top-4 right-4">
+                                                        <div className="p-2 bg-red-100 rounded-full">
+                                                            <AlertCircle size={16} className="text-red-500" />
+                                                        </div>
+                                                    </div>
+                                                    <h3 className="text-xs text-gray-500 mb-2">High Risk Vendors</h3>
+                                                    <div className="flex items-center mb-1">
+                                                        <span className="text-3xl font-bold text-gray-800">5</span>
+                                                    </div>
+                                                    <p className="text-xs text-red-500">20% of all vendors</p>
+                                                </div>
+                                                <div className="border border-gray-200 rounded-lg p-4 bg-white relative">
+                                                    <div className="absolute top-4 right-4">
+                                                        <div className="p-2 bg-blue-100 rounded-full">
+                                                            <AlertCircle size={16} className="text-blue-500" />
+                                                        </div>
+                                                    </div>
+                                                    <h3 className="text-xs text-gray-500 mb-2">Risk Incidents</h3>
+                                                    <div className="flex items-center mb-1">
+                                                        <span className="text-3xl font-bold text-gray-800">14</span>
+                                                    </div>
+                                                    <div className="flex justify-between">
+                                                        <p className="text-xs text-gray-500">Previous Period</p>
+                                                        <p className="text-xs text-gray-500">19</p>
+                                                    </div>
+                                                    <p className="text-xs text-green-500">↓ 26% decrease</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

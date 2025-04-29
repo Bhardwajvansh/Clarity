@@ -4,6 +4,7 @@ import { BarChart2, TrendingUp } from 'lucide-react'
 import { Search, Plus, Filter, ArrowUpRight, ChevronDown, MoreHorizontal, AlertCircle, Database, BarChart, LineChart, Bell } from 'lucide-react';
 import { Info, ExternalLink, ChevronRight, Lightbulb, BookOpen, Users } from 'lucide-react';
 import { Globe, Star, CheckCircle2, Clipboard, ArrowRight, ThumbsUp } from 'lucide-react';
+import { MessageSquare, Phone, PieChart, Mail, Linkedin, Trash2, Edit3 } from 'lucide-react';
 
 
 export const Acciq = () => {
@@ -51,7 +52,345 @@ export const Acciq = () => {
         }
     ]);
 
-    
+    const OutreachAutomation = () => {
+        return (
+            <div className="bg-white min-h-screen p-6 font-sans">
+                <div className="flex mb-6 border-b border-gray-300">
+                    <button
+                        className={`px-4 py-2 ${activeTab3 === 'sequences' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}
+                        onClick={() => setActiveTab3('sequences')}
+                    >
+                        Sequences
+                    </button>
+                    <button
+                        className={`px-4 py-2 ${activeTab3 === 'templates' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}
+                        onClick={() => setActiveTab3('templates')}
+                    >
+                        Templates
+                    </button>
+                    <button
+                        className={`px-4 py-2 ${activeTab3 === 'analytics' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'}`}
+                        onClick={() => setActiveTab3('analytics')}
+                    >
+                        Analytics
+                    </button>
+                    <div className="ml-auto">
+                        <button className="flex items-center gap-1 px-3 py-1 bg-blue-600 text-white rounded-md">
+                            <Plus size={16} />
+                            <span>New Campaign</span>
+                        </button>
+                    </div>
+                </div>
+                <div className="flex gap-6">
+                    <div className="w-2/3 border border-gray-300 rounded-lg overflow-hidden">
+                        <div className="bg-gray-50 p-4 border-b border-gray-300">
+                            <div className="flex justify-between items-center">
+                                <div>
+                                    <h2 className="font-semibold">Bex $235M Expansion Campaign</h2>
+                                    <p className="text-xs text-gray-500">Designed for Bex's expansion initiative</p>
+                                </div>
+                                <button className="px-3 py-1 bg-blue-600 text-white rounded-md text-sm">Activate Campaign</button>
+                            </div>
+                        </div>
+                        <div className="p-4">
+                            <div className="flex gap-4 mb-6">
+                                <div className="flex flex-col items-center">
+                                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                        <span className="text-sm">1</span>
+                                    </div>
+                                    <div className="h-full w-0.5 bg-gray-200 mt-2"></div>
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="bg-blue-100 rounded-full p-1">
+                                            <Mail size={16} className="text-blue-600" />
+                                        </div>
+                                        <span className="font-medium">Email</span>
+                                        <div className="ml-auto text-xs text-gray-500">Day 1</div>
+                                        <div className="flex">
+                                            <button className="text-gray-400 hover:text-gray-600">
+                                                <Edit3 size={16} />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className="border border-gray-300 rounded-lg p-4 bg-gray-50 mb-2">
+                                        <div className="mb-2">
+                                            <div className="flex justify-between mb-1">
+                                                <div className="font-medium">Initial Outreach</div>
+                                                <div className="flex gap-1">
+                                                    <span className="text-xs px-1 rounded bg-blue-100 text-blue-600">Draft</span>
+                                                </div>
+                                            </div>
+                                            <div className="text-xs text-gray-500">Subject: Congratulations on Bex's $235M Credit Line</div>
+                                        </div>
+                                        <div className="text-sm text-gray-700 mb-3">
+                                            <p className="mb-2">Hi [First_Name],</p>
+                                            <p className="mb-2">Congratulations on securing a $235M credit facility to expand operations! This is quite the achievement and speaks to your significant growth plans. This can sometimes present new internal challenges and that's why our team has been...</p>
+                                            <p className="mb-2">Would you be open to a brief conversation about how we could support your expansion?</p>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <button className="px-2 py-1 bg-gray-200 rounded text-xs">Send Preview</button>
+                                            <button className="px-2 py-1 bg-blue-100 text-blue-600 rounded text-xs">Customize</button>
+                                            <button className="px-2 py-1 bg-green-100 text-green-600 rounded text-xs">AI Rewrite</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex gap-4 mb-6">
+                                <div className="flex flex-col items-center">
+                                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                        <span className="text-sm">2</span>
+                                    </div>
+                                    <div className="h-full w-0.5 bg-gray-200 mt-2"></div>
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="bg-blue-100 rounded-full p-1">
+                                            <Linkedin size={16} className="text-blue-600" />
+                                        </div>
+                                        <span className="font-medium">LinkedIn</span>
+                                        <div className="ml-auto text-xs text-gray-500">Day 3</div>
+                                        <div className="flex">
+                                            <button className="text-gray-400 hover:text-gray-600">
+                                                <Edit3 size={16} />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className="border border-gray-300 rounded-lg p-4 bg-gray-50 mb-2">
+                                        <div className="mb-2">
+                                            <div className="flex justify-between mb-1">
+                                                <div className="font-medium">LinkedIn Connection</div>
+                                                <div className="flex gap-1">
+                                                    <span className="text-xs px-1 rounded bg-blue-100 text-blue-600">Draft</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="text-sm text-gray-700 mb-3">
+                                            <p className="mb-2">Hi [First_Name], I reached out via email regarding your expansion plans. I'd love to connect and share some insights on how other companies like yours manage transformation during growth phases.</p>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <button className="px-2 py-1 bg-gray-200 rounded text-xs">Send Preview</button>
+                                            <button className="px-2 py-1 bg-green-100 text-green-600 rounded text-xs">AI Rewrite</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex gap-4 mb-6">
+                                <div className="flex flex-col items-center">
+                                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                        <span className="text-sm">3</span>
+                                    </div>
+                                    <div className="h-full w-0.5 bg-gray-200 mt-2"></div>
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="bg-blue-100 rounded-full p-1">
+                                            <Phone size={16} className="text-blue-600" />
+                                        </div>
+                                        <span className="font-medium">Follow-up Call</span>
+                                        <div className="ml-auto text-xs text-gray-500">Day 5</div>
+                                        <div className="flex">
+                                            <button className="text-gray-400 hover:text-gray-600">
+                                                <Edit3 size={16} />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className="border border-gray-300 rounded-lg p-4 bg-gray-50 mb-2">
+                                        <div className="mb-2">
+                                            <div className="flex justify-between mb-1">
+                                                <div className="font-medium">Call Script</div>
+                                            </div>
+                                        </div>
+                                        <div className="text-sm text-gray-700 mb-3">
+                                            <ul className="list-disc pl-5 space-y-1">
+                                                <li>Introduce yourself and reference previous outreach</li>
+                                                <li>Congratulate on credit facility and expansion plans</li>
+                                                <li>Ask about current communication challenges with teams</li>
+                                                <li>Discuss relevance of our platform</li>
+                                                <li>Share short case study of similar client's success</li>
+                                                <li>Suggest a formal demo with their team</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex gap-4 mb-6">
+                                <div className="flex flex-col items-center">
+                                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                        <span className="text-sm">4</span>
+                                    </div>
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <div className="bg-blue-100 rounded-full p-1">
+                                            <Mail size={16} className="text-blue-600" />
+                                        </div>
+                                        <span className="font-medium">Email</span>
+                                        <div className="ml-auto text-xs text-gray-500">Day 7</div>
+                                    </div>
+
+                                    <div className="border rounded-lg p-4 bg-gray-50 mb-2 border-dashed flex items-center justify-center">
+                                        <button className="flex items-center gap-1 text-gray-500">
+                                            <Plus size={16} />
+                                            <span>Add follow-up message</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex justify-center mt-6">
+                                <button className="flex items-center gap-1 px-3 py-1 border border-gray-300 rounded-md text-gray-600">
+                                    <Plus size={16} />
+                                    <span>Add Step</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-1/3">
+                        <div className="border border-gray-300 rounded-lg mb-6">
+                            <div className="p-4 border-b border-gray-300">
+                                <h3 className="font-medium">Campaign Targets</h3>
+                            </div>
+                            <div className="p-4">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <input type="checkbox" id="target1" checked />
+                                    <label htmlFor="target1" className="text-sm font-medium">Target 1</label>
+                                    <div className="ml-auto">
+                                        <div className="flex items-center gap-2">
+                                            <div className="h-6 w-6 rounded-full bg-violet-100 flex items-center justify-center">
+                                                <span className="text-xs text-violet-600">HL</span>
+                                            </div>
+                                            <span className="text-sm">Hugo Lynch</span>
+                                            <ChevronDown size={16} className="text-gray-400" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <input type="checkbox" id="target2" checked />
+                                    <label htmlFor="target2" className="text-sm font-medium">Target 2</label>
+                                    <div className="ml-auto">
+                                        <div className="flex items-center gap-2">
+                                            <div className="h-6 w-6 rounded-full bg-green-100 flex items-center justify-center">
+                                                <span className="text-xs text-green-600">CM</span>
+                                            </div>
+                                            <span className="text-sm">Camila Moreno</span>
+                                            <ChevronDown size={16} className="text-gray-400" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className="w-full mt-4 text-sm text-blue-600">+ Add Contact</button>
+                            </div>
+                        </div>
+                        <div className="border border-gray-300 rounded-lg mb-6">
+                            <div className="p-4 border-b border-gray-300">
+                                <h3 className="font-medium">Campaign Timeline</h3>
+                                <p className="text-xs text-gray-500">4 contacts</p>
+                            </div>
+                            <div className="p-4">
+                                <div className="grid grid-cols-3 text-center text-xs text-gray-500 mb-2">
+                                    <div>Time Span</div>
+                                    <div>Response Rate</div>
+                                    <div>Delivery Status</div>
+                                </div>
+                                <div className="grid grid-cols-3 text-center">
+                                    <div>-</div>
+                                    <div>-</div>
+                                    <div>-</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="border border-gray-300 rounded-lg mb-6">
+                            <div className="p-4 border-b border-gray-300 bg-blue-50 flex justify-between items-center">
+                                <div className="flex items-center gap-2">
+                                    <div className="h-6 w-6 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <MessageSquare size={16} className="text-blue-600" />
+                                    </div>
+                                    <h3 className="font-medium">AI Messaging Assistant</h3>
+                                </div>
+                                <button className="px-2 py-1 bg-blue-600 text-white rounded text-xs">Enable</button>
+                            </div>
+                            <div className="p-4">
+                                <p className="text-sm text-gray-600 mb-4">
+                                    Our AI tool will auto-create custom intros and personalize messages to increase response rates. Our NLP models will analyze context to determine the perfect message timing during expansion phases.
+                                </p>
+                                <div className="bg-gray-50 p-3 rounded text-sm">
+                                    <p className="text-gray-600 mb-2"><strong>Managing Variations</strong></p>
+                                    <p className="text-gray-500">
+                                        Select to use pre-built message variations or create custom variations specified for core messaging while maintaining a cohesive brand.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="border border-gray-300 rounded-lg mb-6">
+                            <div className="p-4 border-b border-gray-300">
+                                <h3 className="font-medium">Common Steps Setup</h3>
+                            </div>
+                            <div className="p-4">
+                                <button className="block w-full text-left p-2 hover:bg-gray-50 text-sm">
+                                    Optimized Messages
+                                </button>
+                                <button className="block w-full text-left p-2 hover:bg-gray-50 text-sm">
+                                    Generic Messages
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex justify-between gap-4 items-center mt-12 pt-6">
+                    <div className="bg-white rounded-lg shadow p-4">
+                        <div className="flex items-center mb-3">
+                            <Users size={20} className="text-indigo-600 mr-2" />
+                            <h3 className="font-bold">Multi-Channel Outreach</h3>
+                        </div>
+                        <p className="text-gray-600 text-xs">
+                            Create complete outreach campaigns across email, LinkedIn and more with granular sequence follow-ups.
+                        </p>
+                    </div>
+                    <div className="bg-white rounded-lg shadow p-4">
+                        <div className="flex items-center mb-3">
+                            <MessageSquare size={20} className="text-indigo-600 mr-2" />
+                            <h3 className="font-bold">AI Messaging Support</h3>
+                        </div>
+                        <p className="text-gray-600 text-xs">
+                            Create personalized, contextually relevant messages using the same AI model that powers your sales target outputs.                        </p>
+                    </div>
+                    <div className="bg-white rounded-lg shadow p-4">
+                        <div className="flex items-center mb-3">
+                            <BarChart2 size={20} className="text-indigo-600 mr-2" />
+                            <h3 className="font-bold">Performance Analytics</h3>
+                        </div>
+                        <p className="text-gray-600 text-xs">
+                            Track engagement analytics and optimize outreach strategy with real-time performance insights.
+                        </p>
+                    </div>
+                    {/* <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-2">
+                            <div className="bg-purple-100 rounded-full p-1">
+                                <MessageSquare size={16} className="text-purple-600" />
+                            </div>
+                            <div className="text-xs">
+                                <div className="font-medium">AI Messaging Support</div>
+                                <div className="text-gray-500">Create personalized, contextually relevant messages using the same AI model that powers your sales target outputs.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-2">
+                            <div className="bg-green-100 rounded-full p-1">
+                                <BarChart2 size={16} className="text-green-600" />
+                            </div>
+                            <div className="text-xs">
+                                <div className="font-medium">Performance Analytics</div>
+                                <div className="text-gray-500">Track engagement analytics and optimize outreach strategy with real-time performance insights.</div>
+                            </div>
+                        </div>
+                    </div> */}
+                </div>
+            </div>
+        );
+    }
 
     const ICPIdentificationPlatform = () => {
 
@@ -776,8 +1115,17 @@ export const Acciq = () => {
                             onClick={() => setActiveTab("ICP Identification Platform")}
                         >
                             <div className="flex items-center">
-                                <TrendingUp size={14} className="mr-1" />
+                                <Star size={14} className="mr-1" />
                                 ICP Identification Platform
+                            </div>
+                        </button>
+                        <button
+                            className={`px-3 py-1 text-xs rounded-md ${activeTab === "Outreach Automation" ? "bg-blue-100 text-blue-700" : "text-gray-600 hover:bg-gray-100"}`}
+                            onClick={() => setActiveTab("Outreach Automation")}
+                        >
+                            <div className="flex items-center">
+                                <Users size={14} className="mr-1" />
+                                Outreach Automation
                             </div>
                         </button>
                     </div>
@@ -787,6 +1135,7 @@ export const Acciq = () => {
                 {activeTab === 'Customer Dashboard' && CustomerDashboard()}
                 {activeTab === 'Customer Intelligence Report' && CustomerIntelligenceReport()}
                 {activeTab === 'ICP Identification Platform' && ICPIdentificationPlatform()}
+                {activeTab === 'Outreach Automation' && OutreachAutomation()}
             </main>
         </div>
     )

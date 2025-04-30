@@ -298,7 +298,7 @@ export const AutoNav = () => {
                         ].map((item) => (
                             <a
                                 key={item.label}
-                                onClick={()=>navigate(item.href)}
+                                onClick={() => navigate(item.href)}
                                 className={`
                                     flex items-center 
                                     p-2 
@@ -342,181 +342,18 @@ export const AutoNav = () => {
 
     return (
         <>
-            <div
-                className={`
-                    fixed 
-                    left-0 
-                    top-0 
-                    h-full 
-                    bg-white 
-                    shadow-xl 
-                    transition-all 
-                    duration-300 
-                    ease-in-out
-                    z-50 
-                    group
-                    w-16 
-                    hover:w-64
-                `}
-                onMouseEnter={() => {
-                    setIsExpanded(true);
-                }}
-                onMouseLeave={() => {
-                    setIsExpanded(false);
-                    setClarityDropdownOpen(false);
-                }}
-            >
-                <div
-                    className="p-4 flex items-center justify-center h-16 border-b transition-all duration-500 ease-in-out"
-                    style={{ borderBottomColor: COLORS[0] }}
-                >
-                    <h1
-                        className="text-2xl font-bold tracking-wider transition-all duration-500 ease-in-out"
-                        style={{
-                            color: COLORS[0],
-                            transform: isExpanded ? 'scale(1)' : 'scale(0.8)',
-                            opacity: isExpanded ? 1 : 0.7
-                        }}
-                    >
-                        {isExpanded ? "Clarity" : "C"}
-                    </h1>
-                </div>
-
-                <div
-                    className="flex flex-col space-y-2 p-2"
-                    onMouseEnter={() => setIsExpanded(true)}
-                >
-                    <SidebarItem
-                        icon={<LayoutDashboard />}
-                        label="Dashboard"
-                        onClick={() => navigate('/dashboard')}
-                    />
-
-                    <SidebarItem
-                        icon={<Laptop />}
-                        label="Clarity"
-                        isDropdown={true}
-                        onClick={() => setClarityDropdownOpen(!clarityDropdownOpen)}
-                    />
-
-                    <SidebarItem
-                        icon={<Database />}
-                        label="Data Library"
-                        onClick={() => navigate('/data-library')}
-                    />
-
-                    <SidebarItem
-                        icon={<FileText />}
-                        label="Report Builder"
-                        onClick={() => navigate('/report-builder')}
-                    />
-
-                    <SidebarItem
-                        icon={<Bot />}
-                        label="AI Analyst"
-                        onClick={() => navigate('/ai-analyst')}
-                    />
-
-                    <SidebarItem
-                        icon={<UserRound />}
-                        label="Virtual Analyst Assistant"
-                        onClick={() => navigate('/virtual-analyst')}
-                    />
-
-                    <SidebarItem
-                        icon={<Handshake />}
-                        label="Supplier IQ"
-                        onClick={() => navigate('/supiq')}
-                    />
-
-                    <SidebarItem
-                        icon={<UserCheck2Icon />}
-                        label="Account IQ"
-                        onClick={() => navigate('/acciq')}
-                    />
-
-                    <div className="absolute bottom-0 w-full p-2">
-                        <SidebarItem
-                            icon={<LogOut />}
-                            label="Logout"
-                            onClick={handleLogout}
-                        />
-                    </div>
-                </div>
+            <div className="p-6">
+                {activeSection === 'dashboard' ? (
+                    <>
+                        <Parameters />
+                        <Market />
+                        <Specs />
+                    </>
+                ) : (
+                    MARKET_SECTIONS[activeSection].content
+                )}
             </div>
-
-            <div
-                className={`
-                    ml-16 
-                    transition-all 
-                    duration-500 
-                    ease-in-out
-                    ${isExpanded ? 'md:ml-64' : 'md:ml-16'}
-                `}
-            >
-                <div
-                    className="flex bg-[#8A4FFF]/20 p-4 space-x-4 shadow-sm overflow-x-auto whitespace-nowrap"
-                >
-                    <button
-                        onClick={() => setActiveSection('dashboard')}
-                        className={`
-                           px-4 
-                           py-2 
-                           rounded-md 
-                           transition-all 
-                           duration-300 
-                           text-sm 
-                           font-medium
-                           whitespace-nowrap
-                           truncate
-                           max-w-[200px]
-                           ${activeSection === 'dashboard'
-                                ? `bg-[#8A4FFF] text-white shadow-lg`
-                                : 'bg-white text-gray-700 hover:bg-gray-100 hover:shadow-md'}
-                       `}
-                    >
-                        Dashboard
-                    </button>
-                    {Object.keys(MARKET_SECTIONS).map((section) => (
-                        <button
-                            key={section}
-                            onClick={() => setActiveSection(section)}
-                            className={`
-                               px-4 
-                               py-2 
-                               rounded-md 
-                               transition-all 
-                               duration-300 
-                               text-sm 
-                               font-medium
-                               whitespace-nowrap
-                               truncate
-                               max-w-[200px]
-                               ${activeSection === section
-                                    ? `bg-[#8A4FFF] text-white shadow-lg`
-                                    : 'bg-white text-gray-700 hover:bg-gray-100 hover:shadow-md'}
-                           `}
-                        >
-                            {MARKET_SECTIONS[section].title}
-                        </button>
-                    ))}
-                </div>
-
-                {/* Content Area */}
-                <div className="p-6">
-                    {activeSection === 'dashboard' ? (
-                        <>
-                            <Parameters />
-                            <Market />
-                            <Specs />
-                        </>
-                    ) : (
-                        MARKET_SECTIONS[activeSection].content
-                    )}
-                </div>
-
-                <Footer />
-            </div>
+            <Footer />
         </>
     );
 };

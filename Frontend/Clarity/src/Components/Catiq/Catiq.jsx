@@ -345,6 +345,194 @@ export const Catiq = () => {
         return null;
     };
 
+    const ProcurementDashboard = () => {
+        return (
+            <div className="flex flex-col h-screen bg-gray-50 p-6 font-sans">
+                {/* Header */}
+                <header className="flex items-center justify-between mb-6">
+                    <div>
+                        <h1 className="text-2xl font-bold text-gray-800">Embedded AI Chat & Analysis</h1>
+                        <p className="text-gray-500 text-sm">Context-aware insights and interactive analysis</p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <div className="relative">
+                            <select
+                                value={category}
+                                onChange={handleCategoryChange}
+                                className="appearance-none bg-white border border-gray-300 rounded-md py-2 px-4 pr-8 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                            >
+                                <option>Electronics Category</option>
+                                <option>Office Supplies</option>
+                                <option>Raw Materials</option>
+                                <option>IT Services</option>
+                            </select>
+                            <ChevronDown className="absolute right-2 top-3 h-4 w-4 text-gray-500" />
+                        </div>
+                        <button
+                            className="bg-blue-500 text-white rounded-md py-2 px-4 flex items-center gap-2 hover:bg-purple-700 transition-colors duration-200"
+                        >
+                            <PieChart className="h-5 w-5" />
+                            <span>New Analysis</span>
+                        </button>
+                    </div>
+                </header>
+
+                {/* Main content */}
+                <div className="flex flex-1 gap-6 overflow-hidden">
+                    {/* Chat section - Left side */}
+                    <div className="flex-1 flex flex-col bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                            {/* User message */}
+                            <div className="bg-blue-50 rounded-lg p-4 max-w-lg ml-auto">
+                                <div className="font-medium text-gray-700 mb-1">You</div>
+                                <p>Show me Q1 price drivers for Electronics category</p>
+                            </div>
+
+                            {/* AI response */}
+                            <div className="bg-gray-50 rounded-lg p-4 max-w-lg">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="bg-purple-100 p-1 rounded-full">
+                                        <MessageSquare className="h-4 w-4 text-purple-600" />
+                                    </div>
+                                    <div className="font-medium text-gray-700">CategoryIQ AI</div>
+                                </div>
+
+                                <p className="mb-3">In Q1 2024, the main price drivers for Electronics were:</p>
+                                <ul className="space-y-2 mb-3">
+                                    {priceDrivers.map((driver, index) => (
+                                        <li key={index} className="flex items-start gap-2">
+                                            <span className="text-gray-700">•</span>
+                                            <span className="text-gray-700">{driver.factor} ({driver.impact} impact)</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <div className="flex items-start gap-2 text-blue-600 mt-4">
+                                    <AlertCircle className="h-4 w-4 mt-0.5" />
+                                    <p className="text-sm">Consider long-term contracts with key suppliers to mitigate price volatility</p>
+                                </div>
+                            </div>
+
+                            {/* User second message */}
+                            <div className="bg-blue-50 rounded-lg p-4 max-w-lg ml-auto">
+                                <div className="font-medium text-gray-700 mb-1">You</div>
+                                <p>What's the forecast for next quarter?</p>
+                            </div>
+
+                            {/* AI second response */}
+                            <div className="bg-gray-50 rounded-lg p-4 max-w-lg">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="bg-purple-100 p-1 rounded-full">
+                                        <MessageSquare className="h-4 w-4 text-purple-600" />
+                                    </div>
+                                    <div className="font-medium text-gray-700">CategoryIQ AI</div>
+                                </div>
+
+                                <p className="mb-3">Based on market analysis, we expect:</p>
+                                <ul className="space-y-2 mb-3">
+                                    {forecast.map((item, index) => (
+                                        <li key={index} className="flex items-start gap-2">
+                                            <span className="text-gray-700">•</span>
+                                            <span className="text-gray-700">{item.prediction}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                {/* Action buttons */}
+                                <div className="flex gap-2 mt-4 pt-4 border-t border-gray-200">
+                                    <button className="text-sm bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md px-3 py-1 transition-colors duration-200">
+                                        Show price trends
+                                    </button>
+                                    <button className="text-sm bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md px-3 py-1 transition-colors duration-200">
+                                        Compare with last year
+                                    </button>
+                                    <button className="text-sm bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md px-3 py-1 transition-colors duration-200">
+                                        Risk analysis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Input area */}
+                        <div className="p-4 border-t border-gray-200 flex gap-2">
+                            <input
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                placeholder="Ask anything about your category..."
+                                className="flex-1 border border-gray-300 rounded-md py-2 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                            />
+                            <button
+                                onClick={handleSubmit}
+                                className="bg-purple-600 text-white p-2 rounded-md hover:bg-purple-700 transition-colors duration-200"
+                            >
+                                <Send className="h-5 w-5" />
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Insights section - Right side */}
+                    <div className="w-72 space-y-6">
+                        {/* Quick Analysis */}
+                        <div className="bg-white rounded-lg shadow-sm p-4">
+                            <h3 className="font-bold text-gray-800 mb-4">Quick Analysis</h3>
+
+                            <div className="space-y-3">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-600">Average Price Change</span>
+                                    <span className="font-medium text-red-500">{priceData.averageChange}</span>
+                                </div>
+
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-600">Supply Risk Level</span>
+                                    <span className="font-medium text-orange-500">{priceData.supplyRisk}</span>
+                                </div>
+
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-600">Market Volatility</span>
+                                    <span className="font-medium text-green-500">{priceData.marketVolatility}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Key Recommendations */}
+                        <div className="bg-white rounded-lg shadow-sm p-4">
+                            <h3 className="font-bold text-gray-800 mb-4">Key Recommendations</h3>
+
+                            <div className="space-y-3">
+                                {recommendations.map((rec, index) => (
+                                    <div key={index} className="flex items-center gap-2">
+                                        <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0" />
+                                        <span className="text-gray-700">{rec}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Related Reports */}
+                        <div className="bg-white rounded-lg shadow-sm p-4">
+                            <h3 className="font-bold text-gray-800 mb-4">Related Reports</h3>
+
+                            <div className="space-y-4">
+                                {reports.map((report, index) => (
+                                    <div key={index} className="flex items-start gap-3">
+                                        <div className="bg-blue-100 p-1 rounded">
+                                            <FileText className="h-4 w-4 text-blue-600" />
+                                        </div>
+                                        <div>
+                                            <div className="text-gray-800 font-medium">{report.title}</div>
+                                            <div className="text-gray-500 text-xs">Updated {report.updated}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     const CostPriceAnalysis = () => {
         return (
             <div className="bg-gray-50 p-6 flex flex-col w-full font-sans">
@@ -602,7 +790,7 @@ export const Catiq = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">
+                            <button className="flex items-center bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200">
                                 <Bell size={16} className="mr-2" />
                                 Configure Alerts
                             </button>
@@ -874,8 +1062,8 @@ export const Catiq = () => {
                             </div>
                         </button>
                         <button
-                            className={`px-3 py-1 text-xs rounded-md ${activeTab === "Outreach Automation" ? "bg-blue-100 text-blue-700" : "text-gray-600 hover:bg-gray-100"}`}
-                            onClick={() => setActiveTab("Outreach Automation")}
+                            className={`px-3 py-1 text-xs rounded-md ${activeTab === "AI Chat" ? "bg-blue-100 text-blue-700" : "text-gray-600 hover:bg-gray-100"}`}
+                            onClick={() => setActiveTab("AI Chat")}
                         >
                             <div className="flex items-center">
                                 <Bot size={14} className="mr-1" />
@@ -889,6 +1077,7 @@ export const Catiq = () => {
                 {activeTab === 'Category Insight' && CategoryInsight()}
                 {activeTab === 'Category Alerts' && CategoryAlertsDashboard()}
                 {activeTab === 'Price Analysis' && CostPriceAnalysis()}
+                {activeTab === 'AI Chat' && ProcurementDashboard()}
             </main>
         </div>
     )

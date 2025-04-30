@@ -762,8 +762,8 @@ export const Catiq = () => {
 
     const CategoryAlertsDashboard = () => {
         return (
-            <div className="bg-gray-50 min-h-screen transition-all duration-300">
-                <div className=" bg-white p-6 transition-all duration-300">
+            <div className="transition-all duration-300">
+                <div className="bg-gray-50 min-h-screen p-6 transition-all duration-300">
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                         <div>
                             <h1 className="text-2xl font-bold text-gray-800">Category Alerts</h1>
@@ -873,7 +873,7 @@ export const Catiq = () => {
 
     const CategoryInsight = () => {
         return (
-            <div className="w-fullbg-gray-50 p-6">
+            <div className="bg-gray-50 p-6">
                 <div className="flex justify-between items-center mb-6">
                     <div>
                         <h1 className="text-2xl font-bold text-gray-800">Category Insight</h1>

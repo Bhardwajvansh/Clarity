@@ -18,6 +18,7 @@ import {
     ChevronRight,
     ChevronDown,
     Handshake,
+    Boxes,
 } from "lucide-react";
 
 const COLORS = [
@@ -135,6 +136,12 @@ const Layout = () => {
                         icon={<UserCheck2Icon />}
                         label="Account IQ"
                         onClick={() => navigate('/acciq')}
+                    />
+
+                    <SidebarItem
+                        icon={<Boxes />}
+                        label="Category IQ"
+                        onClick={() => navigate('/catiq')}
                     />
 
                     <div className="absolute bottom-0 w-full p-2">

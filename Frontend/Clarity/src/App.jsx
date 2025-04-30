@@ -26,6 +26,7 @@ import Playground from './Components/Playground/Playground'
 import SupplierIQDashboard from './Components/Supiq/Supiq'
 import { Supdash } from './Components/Supdash/Supdash'
 import { Acciq } from './Components/Acciq/Acciq'
+import { Catiq } from './Components/Catiq/Catiq'
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
           <Route path="/supiq" element={<SupplierIQDashboard />} />
           <Route path="/supdash" element={<Supdash />} />
           <Route path="/acciq" element={<Acciq />} />
+          <Route path="/catiq" element={<Catiq />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -4,6 +4,14 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { RefreshCw, Filter, AlertCircle } from 'lucide-react';
 import { Bell, ChevronRight, AlertTriangle, Activity, Package, BarChart3 } from 'lucide-react';
 import { ChevronDown, Download, TrendingDown, Info } from "lucide-react";
+import { BarChart, Bar } from "recharts";
+import {
+    MessageSquare,
+    PieChart,
+    Send,
+    CheckCircle2,
+    FileText
+} from "lucide-react";
 
 
 const marketTrendsData = [
@@ -42,9 +50,110 @@ export const Catiq = () => {
     const [currentFilter, setCurrentFilter] = useState('All Alerts');
     const [alerts, setAlerts] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [rawMaterialChange, setRawMaterialChange] = useState(5);
+    const [laborCostChange, setLaborCostChange] = useState(0);
+    const [logisticsCostChange, setLogisticsCostChange] = useState(10);
+    const [currentMargin, setCurrentMargin] = useState(32);
+    const [projectedMargin, setProjectedMargin] = useState(28.5);
+    const [impact, setImpact] = useState(-3.5);
+    const [category, setCategory] = useState("Electronics Category");
+    const [inputValue, setInputValue] = useState("");
+
+    const priceData = {
+        averageChange: "+12.4%",
+        supplyRisk: "Medium",
+        marketVolatility: "Low"
+    };
+
+    const recommendations = [
+        "Diversify supplier base",
+        "Lock in Q2 prices now",
+        "Review inventory levels"
+    ];
+
+    const reports = [
+        { title: "Q1 Category Review", updated: "2 days ago" },
+        { title: "Supplier Analysis", updated: "1 week ago" }
+    ];
+
+    const priceDrivers = [
+        { factor: "Semiconductor shortage", impact: "+15%" },
+        { factor: "Increased logistics costs", impact: "+8%" },
+        { factor: "Labor cost inflation", impact: "+5%" }
+    ];
+
+    const forecast = [
+        { prediction: "Gradual improvement in supply chain" },
+        { prediction: "Potential 5-7% price decrease" },
+        { prediction: "New suppliers entering the market" }
+    ];
+
+    const handleSubmit = () => {
+        setInputValue("");
+    };
+
+    const handleCategoryChange = (e) => {
+        setCategory(e.target.value);
+    };
+
+    const costData = {
+        baseAmount: 100,
+        rawMaterials: 25,
+        labor: 15,
+        logistics: 10,
+        tariffs: 7,
+        overhead: 10
+    };
+
+    const finalPrice = costData.baseAmount + costData.rawMaterials + costData.labor +
+        costData.logistics + costData.tariffs + costData.overhead;
+
+    const [showAISuggestion, setShowAISuggestion] = useState(false);
 
     useEffect(() => {
-        // Simulate loading data
+        const timer = setTimeout(() => {
+            setShowAISuggestion(true);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
+        const newImpact = -0.2 * rawMaterialChange +
+            -0.15 * laborCostChange +
+            -0.13 * logisticsCostChange;
+
+        const roundedImpact = Math.round(newImpact * 10) / 10;
+        setImpact(roundedImpact);
+        setProjectedMargin(Math.round((currentMargin + roundedImpact) * 10) / 10);
+
+        const rawMaterialAdjustment = costData.rawMaterials * (1 + rawMaterialChange / 100);
+        const laborAdjustment = costData.labor * (1 + laborCostChange / 100);
+        const logisticsAdjustment = costData.logistics * (1 + logisticsCostChange / 100);
+    }, [rawMaterialChange, laborCostChange, logisticsCostChange, currentMargin]);
+
+    const chartData = [
+        { name: "Base Cost", value: costData.baseAmount, color: "#3b82f6" },
+        { name: "Raw Materials", value: costData.rawMaterials, color: "#ef4444" },
+        { name: "Labor", value: costData.labor, color: "#f97316" },
+        { name: "Logistics", value: costData.logistics, color: "#22c55e" },
+        { name: "Tariffs", value: costData.tariffs, color: "#a855f7" },
+        { name: "Overhead", value: costData.overhead, color: "#6366f1" },
+        { name: "Final Price", value: finalPrice, color: "#3b82f6" }
+    ];
+
+    const categories = [
+        "Electronics Category",
+        "Furniture",
+        "Apparel",
+        "Home Goods",
+        "Automotive"
+    ];
+
+    const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    useEffect(() => {
         setTimeout(() => {
             setAlerts([
                 {
@@ -236,6 +345,233 @@ export const Catiq = () => {
         return null;
     };
 
+    const CostPriceAnalysis = () => {
+        return (
+            <div className="bg-gray-50 p-6 flex flex-col w-full font-sans">
+                <div className="flex justify-between items-center mb-6">
+                    <div>
+                        <h1 className="text-2xl font-bold text-gray-800">Cost vs. Price Analysis</h1>
+                        <p className="text-gray-500 text-sm">Component breakdown and margin impact scenarios</p>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        <div className="relative">
+                            <button
+                                className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50 transition-colors"
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                            >
+                                {selectedCategory}
+                                <ChevronDown size={16} />
+                            </button>
+
+                            {dropdownOpen && (
+                                <div className="absolute right-0 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-md z-10">
+                                    {categories.map((category) => (
+                                        <div
+                                            key={category}
+                                            className="px-4 py-2 hover:bg-blue-50 cursor-pointer transition-colors"
+                                            onClick={() => {
+                                                setSelectedCategory(category);
+                                                setDropdownOpen(false);
+                                            }}
+                                        >
+                                            {category}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        <button className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+                            <Download size={16} />
+                            Export Analysis
+                        </button>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-white p-4 rounded-lg border border-gray-200">
+                        <h2 className="text-lg font-bold mb-4">Cost Component Breakdown</h2>
+
+                        <div className="h-72">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <BarChart
+                                    data={chartData}
+                                    margin={{ top: 10, right: 10, left: 10, bottom: 20 }}
+                                    barGap={2}
+                                    animationDuration={1000}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                    <XAxis
+                                        dataKey="name"
+                                        tick={{ fontSize: 11 }}
+                                        tickLine={false}
+                                        axisLine={{ stroke: "#e5e7eb" }}
+                                    />
+                                    <YAxis
+                                        tick={{ fontSize: 11 }}
+                                        tickLine={false}
+                                        axisLine={{ stroke: "#e5e7eb" }}
+                                        tickFormatter={(value) => `${value}`}
+                                    />
+                                    <Tooltip
+                                        cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
+                                        contentStyle={{
+                                            borderRadius: '0.375rem',
+                                            border: '1px solid #e5e7eb',
+                                            boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
+                                        }}
+                                        formatter={(value) => [`${value}`, 'Cost']}
+                                    />
+                                    <Bar
+                                        dataKey="value"
+                                        radius={[4, 4, 0, 0]}
+                                        isAnimationActive={true}
+                                        animationEasing="ease-in-out"
+                                        fill={(entry) => entry.color}
+                                    />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-6">
+                        <div className="bg-white p-4 rounded-lg border border-gray-200">
+                            <h2 className="text-lg font-bold mb-4">Margin Impact Scenarios</h2>
+
+                            <div className="space-y-6">
+                                <div>
+                                    <div className="flex justify-between mb-1">
+                                        <span className="text-sm text-gray-700">Raw Material Cost Change</span>
+                                        <span className="text-sm font-medium text-blue-600">{rawMaterialChange > 0 ? `+${rawMaterialChange}%` : `${rawMaterialChange}%`}</span>
+                                    </div>
+                                    <div className="relative">
+                                        <div className="h-2 bg-gray-200 rounded-full">
+                                            <div
+                                                className="absolute h-2 bg-blue-500 rounded-full"
+                                                style={{
+                                                    width: `${((rawMaterialChange + 20) / 40) * 100}%`,
+                                                    left: 0
+                                                }}
+                                            ></div>
+                                        </div>
+                                        <input
+                                            type="range"
+                                            min="-20"
+                                            max="20"
+                                            value={rawMaterialChange}
+                                            onChange={(e) => setRawMaterialChange(parseInt(e.target.value))}
+                                            className="absolute w-full h-2 opacity-0 cursor-pointer"
+                                        />
+                                        <div className="flex justify-between text-xs text-gray-500 mt-1">
+                                            <span>-20%</span>
+                                            <span>+20%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="flex justify-between mb-1">
+                                        <span className="text-sm text-gray-700">Labor Cost Change</span>
+                                        <span className="text-sm font-medium text-blue-600">{laborCostChange > 0 ? `+${laborCostChange}%` : `${laborCostChange}%`}</span>
+                                    </div>
+                                    <div className="relative">
+                                        <div className="h-2 bg-gray-200 rounded-full">
+                                            <div
+                                                className="absolute h-2 bg-blue-500 rounded-full"
+                                                style={{
+                                                    width: `${((laborCostChange + 20) / 40) * 100}%`,
+                                                    left: 0
+                                                }}
+                                            ></div>
+                                        </div>
+                                        <input
+                                            type="range"
+                                            min="-20"
+                                            max="20"
+                                            value={laborCostChange}
+                                            onChange={(e) => setLaborCostChange(parseInt(e.target.value))}
+                                            className="absolute w-full h-2 opacity-0 cursor-pointer"
+                                        />
+                                        <div className="flex justify-between text-xs text-gray-500 mt-1">
+                                            <span>-20%</span>
+                                            <span>+20%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="flex justify-between mb-1">
+                                        <span className="text-sm text-gray-700">Logistics Cost Change</span>
+                                        <span className="text-sm font-medium text-blue-600">{logisticsCostChange > 0 ? `+${logisticsCostChange}%` : `${logisticsCostChange}%`}</span>
+                                    </div>
+                                    <div className="relative">
+                                        <div className="h-2 bg-gray-200 rounded-full">
+                                            <div
+                                                className="absolute h-2 bg-blue-500 rounded-full"
+                                                style={{
+                                                    width: `${((logisticsCostChange + 20) / 40) * 100}%`,
+                                                    left: 0
+                                                }}
+                                            ></div>
+                                        </div>
+                                        <input
+                                            type="range"
+                                            min="-20"
+                                            max="20"
+                                            value={logisticsCostChange}
+                                            onChange={(e) => setLogisticsCostChange(parseInt(e.target.value))}
+                                            className="absolute w-full h-2 opacity-0 cursor-pointer"
+                                        />
+                                        <div className="flex justify-between text-xs text-gray-500 mt-1">
+                                            <span>-20%</span>
+                                            <span>+20%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-white p-4 rounded-lg border border-gray-200">
+                            <h2 className="text-lg font-bold mb-4">Impact Summary</h2>
+
+                            <div className="space-y-3">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-700">Current Margin</span>
+                                    <span className="font-bold text-gray-900">{currentMargin}%</span>
+                                </div>
+
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-700">Projected Margin</span>
+                                    <span className="font-bold text-red-500">{projectedMargin}%</span>
+                                </div>
+
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-700">Impact</span>
+                                    <span className="font-bold text-red-500">{impact}%</span>
+                                </div>
+                            </div>
+
+                            <div
+                                className={`mt-4 bg-amber-50 border border-amber-200 rounded-lg p-3 transition-all duration-500 flex items-start gap-2 ${showAISuggestion ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'
+                                    }`}
+                            >
+                                <div className="text-amber-500 mt-0.5">
+                                    <AlertCircle size={16} />
+                                </div>
+                                <div>
+                                    <p className="text-sm text-amber-700">
+                                        <span className="font-medium">AI suggests</span> negotiating volume discounts with raw material suppliers to offset rising logistics costs.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     const CategoryAlertsDashboard = () => {
         return (
             <div className="bg-gray-50 min-h-screen transition-all duration-300">
@@ -312,7 +648,6 @@ export const Catiq = () => {
                                 </div>
                             )
                         ) : (
-                            // Loading skeleton
                             [...Array(6)].map((_, i) => (
                                 <div key={i} className="bg-white rounded-xl shadow overflow-hidden animate-pulse">
                                     <div className="p-4">
@@ -329,7 +664,6 @@ export const Catiq = () => {
                         )}
                     </div>
 
-                    {/* Priority legends */}
                     <div className="mt-8 flex flex-wrap gap-4">
                         <div className="flex items-center mr-6">
                             {priorityIcons.high}
@@ -372,9 +706,7 @@ export const Catiq = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Left column - 2/3 width */}
                     <div className="lg:col-span-2 space-y-6">
-                        {/* Key Market Trends */}
                         <div className="bg-white p-6 rounded-lg shadow-sm">
                             <h2 className="text-lg font-bold mb-4">Key Market Trends</h2>
                             <div className="h-64">
@@ -416,8 +748,6 @@ export const Catiq = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* AI Analysis */}
                         <div className="bg-white p-6 rounded-lg shadow-sm">
                             <div className="flex items-center text-blue-600 mb-2">
                                 <AlertCircle className="w-5 h-5 mr-2" />
@@ -430,9 +760,7 @@ export const Catiq = () => {
                         </div>
                     </div>
 
-                    {/* Right column - 1/3 width */}
                     <div className="lg:col-span-1 space-y-6">
-                        {/* Market Sentiment */}
                         <div className="bg-white p-6 rounded-lg shadow-sm">
                             <h2 className="text-lg font-bold mb-4">Market Sentiment</h2>
                             <div className="flex justify-around">
@@ -451,7 +779,6 @@ export const Catiq = () => {
                             </div>
                         </div>
 
-                        {/* Price Signals */}
                         <div className="bg-white p-6 rounded-lg shadow-sm">
                             <h2 className="text-lg font-bold mb-4">Price Signals</h2>
 
@@ -561,6 +888,7 @@ export const Catiq = () => {
             <main>
                 {activeTab === 'Category Insight' && CategoryInsight()}
                 {activeTab === 'Category Alerts' && CategoryAlertsDashboard()}
+                {activeTab === 'Price Analysis' && CostPriceAnalysis()}
             </main>
         </div>
     )

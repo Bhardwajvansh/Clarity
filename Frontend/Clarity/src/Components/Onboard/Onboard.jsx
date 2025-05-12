@@ -41,9 +41,71 @@ export const UserOnboarding = () => {
     const [selectedSector, setSelectedSector] = useState(null);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [selectedAccounts, setSelectedAccounts] = useState([]);
+    // New: Track selected keywords for each account
+    const [selectedAccountKeywords, setSelectedAccountKeywords] = useState({});
     const [selectedCompetitors, setSelectedCompetitors] = useState([]);
     const [selectedVendors, setSelectedVendors] = useState([]);
+    // New: Track selected keywords for each product, competitor, and vendor
+    const [selectedProductKeywords, setSelectedProductKeywords] = useState({});
+    const [selectedCompetitorKeywords, setSelectedCompetitorKeywords] = useState({});
+    const [selectedVendorKeywords, setSelectedVendorKeywords] = useState({});
     const navigate = useNavigate();
+
+    // Toggle selection of a keyword for a given product
+    const toggleKeywordSelection = (productId, keyword) => {
+        setSelectedProductKeywords(prev => {
+            const current = prev[productId] || [];
+            if (current.includes(keyword)) {
+                // Remove keyword
+                return {
+                    ...prev,
+                    [productId]: current.filter(k => k !== keyword)
+                };
+            } else {
+                // Add keyword
+                return {
+                    ...prev,
+                    [productId]: [...current, keyword]
+                };
+            }
+        });
+    };
+
+    // Toggle selection of a keyword for a given competitor
+    const toggleCompetitorKeyword = (competitorId, keyword) => {
+        setSelectedCompetitorKeywords(prev => {
+            const current = prev[competitorId] || [];
+            if (current.includes(keyword)) {
+                return {
+                    ...prev,
+                    [competitorId]: current.filter(k => k !== keyword)
+                };
+            } else {
+                return {
+                    ...prev,
+                    [competitorId]: [...current, keyword]
+                };
+            }
+        });
+    };
+
+    // Toggle selection of a keyword for a given vendor
+    const toggleVendorKeyword = (vendorId, keyword) => {
+        setSelectedVendorKeywords(prev => {
+            const current = prev[vendorId] || [];
+            if (current.includes(keyword)) {
+                return {
+                    ...prev,
+                    [vendorId]: current.filter(k => k !== keyword)
+                };
+            } else {
+                return {
+                    ...prev,
+                    [vendorId]: [...current, keyword]
+                };
+            }
+        });
+    };
 
     const sectors = [
         { id: 1, name: 'Healthcare', icon: <Heart size={28} />, description: 'Medical, Pharma, Devices' },
@@ -126,11 +188,8 @@ export const UserOnboarding = () => {
             description: 'Retail Chain',
             segment: 'B2C Customer Segments',
             keywords: [
-                'First-Time Vehicle Buyers',
-                'Urban Daily Commuters',
-                'Luxury/Performance Enthusiasts',
-                'EV Early Adopters',
-                'Families (MUV/SUV Buyers)',
+                'Target',
+                'Costco',
             ],
         },
         {
@@ -140,23 +199,19 @@ export const UserOnboarding = () => {
             description: 'Electronics Retailer',
             segment: 'B2B Customer Segments',
             keywords: [
-                'Fleet Operators',
-                'Logistics/Last-Mile Delivery Companies',
-                'Government Agencies',
-                'Car Rental & Leasing Companies',
-                'Ride-Hailing Platforms (Uber, Lyft, Ola)',
+                'Samsung Electronics',
+                'Sony',
             ],
         },
         {
             id: 3,
             name: 'Enterprise / Institutional Buyers',
             icon: <Building2 size={28} />,
-            description: 'Grocery Chain',
+            description: 'Grocery Chain Buyer',
             segment: 'Enterprise / Institutional Buyers',
             keywords: [
-                'Corporates & MNCs (bulk purchases)',
-                'Taxi Aggregators',
-                'Defense/Police/Utility Departments',
+                'Aldi',
+                'Publix',
             ],
         },
     ];
@@ -532,7 +587,19 @@ export const UserOnboarding = () => {
                                     {item.keywords && item.keywords.length > 0 && (
                                         <ul className="list-disc list-inside text-xs text-gray-700 pl-2">
                                             {item.keywords.map((kw, idx) => (
-                                                <li key={idx}>{kw}</li>
+                                                <li
+                                                    key={idx}
+                                                    className="flex items-center cursor-pointer hover:text-blue-700"
+                                                    onClick={e => {
+                                                        e.stopPropagation();
+                                                        toggleKeywordSelection(item.id, kw);
+                                                    }}
+                                                >
+                                                    <span>{kw}</span>
+                                                    {selectedProductKeywords[item.id]?.includes(kw) && (
+                                                        <span className="ml-2 text-green-600 font-bold">✓</span>
+                                                    )}
+                                                </li>
                                             ))}
                                         </ul>
                                     )}
@@ -576,6 +643,38 @@ export const UserOnboarding = () => {
                                         value={item.revenue || ""}
                                         onChange={e => handleRevenueChange(item.id, e.target.value)}
                                     />
+                                    {item.keywords && item.keywords.length > 0 && (
+                                        <ul className="list-disc list-inside text-xs text-gray-700 pl-2 mt-1">
+                                            {item.keywords.map((kw, idx) => (
+                                                <li
+                                                    key={idx}
+                                                    className="flex items-center cursor-pointer hover:text-blue-700"
+                                                    onClick={e => {
+                                                        e.stopPropagation();
+                                                        setSelectedAccountKeywords(prev => {
+                                                            const current = prev[item.id] || [];
+                                                            if (current.includes(kw)) {
+                                                                return {
+                                                                    ...prev,
+                                                                    [item.id]: current.filter(k => k !== kw)
+                                                                };
+                                                            } else {
+                                                                return {
+                                                                    ...prev,
+                                                                    [item.id]: [...current, kw]
+                                                                };
+                                                            }
+                                                        });
+                                                    }}
+                                                >
+                                                    <span>{kw}</span>
+                                                    {selectedAccountKeywords[item.id]?.includes(kw) && (
+                                                        <span className="ml-2 text-green-600 font-bold">✓</span>
+                                                    )}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -620,7 +719,19 @@ export const UserOnboarding = () => {
                                     {item.keywords && item.keywords.length > 0 && (
                                         <ul className="list-disc list-inside text-xs text-gray-700 pl-2 mt-1">
                                             {item.keywords.map((kw, idx) => (
-                                                <li key={idx}>{kw}</li>
+                                                <li
+                                                    key={idx}
+                                                    className="flex items-center cursor-pointer hover:text-blue-700"
+                                                    onClick={e => {
+                                                        e.stopPropagation();
+                                                        toggleCompetitorKeyword(item.id, kw);
+                                                    }}
+                                                >
+                                                    <span>{kw}</span>
+                                                    {selectedCompetitorKeywords[item.id]?.includes(kw) && (
+                                                        <span className="ml-2 text-green-600 font-bold">✓</span>
+                                                    )}
+                                                </li>
                                             ))}
                                         </ul>
                                     )}
@@ -673,7 +784,19 @@ export const UserOnboarding = () => {
                                     {item.keywords && item.keywords.length > 0 && (
                                         <ul className="list-disc list-inside text-xs text-gray-700 pl-2 mt-1">
                                             {item.keywords.map((kw, idx) => (
-                                                <li key={idx}>{kw}</li>
+                                                <li
+                                                    key={idx}
+                                                    className="flex items-center cursor-pointer hover:text-blue-700"
+                                                    onClick={e => {
+                                                        e.stopPropagation();
+                                                        toggleVendorKeyword(item.id, kw);
+                                                    }}
+                                                >
+                                                    <span>{kw}</span>
+                                                    {selectedVendorKeywords[item.id]?.includes(kw) && (
+                                                        <span className="ml-2 text-green-600 font-bold">✓</span>
+                                                    )}
+                                                </li>
                                             ))}
                                         </ul>
                                     )}

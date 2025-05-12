@@ -870,7 +870,7 @@ export const AutomotiveDashboard = () => {
                                                                     transform: 'translate(-50%, -50%)',
                                                                 }}
                                                             >
-                                                                <span className="text-sm font-medium text-gray-700">{account.id}</span>
+                                                                <span className="text-sm font-medium text-gray-700">{account.name}</span>
                                                             </div>
                                                         ))}
                                                         <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs font-medium text-gray-600">
@@ -1001,14 +1001,17 @@ export const AutomotiveDashboard = () => {
                                                         return (
                                                             <div
                                                                 key={idx}
-                                                                className="absolute w-3 h-3 rounded-full transform -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+                                                                className={`absolute rounded-full flex items-center justify-center border-2 bg-white shadow-md transition-all duration-300 hover:shadow-lg transform hover:scale-105`}
                                                                 style={{
+                                                                    width: `15px`,
+                                                                    height: `15px`,
                                                                     left: posX,
                                                                     top: posY,
-                                                                    backgroundColor: comp.color,
+                                                                    borderColor: comp.color,
                                                                 }}
-                                                                title={comp.name}
-                                                            />
+                                                            >
+                                                                <span className="text-sm font-medium opacity-50 text-gray-700">{comp.name}</span>
+                                                            </div>
                                                         );
                                                     })}
 

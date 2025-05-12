@@ -133,7 +133,7 @@ export const KeyAccountsMatrix = () => {
                                         transform: 'translate(-50%, -50%)',
                                     }}
                                 >
-                                    <span className="text-sm font-medium text-gray-700">{account.id}</span>
+                                    <span className="text-sm font-medium text-gray-700">{account.name}</span>
                                 </div>
                             ))}
                             <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 -rotate-90 text-xs font-medium text-gray-600">

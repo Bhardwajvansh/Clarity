@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight, Zap, Car, Code, Factory } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Zap, Car, Code, Factory, Download, Expand } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const COLORS = {
@@ -302,6 +302,14 @@ export const Top50 = () => {
                                                 {tech.id}
                                             </span>
                                             <h3 className="font-semibold text-lg text-gray-800">{tech.title}</h3>
+                                            <div className="flex gap-2 ml-2">
+                                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                                </a>
+                                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                                </a>
+                                            </div>
                                         </div>
                                         <span
                                             className={`text-xs px-2 py-1 rounded-full text-white ${getStatusBadgeClass(tech.status)}`}

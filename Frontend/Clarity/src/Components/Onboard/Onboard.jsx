@@ -27,7 +27,10 @@ import {
     Flame,
     Rocket,
     Users,
-    
+    BatteryCharging,
+    Cloud,
+    CircuitBoard,
+    Warehouse,
 } from 'lucide-react';
 import Carousel from '../Carousel/Carousel';
 import { useNavigate } from 'react-router-dom';
@@ -250,10 +253,78 @@ export const UserOnboarding = () => {
     ];
 
     const vendors = [
-        { id: 1, name: 'TechSupply Co', icon: <Cpu size={28} />, description: 'Components', risk: 'Low', spend: 'Low' },
-        { id: 2, name: 'GlobalParts Inc', icon: <ShoppingCart size={28} />, description: 'Manufacturing', risk: 'High', spend: 'Medium' },
-        { id: 3, name: 'FastShip Logistics', icon: <Truck size={28} />, description: 'Logistics', risk: 'Medium', spend: 'Low' },
-        { id: 4, name: 'Package Systems', icon: <Package size={28} />, description: 'Packaging', risk: 'Low', spend: 'Low' },
+        {
+            id: 1,
+            name: 'Tier 1 Automotive Suppliers',
+            icon: <CircuitBoard size={28} />,
+            description: 'Core automotive component suppliers',
+            risk: 'Medium',
+            spend: 'High',
+            keywords: [
+                'Bosch',
+                'Continental',
+                'Magna',
+                'Denso',
+                'ZF Friedrichshafen',
+                'Valeo',
+            ],
+        },
+        {
+            id: 2,
+            name: 'Software / Electronics Vendors',
+            icon: <Cpu size={28} />,
+            description: 'ADAS, infotainment & telematics',
+            risk: 'High',
+            spend: 'Medium',
+            keywords: [
+                'NVIDIA (ADAS & autonomous tech)',
+                'Qualcomm (infotainment & telematics)',
+                'Blackberry QNX',
+                'Harman (connected car)',
+            ],
+        },
+        {
+            id: 3,
+            name: 'Battery & EV Component Suppliers',
+            icon: <BatteryCharging size={28} />,
+            description: 'EV batteries and systems',
+            risk: 'High',
+            spend: 'High',
+            keywords: [
+                'CATL',
+                'LG Energy Solution',
+                'Panasonic',
+                'A123 Systems',
+                'SK Innovation',
+            ],
+        },
+        {
+            id: 4,
+            name: 'Manufacturing & Logistics Partners',
+            icon: <Truck size={28} />,
+            description: 'Production & distribution enablers',
+            risk: 'Medium',
+            spend: 'Medium',
+            keywords: [
+                'Jabil',
+                'Flex',
+                'DHL Supply Chain',
+                'DB Schenker',
+            ],
+        },
+        {
+            id: 5,
+            name: 'Cloud / Digital Enablers',
+            icon: <Cloud size={28} />,
+            description: 'Automotive cloud platforms',
+            risk: 'Low',
+            spend: 'Medium',
+            keywords: [
+                'AWS for Automotive',
+                'Microsoft Azure Auto Cloud',
+                'Google Cloud Auto Solutions',
+            ],
+        },
     ];
 
     const handleSectorSelect = (sector) => {
@@ -504,6 +575,107 @@ export const UserOnboarding = () => {
                                         value={item.revenue || ""}
                                         onChange={e => handleRevenueChange(item.id, e.target.value)}
                                     />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+        if (type === 'competitor') {
+            return (
+                <div className="flex flex-wrap gap-4 mt-2">
+                    {selected.map(item => (
+                        <div
+                            key={item.id}
+                            className="relative flex flex-col bg-blue-50 border border-blue-200 rounded-lg px-5 py-4 min-w-[220px] max-w-xs shadow-sm hover:shadow-md transition-shadow"
+                        >
+                            <button
+                                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    removeHandler(item);
+                                }}
+                                aria-label="Remove"
+                                type="button"
+                            >
+                                ×
+                            </button>
+                            <div className="flex items-start gap-3">
+                                <div className="mt-1">
+                                    {item.icon && React.cloneElement(item.icon, { size: 22 })}
+                                </div>
+                                <div>
+                                    <div className="text-blue-700 font-semibold text-base mb-1">{item.name}</div>
+                                    <div className="text-xs text-gray-600 mb-1">{item.description}</div>
+                                    <div className={`inline-block text-xs font-bold px-2 py-0.5 rounded mb-1 ${item.threat === 'High'
+                                        ? 'bg-red-100 text-red-700'
+                                        : item.threat === 'Medium'
+                                            ? 'bg-orange-100 text-orange-700'
+                                            : 'bg-green-100 text-green-700'
+                                        }`}>
+                                        {item.threat} Threat
+                                    </div>
+                                    {item.keywords && item.keywords.length > 0 && (
+                                        <ul className="list-disc list-inside text-xs text-gray-700 pl-2 mt-1">
+                                            {item.keywords.map((kw, idx) => (
+                                                <li key={idx}>{kw}</li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+        if (type === 'vendor') {
+            return (
+                <div className="flex flex-wrap gap-4 mt-2">
+                    {selected.map(item => (
+                        <div
+                            key={item.id}
+                            className="relative flex flex-col bg-blue-50 border border-blue-200 rounded-lg px-5 py-4 min-w-[220px] max-w-xs shadow-sm hover:shadow-md transition-shadow"
+                        >
+                            <button
+                                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    removeHandler(item);
+                                }}
+                                aria-label="Remove"
+                                type="button"
+                            >
+                                ×
+                            </button>
+                            <div className="flex items-start gap-3">
+                                <div className="mt-1">
+                                    {item.icon && React.cloneElement(item.icon, { size: 22 })}
+                                </div>
+                                <div>
+                                    <div className="text-blue-700 font-semibold text-base mb-1">{item.name}</div>
+                                    <div className="text-xs text-gray-600 mb-1">{item.description}</div>
+                                    <div className="flex gap-2 mb-1">
+                                        <span className={`inline-block text-xs font-bold px-2 py-0.5 rounded ${item.risk === 'High'
+                                            ? 'bg-red-100 text-red-700'
+                                            : item.risk === 'Medium'
+                                                ? 'bg-orange-100 text-orange-700'
+                                                : 'bg-green-100 text-green-700'
+                                            }`}>
+                                            {item.risk} Risk
+                                        </span>
+                                        <span className="inline-block text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700">
+                                            {item.spend} Spend
+                                        </span>
+                                    </div>
+                                    {item.keywords && item.keywords.length > 0 && (
+                                        <ul className="list-disc list-inside text-xs text-gray-700 pl-2 mt-1">
+                                            {item.keywords.map((kw, idx) => (
+                                                <li key={idx}>{kw}</li>
+                                            ))}
+                                        </ul>
+                                    )}
                                 </div>
                             </div>
                         </div>

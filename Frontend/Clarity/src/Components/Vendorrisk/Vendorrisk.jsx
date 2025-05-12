@@ -4,33 +4,34 @@ import { ChevronDown, AlertTriangle, Flag, AlertCircle, DownloadCloud, TrendingD
 export default function VendorRiskAnalysisDashboard() {
     const [selectedVendor, setSelectedVendor] = useState('GlobalParts Inc');
     const financialRiskVendors = [
-        { name: 'GlobalParts Inc', risk: 'High' },
-        { name: 'FastShip Logistics', risk: 'Medium' },
-        { name: 'MegaComponents', risk: 'Medium' }
+        { name: 'Denso', risk: 'Medium' },
+        { name: 'CATL', risk: 'High' },
+        { name: 'Nippon Steel', risk: 'Medium' }
     ];
 
     const operationalRiskVendors = [
-        { name: 'GlobalParts Inc', risk: 'High' },
-        { name: 'AsianManufacturing', risk: 'High' },
-        { name: 'FastShip Logistics', risk: 'Medium' },
-        { name: 'TechSupply Co', risk: 'Low' },
-        { name: 'Package Systems', risk: 'Low' },
-        { name: 'DigitalSolutions', risk: 'Low' }
+        { name: 'CATL', risk: 'High' },
+        { name: 'TSMC', risk: 'High' },
+        { name: 'Denso', risk: 'Medium' },
+        { name: 'Nippon Steel', risk: 'Low' },
+        { name: 'Bosch Mobility Solutions', risk: 'Low' },
+        { name: 'ZF Friedrichshafen AG', risk: 'Low' }
     ];
 
     const complianceRiskVendors = [
-        { name: 'FastShip Logistics', risk: 'Medium' },
-        { name: 'GlobalParts Inc', risk: 'Medium' },
-        { name: 'TechSupply Co', risk: 'Low' }
+        { name: 'CATL', risk: 'High' },
+        { name: 'TSMC', risk: 'Medium' },
+        { name: 'Bosch Mobility Solutions', risk: 'Low' }
     ];
 
     const topSuppliers = [
-        { name: 'GlobalParts Inc', spend: 4800000, percentage: 32, color: 'bg-red-400' },
-        { name: 'FastShip Logistics', spend: 2700000, percentage: 18, color: 'bg-blue-200' },
-        { name: 'TechSupply Co', spend: 2100000, percentage: 14, color: 'bg-green-400' },
-        { name: 'AsianManufacturing', spend: 1500000, percentage: 10, color: 'bg-purple-400' },
-        { name: 'Package Systems', spend: 900000, percentage: 6, color: 'bg-teal-400' }
+        { name: 'Denso', spend: 5200000, percentage: 35, color: 'bg-red-400' },
+        { name: 'CATL', spend: 3100000, percentage: 21, color: 'bg-blue-200' },
+        { name: 'TSMC', spend: 2400000, percentage: 16, color: 'bg-green-400' },
+        { name: 'Nippon Steel', spend: 1600000, percentage: 11, color: 'bg-purple-400' },
+        { name: 'Bosch Mobility Solutions', spend: 1000000, percentage: 7, color: 'bg-teal-400' }
     ];
+
 
     const riskTrends = [
         { name: 'Overall Risk Score', change: -12, isPositive: true },

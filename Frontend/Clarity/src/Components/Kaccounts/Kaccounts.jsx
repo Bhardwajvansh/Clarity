@@ -3,12 +3,10 @@ import { ChevronDown, Download, AlertTriangle, FileText, LightbulbIcon } from 'l
 
 export const KeyAccountsMatrix = () => {
     const accountData = [
-        { id: 'GM', name: 'GlobalMart', value: 7500000, potential: 4.2, revenue: 9800000, health: 'Healthy' },
-        { id: 'TC', name: 'TechWorld', value: 6200000, potential: 4.5, revenue: 8200000, health: 'Healthy' },
-        { id: 'DS', name: 'DataSystems', value: 4800000, potential: 4.1, revenue: 5800000, health: 'Medium' },
-        { id: 'EC', name: 'ECommerce Inc', value: 2900000, potential: 2.8, revenue: 3700000, health: 'At Risk' },
-        { id: 'FC', name: 'FoodCo', value: 1500000, potential: 2.7, revenue: 2600000, health: 'Healthy' },
-        { id: 'LP', name: 'LogiPartners', value: 900000, potential: 1.9, revenue: 1500000, health: 'Medium' }
+        { id: 'UPS', name: 'UPS', value: 7500000, potential: 4.2, revenue: 9800000, health: 'Healthy' },
+        { id: 'HZ', name: 'Hertz', value: 6200000, potential: 4.5, revenue: 8200000, health: 'Healthy' },
+        { id: 'AMZ', name: 'Amazon', value: 4800000, potential: 4.1, revenue: 5800000, health: 'Medium' },
+        { id: 'LY', name: 'Lyft', value: 2900000, potential: 2.8, revenue: 3700000, health: 'At Risk' },
     ];
     const [timePeriod, setTimePeriod] = useState('Current Quarter');
     const [accountType, setAccountType] = useState('All Accounts');
@@ -49,12 +47,10 @@ export const KeyAccountsMatrix = () => {
     };
     const getBubbleBorderColor = (id) => {
         switch (id) {
-            case 'GM': return 'border-green-500';
-            case 'TC': return 'border-green-500';
-            case 'DS': return 'border-orange-300';
-            case 'EC': return 'border-blue-400';
-            case 'FC': return 'border-blue-300';
-            case 'LP': return 'border-orange-300';
+            case 'UPS': return 'border-green-500';
+            case 'HZ': return 'border-green-500';
+            case 'AMZ': return 'border-orange-300';
+            case 'LY': return 'border-blue-400';
             default: return 'border-gray-300';
         }
     };

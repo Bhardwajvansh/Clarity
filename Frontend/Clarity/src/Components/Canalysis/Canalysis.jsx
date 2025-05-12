@@ -3,56 +3,48 @@ import { ChevronDown, Download, Info, Star, Award, Users, ArrowUp, ArrowDown, Sh
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveContainer } from 'recharts';
 
 export default function CompetitorAnalysisDashboard() {
-    const [selectedCompetitor, setSelectedCompetitor] = useState('Innovate Corp');
+    const [selectedCompetitor, setSelectedCompetitor] = useState('Kia');
     const competitorData = [
-        { name: 'Your Company', x: 55, y: 65, color: '#2563eb' },
-        { name: 'Innovate Corp', x: 85, y: 75, color: '#10b981' },
-        { name: 'TechDisruptor', x: 65, y: 45, color: '#f59e0b' },
-        { name: 'Global Solutions', x: 35, y: 35, color: '#ef4444' },
-        { name: 'Premium Tech', x: 75, y: 25, color: '#8b5cf6' }
+        { name: 'Kia', x: 55, y: 65, color: '#2563eb' },
+        { name: 'Tesla ', x: 85, y: 75, color: '#10b981' },
+        { name: 'Audi ', x: 65, y: 45, color: '#f59e0b' },
+        { name: 'Hyundai ', x: 35, y: 35, color: '#ef4444' },
     ];
     const threatAssessmentData = [
         {
-            name: 'Innovate Corp',
+            name: 'Kia',
             marketShare: 28,
             status: 'High',
             statusColor: 'bg-red-500',
             growth: '+3.5%'
         },
         {
-            name: 'Global Solutions',
+            name: 'Tesla',
             marketShare: 18,
             status: 'Medium',
             statusColor: 'bg-yellow-500',
             growth: '-1.2%'
         },
         {
-            name: 'Premium Tech',
+            name: 'Audi',
             marketShare: 15,
             status: 'Medium',
             statusColor: 'bg-yellow-500',
             growth: null
         },
         {
-            name: 'TechDisruptor',
+            name: 'Hyundai',
             marketShare: 12,
             status: 'Emerging',
             statusColor: 'bg-orange-400',
             growth: '+68%'
         },
-        {
-            name: 'NextGen Solutions',
-            marketShare: 9,
-            status: 'Emerging',
-            statusColor: 'bg-orange-400',
-            growth: '+42%'
-        }
     ];
     const movementData = [
-        { name: 'Innovate Corp', growth: '+3.5%', color: 'text-green-500', isUp: true },
-        { name: 'Global Solutions', growth: '-1.2%', color: 'text-red-500', isUp: false },
-        { name: 'TechDisruptor', growth: 'New Entrant', color: 'text-blue-500', isUp: true },
-        { name: 'Your Company', growth: '+1.8%', color: 'text-green-500', isUp: true }
+        { name: 'Tesla', growth: '+3.5%', color: 'text-green-500', isUp: true },
+        { name: 'Kia', growth: '-1.2%', color: 'text-red-500', isUp: false },
+        { name: 'Audi', growth: 'New Entrant', color: 'text-blue-500', isUp: true },
+        { name: 'Hyundai', growth: '+1.8%', color: 'text-green-500', isUp: true }
     ];
     const getQuadrantName = (x, y) => {
         if (x > 50 && y > 50) return 'Market Leaders';
@@ -198,7 +190,7 @@ export default function CompetitorAnalysisDashboard() {
                                             borderColor: comp.color,
                                         }}
                                     >
-                                        <span className="text-sm font-medium opacity-50 text-gray-700">{comp.name}</span>
+                                        <span className="text-sm font-medium opacity-80 text-gray-700 mt-5">{comp.name}</span>
                                     </div>
                                 );
                             })}

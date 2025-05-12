@@ -28,64 +28,65 @@ export const BrandSentimentDashboard = () => {
     const [newsSource, setNewsSource] = useState('All Sources');
 
     const brandSentimentData = [
-        { name: 'TechBrand', value: 85, color: '#22c55e' },
-        { name: 'FoodCo', value: 65, color: '#3b82f6' },
-        { name: 'RetailX', value: 0, color: '#9ca3af' },
-        { name: 'ElectroGoods', value: -35, color: '#e5e7eb' },
-        { name: 'AutoParts', value: -75, color: '#ef4444' }
+        { name: 'Tesla', value: 90, color: '#22c55e' },           
+        { name: 'Honda', value: 70, color: '#3b82f6' },           
+        { name: 'Mercedes-Benz', value: 55, color: '#9ca3af' },   
+        { name: 'Nissan', value: -20, color: '#e5e7eb' },        
+        { name: 'Toyota', value: -45, color: '#ef4444' }      
     ];
 
     const sentimentTrends = [
-        { name: 'TechBrand', change: 12, isPositive: true },
-        { name: 'FoodCo', change: 5, isPositive: true },
-        { name: 'RetailX', change: 0, isPositive: true },
-        { name: 'ElectroGoods', change: 8, isPositive: false },
-        { name: 'AutoParts', change: 27, isPositive: false }
+        { name: 'Tesla', change: 10, isPositive: true },
+        { name: 'Honda', change: 6, isPositive: true },
+        { name: 'Mercedes-Benz', change: 2, isPositive: true },
+        { name: 'Nissan', change: 5, isPositive: false },
+        { name: 'Toyota', change: 18, isPositive: false }
     ];
 
     const competitorHealth = [
-        { name: 'Competitor1', value: '+45', status: 'Neutral-Positive' },
-        { name: 'Competitor2', value: '-16', status: 'Negative' }
+        { name: 'Lexus', value: '+30', status: 'Neutral-Positive' },
+        { name: 'Volkswagen', value: '-22', status: 'Negative' }
     ];
 
     const newsItems = [
         {
-            brand: 'TechBrand',
+            brand: 'Tesla',
             sentiment: 'Very Positive',
-            title: 'TechBrand launches new eco-friendly product line, commits to carbon neutrality by 2025',
-            likes: '1.2K',
-            shares: '3.5K',
-            daysAgo: 2,
-            sentimentBar: 95
+            title: 'Tesla unveils solid-state battery prototype, aiming to double EV range by 2026',
+            likes: '2.4K',
+            shares: '4.1K',
+            daysAgo: 1,
+            sentimentBar: 96
         },
         {
-            brand: 'FoodCo',
+            brand: 'Honda',
             sentiment: 'Positive',
-            title: 'FoodCo\'s new organic product line exceeds sales expectations, premium pricing remains a concern',
-            likes: '950',
-            shares: '2.1K',
-            daysAgo: 4,
-            sentimentBar: 65
-        },
-        {
-            brand: 'RetailX',
-            sentiment: 'Neutral',
-            title: 'RetailX announces 15 new store openings while facing supply chain challenges in existing locations',
-            likes: '630',
-            shares: '1.8K',
-            daysAgo: 7,
-            sentimentBar: 50
-        },
-        {
-            brand: 'AutoParts',
-            sentiment: 'Very Negative',
-            title: 'AutoParts CEO resigns amid growing concerns over manufacturing quality and product reliability',
-            likes: '1.6K',
-            shares: '2.4K',
+            title: 'Honda’s new hybrid lineup sees strong early demand in North America',
+            likes: '1.1K',
+            shares: '2.3K',
             daysAgo: 3,
-            sentimentBar: 15
+            sentimentBar: 75
+        },
+        {
+            brand: 'Mercedes-Benz',
+            sentiment: 'Neutral',
+            title: 'Mercedes-Benz increases investment in EV infrastructure while facing delivery delays',
+            likes: '800',
+            shares: '1.7K',
+            daysAgo: 5,
+            sentimentBar: 55
+        },
+        {
+            brand: 'Toyota',
+            sentiment: 'Negative',
+            title: 'Toyota faces backlash over slow EV transition despite hybrid leadership',
+            likes: '1.9K',
+            shares: '2.9K',
+            daysAgo: 2,
+            sentimentBar: 30
         }
     ];
+
 
     const getSentimentColor = (sentiment) => {
         switch (sentiment) {

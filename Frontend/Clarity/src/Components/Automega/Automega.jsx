@@ -43,7 +43,7 @@ export default function Automega() {
                                 <a href="/src/assets/Global-Connected-Vehicles-Industry-Thought-Leadership-Report.pdf" download title="Download PDF">
                                     <Download className="w-4 h-4 hover:opacity-80" />
                                 </a>
-                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                <a href="/src/assets/Global-Connected-Vehicles-Industry-Thought-Leadership-Report.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
                                     <Expand className="w-4 h-4 hover:opacity-80" />
                                 </a>
                             </div>

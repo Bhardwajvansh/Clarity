@@ -446,12 +446,10 @@ export const AutomotiveDashboard = () => {
 
     const StrategicDashboard = () => {
         const accountData = [
-            { id: 'GM', name: 'GlobalMart', value: 7500000, potential: 4.2, revenue: 9800000, health: 'Healthy' },
-            { id: 'TC', name: 'TechWorld', value: 6200000, potential: 4.5, revenue: 8200000, health: 'Healthy' },
-            { id: 'DS', name: 'DataSystems', value: 4800000, potential: 4.1, revenue: 5800000, health: 'Medium' },
-            { id: 'EC', name: 'ECommerce Inc', value: 2900000, potential: 2.8, revenue: 3700000, health: 'At Risk' },
-            { id: 'FC', name: 'FoodCo', value: 1500000, potential: 2.7, revenue: 2600000, health: 'Healthy' },
-            { id: 'LP', name: 'LogiPartners', value: 900000, potential: 1.9, revenue: 1500000, health: 'Medium' }
+            { id: 'UPS', name: 'UPS', value: 7500000, potential: 4.2, revenue: 9800000, health: 'Healthy' },
+            { id: 'HZ', name: 'Hertz', value: 6200000, potential: 4.5, revenue: 8200000, health: 'Healthy' },
+            { id: 'AMZ', name: 'Amazon', value: 4800000, potential: 4.1, revenue: 5800000, health: 'Medium' },
+            { id: 'LY', name: 'Lyft', value: 2900000, potential: 2.8, revenue: 3700000, health: 'At Risk' },
         ];
 
         const getBubblePosition = (account) => {
@@ -483,12 +481,10 @@ export const AutomotiveDashboard = () => {
         };
         const getBubbleBorderColor = (id) => {
             switch (id) {
-                case 'GM': return 'border-green-500';
-                case 'TC': return 'border-green-500';
-                case 'DS': return 'border-orange-300';
-                case 'EC': return 'border-blue-400';
-                case 'FC': return 'border-blue-300';
-                case 'LP': return 'border-orange-300';
+                case 'UPS': return 'border-green-500';
+                case 'HZ': return 'border-green-500';
+                case 'AMZ': return 'border-orange-300';
+                case 'LY': return 'border-blue-400';
                 default: return 'border-gray-300';
             }
         };
@@ -622,19 +618,18 @@ export const AutomotiveDashboard = () => {
         ];
 
         const competitorData = [
-            { name: 'Your Company', x: 55, y: 65, color: '#2563eb' },
-            { name: 'Innovate Corp', x: 85, y: 75, color: '#10b981' },
-            { name: 'TechDisruptor', x: 65, y: 45, color: '#f59e0b' },
-            { name: 'Global Solutions', x: 35, y: 35, color: '#ef4444' },
-            { name: 'Premium Tech', x: 75, y: 25, color: '#8b5cf6' }
+            { name: 'Kia', x: 55, y: 65, color: '#2563eb' },
+            { name: 'Tesla ', x: 85, y: 75, color: '#10b981' },
+            { name: 'Audi ', x: 65, y: 45, color: '#f59e0b' },
+            { name: 'Hyundai ', x: 35, y: 35, color: '#ef4444' },
         ];
 
         const brandSentimentData = [
-            { name: 'TechBrand', value: 85, color: '#22c55e' },
-            { name: 'FoodCo', value: 65, color: '#3b82f6' },
-            { name: 'RetailX', value: 80, color: '#9ca3af' },
-            { name: 'ElectroGoods', value: -35, color: '#e5e7eb' },
-            { name: 'AutoParts', value: -75, color: '#ef4444' }
+            { name: 'Tesla', value: 90, color: '#22c55e' },           
+            { name: 'Honda', value: 70, color: '#3b82f6' },           
+            { name: 'Mercedes-Benz', value: 55, color: '#9ca3af' },   
+            { name: 'Nissan', value: -20, color: '#e5e7eb' },         
+            { name: 'Toyota', value: -45, color: '#ef4444' }          
         ];
 
         return (
@@ -1010,7 +1005,7 @@ export const AutomotiveDashboard = () => {
                                                                     borderColor: comp.color,
                                                                 }}
                                                             >
-                                                                <span className="text-sm font-medium opacity-50 text-gray-700">{comp.name}</span>
+                                                                <span className="text-sm font-medium opacity-80 mt-5 text-gray-700">{comp.name}</span>
                                                             </div>
                                                         );
                                                     })}

@@ -335,7 +335,7 @@ export const RetailMegaTrendsHeatmap = () => {
 
                     {/* Heatmap Rows */}
                     <div className="mt-4">
-                        {getSortedTrendData().map((trend,index) => (
+                        {getSortedTrendData().map((trend, index) => (
                             <div
                                 key={trend.id}
                                 className={`grid grid-cols-7 mb-4 p-2 rounded-md transition-all duration-150 ${trend.id === selectedTrend.id ? 'bg-blue-50 border border-blue-200' : 'hover:bg-blue-50 hover:border hover:border-blue-100 border border-transparent'}`}
@@ -344,7 +344,7 @@ export const RetailMegaTrendsHeatmap = () => {
                             >
                                 <div className="col-span-2 flex items-center">
                                     <div className="w-6 h-6 rounded-full bg-white border border-gray-300 flex items-center justify-center text-xs mr-2 shadow-sm">
-                                        {index+1}
+                                        {index + 1}
                                     </div>
                                     <div className="text-sm font-medium">{trend.name}</div>
                                 </div>
@@ -488,10 +488,12 @@ export const RetailMegaTrendsHeatmap = () => {
                 )}
 
                 <div className="mb-6">
-                    <button className="flex items-center justify-center space-x-2 text-xs bg-gray-100 hover:bg-gray-200 transition-colors rounded-md px-4 py-2 w-full border border-gray-300 shadow-sm">
-                        <Download size={14} />
-                        <span className="font-medium">View Full Report</span>
-                    </button>
+                    <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                        <button className="flex items-center justify-center space-x-2 text-xs bg-gray-100 hover:bg-gray-200 transition-colors rounded-md px-4 py-2 w-full border border-gray-300 shadow-sm">
+                            <Download size={14} />
+                            <span className="font-medium">View Full Report</span>
+                        </button>
+                    </a>
                 </div>
 
                 <div className="mt-6 border-t border-gray-200 pt-4">

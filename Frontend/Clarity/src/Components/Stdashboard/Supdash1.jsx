@@ -494,7 +494,7 @@ export const AutomotiveDashboard = () => {
         };
 
         const shouldShowRank = (trend, maturity, growth) => {
-            return (trend.marketMaturity === maturity && trend.growthPotential === growth);
+            return (trend.marketMaturity === maturity);
         };
 
         const getCellColor = (value) => {
@@ -511,90 +511,113 @@ export const AutomotiveDashboard = () => {
         const trendData = [
             {
                 id: 1,
-                name: 'E-commerce 2.0',
+                name: 'Electric Vehicles (EVs)',
                 rank: 1,
-                marketMaturity: 'Medium',
-                growthPotential: 'Very High',
-                percentage: 92,
-                description: 'Advanced digital shopping experiences with personalization and seamless checkout is showing the highest potential in both market opportunity and current traction.',
-                yearOverYearChange: 4.5
+                marketMaturity: 'Very High',
+                growthPotential: 'High',
+                percentage: 95,
+                description: 'Electric Vehicles are showing the highest market maturity with significant global adoption.',
+                yearOverYearChange: 6.2,
+                comments: 'Mass adoption, strong regulatory support, and OEM investment'
             },
             {
                 id: 2,
-                name: 'Personalization AI',
+                name: 'Software-Defined Vehicles (SDV)',
                 rank: 2,
-                marketMaturity: 'Medium',
+                marketMaturity: 'High',
                 growthPotential: 'Very High',
                 percentage: 88,
-                description: 'Technologies that deliver 1:1 personalized shopping experiences are becoming necessary for competitive advantage in the retail sector.',
-                yearOverYearChange: 7.2
+                description: 'Software-defined vehicles represent the convergence of automotive and tech industries.',
+                yearOverYearChange: 9.1,
+                comments: 'Vehicle OS platforms, OTA updates, and AI/ML in-vehicle'
             },
             {
                 id: 3,
-                name: 'Sustainable Retail',
+                name: 'Autonomous Driving (ADAS/AV)',
                 rank: 3,
                 marketMaturity: 'Medium',
-                growthPotential: 'High',
-                percentage: 76
+                growthPotential: 'Very High',
+                percentage: 74,
+                description: 'Autonomous driving technologies continue to advance despite regulatory challenges.',
+                yearOverYearChange: 5.3,
+                comments: 'Advanced pilots, but full autonomy still in limited deployment'
             },
             {
                 id: 4,
-                name: 'Omnichannel Integration',
+                name: 'Connected Car Ecosystem',
                 rank: 4,
                 marketMaturity: 'High',
-                growthPotential: 'Medium',
-                percentage: 71
+                growthPotential: 'High',
+                percentage: 82,
+                description: 'Connected car technologies are becoming standard features across vehicle segments.',
+                yearOverYearChange: 3.7,
+                comments: 'Telematics, V2X, and data monetization surging'
             },
             {
                 id: 5,
-                name: 'Social Commerce',
+                name: 'Sustainable Manufacturing',
                 rank: 5,
                 marketMaturity: 'Medium',
                 growthPotential: 'High',
-                percentage: 68
+                percentage: 71,
+                description: 'Sustainable manufacturing practices are gaining momentum as environmental concerns grow.',
+                yearOverYearChange: 4.5,
+                comments: 'Circular supply chains, low-carbon factories rising'
             },
             {
                 id: 6,
-                name: 'AR/VR Shopping',
+                name: 'Mobility-as-a-Service (MaaS)',
                 rank: 6,
-                marketMaturity: 'Low',
-                growthPotential: 'Very High',
-                percentage: 67,
-                description: 'AR/VR Shopping has high market opportunity but lower current traction, suggesting an emerging growth area with significant future potential.',
-                yearOverYearChange: null
+                marketMaturity: 'Medium',
+                growthPotential: 'High',
+                percentage: 69,
+                description: 'Mobility services are transforming urban transportation models.',
+                yearOverYearChange: 2.8,
+                comments: 'Urban pilots, shifting from ownership to access'
             },
             {
                 id: 7,
-                name: 'Supply Chain Optimization',
+                name: 'Hydrogen Vehicles (Fuel Cell)',
                 rank: 7,
-                marketMaturity: 'High',
+                marketMaturity: 'Low-Medium',
                 growthPotential: 'Medium',
-                percentage: 58
+                percentage: 58,
+                description: 'Hydrogen fuel cell vehicles represent a long-term alternative to battery EVs.',
+                yearOverYearChange: 3.2,
+                comments: 'Niche but strategic in commercial and long-haul segments'
             },
             {
                 id: 8,
-                name: 'Voice Commerce',
+                name: 'Battery Tech Innovation',
                 rank: 8,
-                marketMaturity: 'Low',
-                growthPotential: 'High',
-                percentage: 57
+                marketMaturity: 'High',
+                growthPotential: 'Very High',
+                percentage: 85,
+                description: 'Battery technology innovations are critical to EV adoption and performance.',
+                yearOverYearChange: 7.5,
+                comments: 'Solid-state R&D, range improvements, cost reduction ongoing'
             },
             {
                 id: 9,
-                name: 'Subscription Models',
+                name: 'Over-the-Air (OTA) Updates',
                 rank: 9,
-                marketMaturity: 'Medium',
+                marketMaturity: 'High',
                 growthPotential: 'Medium',
-                percentage: 48
+                percentage: 83,
+                description: 'OTA updates are transforming vehicle maintenance and feature deployment.',
+                yearOverYearChange: 5.6,
+                comments: 'Becoming standard for infotainment and safety updates'
             },
             {
                 id: 10,
-                name: 'Smart Stores',
+                name: 'Vehicle Cybersecurity',
                 rank: 10,
-                marketMaturity: 'Low',
-                growthPotential: 'Medium',
-                percentage: 47,
-                yearOverYearChange: -2
+                marketMaturity: 'Medium',
+                growthPotential: 'High',
+                percentage: 67,
+                description: 'Vehicle cybersecurity is becoming a critical focus area as vehicles become more connected.',
+                yearOverYearChange: 8.4,
+                comments: 'Regulatory and safety pressures driving market acceleration'
             }
         ];
 
@@ -634,7 +657,7 @@ export const AutomotiveDashboard = () => {
                         >
                             <div className="flex justify-between items-center mb-4">
                                 <div>
-                                    <h3 className="text-base font-semibold">Sector Analysis: Retail</h3>
+                                    <h3 className="text-base font-semibold">Sector Analysis</h3>
                                     <p className="text-xs text-gray-500">Top Mega Trends Heat Map</p>
                                 </div>
                                 <div className="flex space-x-2">
@@ -652,7 +675,7 @@ export const AutomotiveDashboard = () => {
                                         <div className="flex justify-between items-center mb-4 border-b border-gray-200 pb-4">
                                             <div>
                                                 <h1 className="text-xl font-bold text-gray-800">Sector Analysis</h1>
-                                                <h2 className="text-lg font-medium text-gray-700">Retail Mega Trends Heatmap</h2>
+                                                <h2 className="text-lg font-medium text-gray-700">Automobile Mega Trends Heatmap</h2>
                                             </div>
                                             <div className="flex space-x-2 items-center">
                                                 <div className="bg-yellow-100 p-2 rounded-full border border-yellow-200">
@@ -687,7 +710,7 @@ export const AutomotiveDashboard = () => {
                                         </div>
 
                                         <div className="mb-4 border-b border-gray-200 pb-2">
-                                            <h3 className="text-base font-medium">Top 10 Mega Trends in Retail</h3>
+                                            <h3 className="text-base font-medium">Top 10 Mega Trends in Automobile</h3>
                                             <div className="flex items-center text-xs text-gray-500 mt-1 mb-3">
                                                 <Info size={14} className="mr-1" />
                                                 <span>Updated: July 2023</span>

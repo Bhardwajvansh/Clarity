@@ -15,8 +15,21 @@ import {
     Zap,
     Cpu,
     Truck,
-    Package
+    Package,
+    Car,
+    Plane,
+    Laptop,
+    Leaf,
+    ShieldCheck,
+    BusFront,
+    Wrench,
+    FlaskConical,
+    Flame,
+    Rocket,
+    Users,
+    
 } from 'lucide-react';
+import Carousel from '../Carousel/Carousel';
 import { useNavigate } from 'react-router-dom';
 
 export const UserOnboarding = () => {
@@ -30,30 +43,210 @@ export const UserOnboarding = () => {
 
     const sectors = [
         { id: 1, name: 'Healthcare', icon: <Heart size={28} />, description: 'Medical, Pharma, Devices' },
+        { id: 5, name: 'Automobile', icon: <Car size={28} />, description: 'OEMs, Auto Parts, EVs' },
         { id: 2, name: 'Retail', icon: <ShoppingCart size={28} />, description: 'E-commerce, Stores, CPG' },
         { id: 3, name: 'Financial Services', icon: <Building2 size={28} />, description: 'Banking, Insurance, Fintech' },
         { id: 4, name: 'Manufacturing', icon: <Settings size={28} />, description: 'Industrial, Production' },
+        { id: 6, name: 'Aerospace & Defense', icon: <Plane size={28} />, description: 'Aviation, Space, Military' },
+        { id: 7, name: 'Technology', icon: <Laptop size={28} />, description: 'Software, Hardware, IT Services' },
+        { id: 8, name: 'Energy & Utilities', icon: <Leaf size={28} />, description: 'Oil, Gas, Renewables, Water' },
+        { id: 9, name: 'Security & Public Sector', icon: <ShieldCheck size={28} />, description: 'Government, Cybersecurity' },
     ];
 
     const products = [
-        { id: 1, name: 'Apparel', icon: <Shirt size={28} />, description: 'Clothing & Fashion' },
-        { id: 2, name: 'Electronics', icon: <Smartphone size={28} />, description: 'Devices & Gadgets' },
-        { id: 3, name: 'Food & Beverage', icon: <Utensils size={28} />, description: 'Grocery & Consumables' },
-        { id: 4, name: 'Home Goods', icon: <Sofa size={28} />, description: 'Furniture & Decor' },
+        // { id: 1, name: 'Apparel', icon: <Shirt size={28} />, description: 'Clothing & Fashion' },
+        // { id: 2, name: 'Electronics', icon: <Smartphone size={28} />, description: 'Devices & Gadgets' },
+        // { id: 3, name: 'Food & Beverage', icon: <Utensils size={28} />, description: 'Grocery & Consumables' },
+        // { id: 4, name: 'Home Goods', icon: <Sofa size={28} />, description: 'Furniture & Decor' },
+        {
+            id: 1,
+            name: 'Vehicle Segments',
+            icon: <Car size={28} />,
+            description: 'Passenger, Commercial, EVs',
+            keywords: [
+                'Passenger Vehicles',
+                'Commercial Vehicles',
+                'Electric Vehicles (EVs)',
+                'Hybrid Vehicles',
+                'Luxury Vehicles',
+                'Two-Wheelers',
+                'Autonomous Vehicles',
+                'Off-Road & Specialty Vehicles',
+            ],
+        },
+        {
+            id: 2,
+            name: 'Mobility Services',
+            icon: <BusFront size={28} />,
+            description: 'Ride-sharing, Fleet, Transport',
+            keywords: [
+                'Vehicle Leasing & Subscriptions',
+                'Ride-Hailing / Car-Sharing',
+                'Fleet Management Services',
+                'Telematics & Connected Car Services',
+            ],
+        },
+        {
+            id: 3,
+            name: 'Aftermarket Products',
+            icon: <Wrench size={28} />,
+            description: 'Parts, Maintenance, Accessories',
+            keywords: [
+                'OEM Parts & Accessories',
+                'Vehicle Servicing & Repairs',
+                'Extended Warranties & Insurance',
+                'Charging Infrastructure',
+                'In-Car Infotainment & Navigation',
+            ],
+        },
+        {
+            id: 4,
+            name: 'Engineering & R&D Services',
+            icon: <FlaskConical size={28} />,
+            description: 'Design, Prototyping, Innovation',
+            keywords: [
+                'Vehicle Design & Prototyping',
+                'Software-Defined Vehicle (SDV) Platforms',
+                'ADAS/Autonomous Tech Development',
+                'Simulation & Testing Services',
+            ],
+        },
+
     ];
 
     const accounts = [
-        { id: 1, name: 'GlobalMart', icon: <Building2 size={28} />, description: 'Retail Chain', revenue: '$42.5M' },
-        { id: 2, name: 'TechWorld', icon: <ShoppingCart size={28} />, description: 'Electronics Retailer', revenue: '$47M' },
-        { id: 3, name: 'FoodCo', icon: <ShoppingCart size={28} />, description: 'Grocery Chain', revenue: '$31.1M' },
-        { id: 4, name: 'ECommerce Inc', icon: <Globe size={28} />, description: 'Online Marketplace', revenue: '$62M' },
+        {
+            id: 1,
+            name: 'B2C Customer Segments',
+            icon: <ShoppingCart size={28} />,
+            description: 'Retail Chain',
+            segment: 'B2C Customer Segments',
+            keywords: [
+                'First-Time Vehicle Buyers',
+                'Urban Daily Commuters',
+                'Luxury/Performance Enthusiasts',
+                'EV Early Adopters',
+                'Families (MUV/SUV Buyers)',
+            ],
+        },
+        {
+            id: 2,
+            name: 'B2B Customer Segments',
+            icon: <ShoppingCart size={28} />,
+            description: 'Electronics Retailer',
+            segment: 'B2B Customer Segments',
+            keywords: [
+                'Fleet Operators',
+                'Logistics/Last-Mile Delivery Companies',
+                'Government Agencies',
+                'Car Rental & Leasing Companies',
+                'Ride-Hailing Platforms (Uber, Lyft, Ola)',
+            ],
+        },
+        {
+            id: 3,
+            name: 'Enterprise / Institutional Buyers',
+            icon: <Building2 size={28} />,
+            description: 'Grocery Chain',
+            segment: 'Enterprise / Institutional Buyers',
+            keywords: [
+                'Corporates & MNCs (bulk purchases)',
+                'Taxi Aggregators',
+                'Defense/Police/Utility Departments',
+            ],
+        },
     ];
 
     const competitors = [
-        { id: 1, name: 'FastTech Inc', icon: <Zap size={28} />, description: 'Market Share: 12%', threat: 'Low' },
-        { id: 2, name: 'Innovate Corp', icon: <Zap size={28} />, description: 'Market Share: 28%', threat: 'High' },
-        { id: 3, name: 'Global Solutions', icon: <Globe size={28} />, description: 'Market Share: 18%', threat: 'Medium' },
-        { id: 4, name: 'Premium Tech', icon: <Star size={28} />, description: 'Market Share: 15%', threat: 'Medium' },
+        {
+            id: 1,
+            name: 'Traditional OEMs',
+            icon: <Car size={28} />,
+            description: 'Established auto manufacturers',
+            threat: 'Medium',
+            keywords: [
+                'Toyota',
+                'Volkswagen',
+                'Honda',
+                'Ford',
+                'GM',
+                'Hyundai',
+                'Tata Motors',
+                'Mahindra',
+                'Maruti Suzuki',
+            ],
+        },
+        {
+            id: 2,
+            name: 'Luxury / Performance OEMs',
+            icon: <Star size={28} />,
+            description: 'High-end automotive brands',
+            threat: 'Medium',
+            keywords: [
+                'BMW',
+                'Mercedes-Benz',
+                'Audi',
+                'Porsche',
+                'Lexus',
+                'Jaguar',
+            ],
+        },
+        {
+            id: 3,
+            name: 'EV-Only Players',
+            icon: <Flame size={28} />,
+            description: 'Pure electric vehicle manufacturers',
+            threat: 'High',
+            keywords: [
+                'Tesla',
+                'Rivian',
+                'Lucid',
+                'BYD',
+                'Nio',
+                'VinFast',
+            ],
+        },
+        {
+            id: 4,
+            name: 'Emerging Tech/Startups',
+            icon: <Rocket size={28} />,
+            description: 'Innovative automotive startups',
+            threat: 'Low',
+            keywords: [
+                'Zoox',
+                'Canoo',
+                'Arrival',
+                'REE Automotive',
+            ],
+        },
+        {
+            id: 5,
+            name: 'Mobility Players',
+            icon: <Users size={28} />,
+            description: 'Ride-sharing and car-sharing platforms',
+            threat: 'High',
+            keywords: [
+                'Uber',
+                'Ola',
+                'Grab',
+                'Zipcar',
+                'Turo',
+            ],
+        },
+        {
+            id: 6,
+            name: 'Aftermarket Giants',
+            icon: <Wrench size={28} />,
+            description: 'Parts and service technology leaders',
+            threat: 'Medium',
+            keywords: [
+                'Bosch',
+                'Denso',
+                'Continental',
+                'Magna',
+                'Valeo',
+            ],
+        },
     ];
 
     const vendors = [
@@ -79,8 +272,21 @@ export const UserOnboarding = () => {
         if (selectedAccounts.some(a => a.id === account.id)) {
             setSelectedAccounts(selectedAccounts.filter(a => a.id !== account.id));
         } else {
-            setSelectedAccounts([...selectedAccounts, account]);
+            // Add revenue property if not present
+            setSelectedAccounts([
+                ...selectedAccounts,
+                { ...account, revenue: account.revenue || "" }
+            ]);
         }
+    };
+
+    // Handler to update revenue for a selected account
+    const handleRevenueChange = (accountId, value) => {
+        setSelectedAccounts(selectedAccounts =>
+            selectedAccounts.map(acc =>
+                acc.id === accountId ? { ...acc, revenue: value } : acc
+            )
+        );
     };
 
     const handleCompetitorSelect = (competitor) => {
@@ -226,48 +432,85 @@ export const UserOnboarding = () => {
                 return null;
         }
 
-        return (
-            <div className="flex flex-wrap gap-2 mt-2">
-                {selected.map(item => (
-                    <div
-                        key={item.id}
-                        className="flex items-center bg-blue-50 border border-blue-200 rounded-md px-2 py-1"
-                    >
-                        <div className="mr-1">
-                            {item.icon && React.cloneElement(item.icon, { size: 16 })}
-                        </div>
-                        <span className="text-sm text-blue-700">{item.name}</span>
-
-                        {type === 'competitor' && (
-                            <span className={`ml-1 text-xs font-medium ${getThreatColor(item.threat)}`}>
-                                {item.threat}
-                            </span>
-                        )}
-
-                        {type === 'vendor' && (
-                            <span className={`ml-1 text-xs font-medium ${getRiskColor(item.risk)}`}>
-                                {item.risk}
-                            </span>
-                        )}
-
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                removeHandler(item);
-                            }}
-                            className="ml-2 text-gray-400 hover:text-gray-600"
+        if (type === 'product') {
+            return (
+                <div className="flex flex-wrap gap-4 mt-2">
+                    {selected.map(item => (
+                        <div
+                            key={item.id}
+                            className="relative flex flex-col bg-blue-50 border border-blue-200 rounded-lg px-5 py-4 min-w-[220px] max-w-xs shadow-sm hover:shadow-md transition-shadow"
                         >
-                            ×
-                        </button>
-                    </div>
-                ))}
-
-                <div className="flex items-center text-blue-500 hover:text-blue-700 cursor-pointer">
-                    <span className="text-lg mr-1">+</span>
-                    <span className="text-sm">Add More</span>
+                            <button
+                                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    removeHandler(item);
+                                }}
+                                aria-label="Remove"
+                                type="button"
+                            >
+                                ×
+                            </button>
+                            <div className="flex items-start gap-3">
+                                <div className="mt-1">
+                                    {item.icon && React.cloneElement(item.icon, { size: 22 })}
+                                </div>
+                                <div>
+                                    <div className="text-blue-700 font-semibold text-base mb-1">{item.name}</div>
+                                    {item.keywords && item.keywords.length > 0 && (
+                                        <ul className="list-disc list-inside text-xs text-gray-700 pl-2">
+                                            {item.keywords.map((kw, idx) => (
+                                                <li key={idx}>{kw}</li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            </div>
-        );
+            );
+        }
+        if (type === 'account') {
+            return (
+                <div className="flex flex-wrap gap-4 mt-2">
+                    {selected.map(item => (
+                        <div
+                            key={item.id}
+                            className="relative flex flex-col bg-blue-50 border border-blue-200 rounded-lg px-5 py-4 min-w-[220px] max-w-xs shadow-sm hover:shadow-md transition-shadow"
+                        >
+                            <button
+                                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    removeHandler(item);
+                                }}
+                                aria-label="Remove"
+                                type="button"
+                            >
+                                ×
+                            </button>
+                            <div className="flex items-start gap-3">
+                                <div className="mt-1">
+                                    {item.icon && React.cloneElement(item.icon, { size: 22 })}
+                                </div>
+                                <div>
+                                    <div className="text-blue-700 font-semibold text-base mb-1">{item.name}</div>
+                                    <div className="text-xs text-gray-600 mb-1">{item.description}</div>
+                                    <input
+                                        type="text"
+                                        className="mt-1 px-2 py-1 border rounded text-xs w-full"
+                                        placeholder="Enter revenue"
+                                        value={item.revenue || ""}
+                                        onChange={e => handleRevenueChange(item.id, e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
     };
 
     const renderStepIndicator = () => {
@@ -298,17 +541,14 @@ export const UserOnboarding = () => {
                         </p>
 
                         <div className="relative">
-                            <button className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10">
-                                <ChevronLeft size={20} />
-                            </button>
-
-                            <div className="grid grid-cols-4 gap-4">
-                                {sectors.map(sector => renderCard(sector, 'sector'))}
-                            </div>
-
-                            <button className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10">
-                                <ChevronRight size={20} />
-                            </button>
+                            <Carousel
+                                items={sectors}
+                                renderItem={sector => renderCard(sector, 'sector')}
+                                windowSize={4}
+                                chevronLeft={<ChevronLeft size={20} />}
+                                chevronRight={<ChevronRight size={20} />}
+                                resetKey={currentStep}
+                            />
                         </div>
 
                         {selectedSector && (
@@ -333,17 +573,14 @@ export const UserOnboarding = () => {
                         </p>
 
                         <div className="relative">
-                            <button className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10">
-                                <ChevronLeft size={20} />
-                            </button>
-
-                            <div className="grid grid-cols-4 gap-4">
-                                {products.map(product => renderCard(product, 'product'))}
-                            </div>
-
-                            <button className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10">
-                                <ChevronRight size={20} />
-                            </button>
+                            <Carousel
+                                items={products}
+                                renderItem={product => renderCard(product, 'product')}
+                                windowSize={4}
+                                chevronLeft={<ChevronLeft size={20} />}
+                                chevronRight={<ChevronRight size={20} />}
+                                resetKey={currentStep}
+                            />
                         </div>
 
                         <div className="mt-6">
@@ -370,17 +607,14 @@ export const UserOnboarding = () => {
                         </p>
 
                         <div className="relative">
-                            <button className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10">
-                                <ChevronLeft size={20} />
-                            </button>
-
-                            <div className="grid grid-cols-4 gap-4">
-                                {accounts.map(account => renderCard(account, 'account'))}
-                            </div>
-
-                            <button className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10">
-                                <ChevronRight size={20} />
-                            </button>
+                            <Carousel
+                                items={accounts}
+                                renderItem={account => renderCard(account, 'account')}
+                                windowSize={4}
+                                chevronLeft={<ChevronLeft size={20} />}
+                                chevronRight={<ChevronRight size={20} />}
+                                resetKey={currentStep}
+                            />
                         </div>
 
                         <div className="mt-6">
@@ -411,17 +645,14 @@ export const UserOnboarding = () => {
                         </p>
 
                         <div className="relative">
-                            <button className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10">
-                                <ChevronLeft size={20} />
-                            </button>
-
-                            <div className="grid grid-cols-4 gap-4">
-                                {competitors.map(competitor => renderCard(competitor, 'competitor'))}
-                            </div>
-
-                            <button className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10">
-                                <ChevronRight size={20} />
-                            </button>
+                            <Carousel
+                                items={competitors}
+                                renderItem={competitor => renderCard(competitor, 'competitor')}
+                                windowSize={4}
+                                chevronLeft={<ChevronLeft size={20} />}
+                                chevronRight={<ChevronRight size={20} />}
+                                resetKey={currentStep}
+                            />
                         </div>
 
                         <div className="mt-6">
@@ -476,17 +707,14 @@ export const UserOnboarding = () => {
                         </p>
 
                         <div className="relative">
-                            <button className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10">
-                                <ChevronLeft size={20} />
-                            </button>
-
-                            <div className="grid grid-cols-4 gap-4">
-                                {vendors.map(vendor => renderCard(vendor, 'vendor'))}
-                            </div>
-
-                            <button className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10">
-                                <ChevronRight size={20} />
-                            </button>
+                            <Carousel
+                                items={vendors}
+                                renderItem={vendor => renderCard(vendor, 'vendor')}
+                                windowSize={4}
+                                chevronLeft={<ChevronLeft size={20} />}
+                                chevronRight={<ChevronRight size={20} />}
+                                resetKey={currentStep}
+                            />
                         </div>
 
                         <div className="mt-6">

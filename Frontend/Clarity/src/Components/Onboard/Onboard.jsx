@@ -18,7 +18,6 @@ import {
     Package
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { Footer } from '../Footer/Footer';
 
 export const UserOnboarding = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -531,7 +530,7 @@ export const UserOnboarding = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-100" >
+        <div className="min-h-screen flex justify-center flex-col bg-gray-100" >
             <div className="max-w-7xl mx-auto p-6 bg-gray-50 rounded-lg shadow-sm">
                 <h1 className="text-3xl font-bold mb-6">User Onboarding</h1>
 
@@ -569,7 +568,6 @@ export const UserOnboarding = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div >
     );
 }

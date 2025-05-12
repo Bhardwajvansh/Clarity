@@ -1,5 +1,5 @@
 import React from 'react';
-import {  ChevronRight } from 'lucide-react'
+import { ChevronRight, Download, Expand } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Automega() {
@@ -37,7 +37,17 @@ export default function Automega() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
                     {/* Connected Vehicles */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div className="bg-blue-500 text-white p-3 font-semibold">Connected Vehicles</div>
+                        <div className="bg-blue-500 text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Connected Vehicles</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -67,7 +77,17 @@ export default function Automega() {
 
                     {/* Autonomous Vehicles */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div className="bg-blue-500 text-white p-3 font-semibold">Autonomous Vehicles</div>
+                        <div className="bg-blue-500 text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Autonomous Vehicles</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -97,7 +117,17 @@ export default function Automega() {
 
                     {/* Shared Mobility */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div className="bg-blue-500 text-white p-3 font-semibold">Shared Mobility</div>
+                        <div className="bg-blue-500 text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Shared Mobility</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -127,7 +157,17 @@ export default function Automega() {
 
                     {/* Electric Vehicles */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div className="bg-blue-500 text-white p-3 font-semibold">Electric Vehicles</div>
+                        <div className="bg-blue-500 text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Electric Vehicles</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -168,7 +208,17 @@ export default function Automega() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
                     {/* Software Platforms */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div style={{ backgroundColor: COLORS[0] }} className="text-white p-3 font-semibold">Software Platforms</div>
+                        <div style={{ backgroundColor: COLORS[0] }} className="text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Software Platforms</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -198,7 +248,17 @@ export default function Automega() {
 
                     {/* OEM Revenue Streams */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div style={{ backgroundColor: COLORS[0] }} className="  text-white p-3 font-semibold">OEM Revenue Streams</div>
+                        <div style={{ backgroundColor: COLORS[0] }} className="text-white p-3 font-semibold flex items-center justify-between">
+                            <span>OEM Revenue Streams</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -228,7 +288,17 @@ export default function Automega() {
 
                     {/* E/E Architecture */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div style={{ backgroundColor: COLORS[0] }} className="  text-white p-3 font-semibold">E/E Architecture</div>
+                        <div style={{ backgroundColor: COLORS[0] }} className="text-white p-3 font-semibold flex items-center justify-between">
+                            <span>E/E Architecture</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -258,7 +328,17 @@ export default function Automega() {
 
                     {/* Development Tools */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div style={{ backgroundColor: COLORS[0] }} className="  text-white p-3 font-semibold">Development Tools</div>
+                        <div style={{ backgroundColor: COLORS[0] }} className="text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Development Tools</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -299,7 +379,17 @@ export default function Automega() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
                     {/* AI Applications */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div className="bg-purple-500 text-white p-3 font-semibold">AI Applications</div>
+                        <div className="bg-purple-500 text-white p-3 font-semibold flex items-center justify-between">
+                            <span>AI Applications</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -329,7 +419,17 @@ export default function Automega() {
 
                     {/* Smart Manufacturing */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div className="bg-purple-500 text-white p-3 font-semibold">Smart Manufacturing</div>
+                        <div className="bg-purple-500 text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Smart Manufacturing</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -359,7 +459,17 @@ export default function Automega() {
 
                     {/* Customer Experience */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div className="bg-purple-500 text-white p-3 font-semibold">Customer Experience</div>
+                        <div className="bg-purple-500 text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Customer Experience</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -389,7 +499,17 @@ export default function Automega() {
 
                     {/* Digital Enterprise */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div className="bg-purple-500 text-white p-3 font-semibold">Digital Enterprise</div>
+                        <div className="bg-purple-500 text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Digital Enterprise</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -430,7 +550,17 @@ export default function Automega() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
                     {/* Sustainable Materials */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div style={{ backgroundColor: COLORS[3] }} className="text-white p-3 font-semibold">Sustainable Materials</div>
+                        <div style={{ backgroundColor: COLORS[3] }} className="text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Sustainable Materials</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -460,7 +590,17 @@ export default function Automega() {
 
                     {/* Alternative Powertrains */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div style={{ backgroundColor: COLORS[3] }} className=" text-white p-3 font-semibold">Alternative Powertrains</div>
+                        <div style={{ backgroundColor: COLORS[3] }} className="text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Alternative Powertrains</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -490,7 +630,17 @@ export default function Automega() {
 
                     {/* Circular Value Chain */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div style={{ backgroundColor: COLORS[3] }} className="text-white p-3 font-semibold">Circular Value Chain</div>
+                        <div style={{ backgroundColor: COLORS[3] }} className="text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Circular Value Chain</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
@@ -520,7 +670,17 @@ export default function Automega() {
 
                     {/* Carbon Neutrality */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
-                        <div style={{ backgroundColor: COLORS[3] }} className="text-white p-3 font-semibold">Carbon Neutrality</div>
+                        <div style={{ backgroundColor: COLORS[3] }} className="text-white p-3 font-semibold flex items-center justify-between">
+                            <span>Carbon Neutrality</span>
+                            <div className="flex gap-2">
+                                <a href="/pdfs/placeholder.pdf" download title="Download PDF">
+                                    <Download className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                                <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
+                                    <Expand className="w-4 h-4 hover:opacity-80" />
+                                </a>
+                            </div>
+                        </div>
                         <div className="p-4">
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">

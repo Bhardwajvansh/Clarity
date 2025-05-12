@@ -31,6 +31,7 @@ import {
     Cloud,
     CircuitBoard,
     Warehouse,
+    Upload,
 } from 'lucide-react';
 import Carousel from '../Carousel/Carousel';
 import { useNavigate } from 'react-router-dom';
@@ -737,7 +738,27 @@ export const UserOnboarding = () => {
             case 2:
                 return (
                     <>
-                        <h2 className="text-xl font-bold mb-1">Step 2: Select Your Products/Services</h2>
+                        <div className='flex items-center justify-between mb-4'>
+                            <h2 className="text-xl font-bold mb-1">Step 2: Select Your Products/Services</h2>
+                            <label
+                                htmlFor="file-upload"
+                                className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white text-sm font-medium shadow hover:bg-blue-700 cursor-pointer"
+                            >
+                                <Upload size={20} />
+                                Upload File
+                                <input
+                                    id="file-upload"
+                                    type="file"
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            console.log("Selected file:", file.name);
+                                        }
+                                    }}
+                                />
+                            </label>
+                        </div>
                         <div className="h-1 w-24 bg-blue-500 mb-4"></div>
                         <p className="text-gray-600 mb-6">
                             Based on the selected sector (Retail), users can now choose their key products or services. Multiple selections
@@ -771,7 +792,27 @@ export const UserOnboarding = () => {
             case 3:
                 return (
                     <>
-                        <h2 className="text-xl font-bold mb-1">Step 3: Select Your Key Sales Accounts</h2>
+                        <div className='flex items-center justify-between mb-4'>
+                            <h2 className="text-xl font-bold mb-1">Step 3: Select Your Key Sales Accounts</h2>
+                            <label
+                                htmlFor="file-upload"
+                                className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white text-sm font-medium shadow hover:bg-blue-700 cursor-pointer"
+                            >
+                                <Upload size={20} />
+                                Upload File
+                                <input
+                                    id="file-upload"
+                                    type="file"
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            console.log("Selected file:", file.name);
+                                        }
+                                    }}
+                                />
+                            </label>
+                        </div>
                         <div className="h-1 w-24 bg-blue-500 mb-4"></div>
                         <p className="text-gray-600 mb-6">
                             Now, select the companies you're selling to. These key accounts will be monitored for opportunities, risks,
@@ -809,7 +850,27 @@ export const UserOnboarding = () => {
             case 4:
                 return (
                     <>
-                        <h2 className="text-xl font-bold mb-1">Step 4: Select Your Competitors</h2>
+                        <div className='flex items-center justify-between mb-4'>
+                            <h2 className="text-xl font-bold mb-1">Step 4: Select Your Competitors</h2>
+                            <label
+                                htmlFor="file-upload"
+                                className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white text-sm font-medium shadow hover:bg-blue-700 cursor-pointer"
+                            >
+                                <Upload size={20} />
+                                Upload File
+                                <input
+                                    id="file-upload"
+                                    type="file"
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            console.log("Selected file:", file.name);
+                                        }
+                                    }}
+                                />
+                            </label>
+                        </div>
                         <div className="h-1 w-24 bg-blue-500 mb-4"></div>
                         <p className="text-gray-600 mb-6">
                             Now, identify your main competitors in the market. Our AI will track their movements, analyze their
@@ -871,7 +932,27 @@ export const UserOnboarding = () => {
             case 5:
                 return (
                     <>
-                        <h2 className="text-xl font-bold mb-1">Step 5: Select Your Key Vendors</h2>
+                        <div className='flex items-center justify-between mb-4'>
+                            <h2 className="text-xl font-bold mb-1">Step 5: Select Your Key Vendors</h2>
+                            <label
+                                htmlFor="file-upload"
+                                className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-white text-sm font-medium shadow hover:bg-blue-700 cursor-pointer"
+                            >
+                                <Upload size={20} />
+                                Upload File
+                                <input
+                                    id="file-upload"
+                                    type="file"
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            console.log("Selected file:", file.name);
+                                        }
+                                    }}
+                                />
+                            </label>
+                        </div>
                         <div className="h-1 w-24 bg-blue-500 mb-4"></div>
                         <p className="text-gray-600 mb-6">
                             Finally, select your key suppliers and vendors. The platform will monitor their performance, risk factors, and

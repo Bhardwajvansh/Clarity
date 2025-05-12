@@ -40,7 +40,7 @@ export default function Automega() {
                         <div className="bg-blue-500 text-white p-3 font-semibold flex items-center justify-between">
                             <span>Connected Vehicles</span>
                             <div className="flex gap-2">
-                                <a href="../../assets/Global-Connected-Vehicles-Industry-Thought-Leadership-Report.pdf" download title="Download PDF">
+                                <a href="/src/assets/Global-Connected-Vehicles-Industry-Thought-Leadership-Report.pdf" download title="Download PDF">
                                     <Download className="w-4 h-4 hover:opacity-80" />
                                 </a>
                                 <a href="/pdfs/placeholder.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">

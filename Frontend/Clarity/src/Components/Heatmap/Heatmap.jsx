@@ -3,94 +3,163 @@ import { ChevronDown, X, Info, ArrowRight, ArrowUpRight, ArrowDownRight, Downloa
 
 export const RetailMegaTrendsHeatmap = () => {
     const [showInfoPanel, setShowInfoPanel] = useState(true);
+    const [timeDropdownOpen, setTimeDropdownOpen] = useState(false);
+    const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
+
+    const [selectedTime, setSelectedTime] = useState('Last 12 Months');
+    const [selectedRegion, setSelectedRegion] = useState('Global');
+
+    const timeOptions = [
+        'Last 12 Months',
+        'Last 2 Years',
+        'Last 5 Years',
+    ];
+
+    const regionOptions = [
+        'Global',
+        'North America',
+        'Europe',
+        'Asia Pacific',
+        'Latin America',
+        'Middle East & Africa'
+    ];
+
+    const toggleTimeDropdown = () => {
+        setTimeDropdownOpen(!timeDropdownOpen);
+        if (!timeDropdownOpen) setRegionDropdownOpen(false);
+    };
+
+    const toggleRegionDropdown = () => {
+        setRegionDropdownOpen(!regionDropdownOpen);
+        if (!regionDropdownOpen) setTimeDropdownOpen(false);
+    };
+
+    const handleTimeSelect = (time) => {
+        setSelectedTime(time);
+        setTimeDropdownOpen(false);
+    };
+
+    const handleRegionSelect = (region) => {
+        setSelectedRegion(region);
+        setRegionDropdownOpen(false);
+    };
+
+    const closeDropdowns = () => {
+        setTimeDropdownOpen(false);
+        setRegionDropdownOpen(false);
+    };
+
 
     const trendData = [
         {
             id: 1,
-            name: 'E-commerce 2.0',
+            name: 'Electric Vehicles (EVs)',
             rank: 1,
-            marketMaturity: 'Medium',
-            growthPotential: 'Very High',
-            percentage: 92,
-            description: 'Advanced digital shopping experiences with personalization and seamless checkout is showing the highest potential in both market opportunity and current traction.',
-            yearOverYearChange: 4.5
+            marketMaturity: 'Very High',
+            growthPotential: 'High',
+            percentage: 95,
+            description: 'Electric Vehicles are showing the highest market maturity with significant global adoption.',
+            yearOverYearChange: 6.2,
+            comments: 'Mass adoption, strong regulatory support, and OEM investment'
         },
         {
             id: 2,
-            name: 'Personalization AI',
+            name: 'Software-Defined Vehicles (SDV)',
             rank: 2,
-            marketMaturity: 'Medium',
+            marketMaturity: 'High',
             growthPotential: 'Very High',
             percentage: 88,
-            description: 'Technologies that deliver 1:1 personalized shopping experiences are becoming necessary for competitive advantage in the retail sector.',
-            yearOverYearChange: 7.2
+            description: 'Software-defined vehicles represent the convergence of automotive and tech industries.',
+            yearOverYearChange: 9.1,
+            comments: 'Vehicle OS platforms, OTA updates, and AI/ML in-vehicle'
         },
         {
             id: 3,
-            name: 'Sustainable Retail',
+            name: 'Autonomous Driving (ADAS/AV)',
             rank: 3,
             marketMaturity: 'Medium',
-            growthPotential: 'High',
-            percentage: 76
+            growthPotential: 'Very High',
+            percentage: 74,
+            description: 'Autonomous driving technologies continue to advance despite regulatory challenges.',
+            yearOverYearChange: 5.3,
+            comments: 'Advanced pilots, but full autonomy still in limited deployment'
         },
         {
             id: 4,
-            name: 'Omnichannel Integration',
+            name: 'Connected Car Ecosystem',
             rank: 4,
             marketMaturity: 'High',
-            growthPotential: 'Medium',
-            percentage: 71
+            growthPotential: 'High',
+            percentage: 82,
+            description: 'Connected car technologies are becoming standard features across vehicle segments.',
+            yearOverYearChange: 3.7,
+            comments: 'Telematics, V2X, and data monetization surging'
         },
         {
             id: 5,
-            name: 'Social Commerce',
+            name: 'Sustainable Manufacturing',
             rank: 5,
             marketMaturity: 'Medium',
             growthPotential: 'High',
-            percentage: 68
+            percentage: 71,
+            description: 'Sustainable manufacturing practices are gaining momentum as environmental concerns grow.',
+            yearOverYearChange: 4.5,
+            comments: 'Circular supply chains, low-carbon factories rising'
         },
         {
             id: 6,
-            name: 'AR/VR Shopping',
+            name: 'Mobility-as-a-Service (MaaS)',
             rank: 6,
-            marketMaturity: 'Low',
-            growthPotential: 'Very High',
-            percentage: 67,
-            description: 'AR/VR Shopping has high market opportunity but lower current traction, suggesting an emerging growth area with significant future potential.',
-            yearOverYearChange: null
+            marketMaturity: 'Medium',
+            growthPotential: 'High',
+            percentage: 69,
+            description: 'Mobility services are transforming urban transportation models.',
+            yearOverYearChange: 2.8,
+            comments: 'Urban pilots, shifting from ownership to access'
         },
         {
             id: 7,
-            name: 'Supply Chain Optimization',
+            name: 'Hydrogen Vehicles (Fuel Cell)',
             rank: 7,
-            marketMaturity: 'High',
+            marketMaturity: 'Low-Medium',
             growthPotential: 'Medium',
-            percentage: 58
+            percentage: 58,
+            description: 'Hydrogen fuel cell vehicles represent a long-term alternative to battery EVs.',
+            yearOverYearChange: 3.2,
+            comments: 'Niche but strategic in commercial and long-haul segments'
         },
         {
             id: 8,
-            name: 'Voice Commerce',
+            name: 'Battery Tech Innovation',
             rank: 8,
-            marketMaturity: 'Low',
-            growthPotential: 'High',
-            percentage: 57
+            marketMaturity: 'High',
+            growthPotential: 'Very High',
+            percentage: 85,
+            description: 'Battery technology innovations are critical to EV adoption and performance.',
+            yearOverYearChange: 7.5,
+            comments: 'Solid-state R&D, range improvements, cost reduction ongoing'
         },
         {
             id: 9,
-            name: 'Subscription Models',
+            name: 'Over-the-Air (OTA) Updates',
             rank: 9,
-            marketMaturity: 'Medium',
+            marketMaturity: 'High',
             growthPotential: 'Medium',
-            percentage: 48
+            percentage: 83,
+            description: 'OTA updates are transforming vehicle maintenance and feature deployment.',
+            yearOverYearChange: 5.6,
+            comments: 'Becoming standard for infotainment and safety updates'
         },
         {
             id: 10,
-            name: 'Smart Stores',
+            name: 'Vehicle Cybersecurity',
             rank: 10,
-            marketMaturity: 'Low',
-            growthPotential: 'Medium',
-            percentage: 47,
-            yearOverYearChange: -2
+            marketMaturity: 'Medium',
+            growthPotential: 'High',
+            percentage: 67,
+            description: 'Vehicle cybersecurity is becoming a critical focus area as vehicles become more connected.',
+            yearOverYearChange: 8.4,
+            comments: 'Regulatory and safety pressures driving market acceleration'
         }
     ];
 
@@ -108,7 +177,7 @@ export const RetailMegaTrendsHeatmap = () => {
 
     // Check if cell should show rank number
     const shouldShowRank = (trend, maturity, growth) => {
-        return (trend.marketMaturity === maturity && trend.growthPotential === growth);
+        return (trend.growthPotential === growth);
     };
 
     // Get color for year-over-year indicator
@@ -127,13 +196,32 @@ export const RetailMegaTrendsHeatmap = () => {
 
     const [selectedTrend, setSelectedTrend] = useState(trendData[0]);
 
+    // Sort trend data based on selected time and region
+    const getSortedTrendData = () => {
+        // Example logic: sort by percentage for "Last 12 Months", by yearOverYearChange for "Last 2 Years", by rank for "Last 5 Years"
+        // You can customize this logic as needed or connect to real data
+        let sorted = [...trendData];
+        if (selectedTime === "Last 12 Months") {
+            sorted.sort((a, b) => b.percentage - a.percentage);
+        } else if (selectedTime === "Last 2 Years") {
+            sorted.sort((a, b) => b.yearOverYearChange - a.yearOverYearChange);
+        } else if (selectedTime === "Last 5 Years") {
+            sorted.sort((a, b) => a.rank - b.rank);
+        }
+        // Optionally, region can further affect sorting (e.g., reverse for a specific region)
+        if (selectedRegion === "Asia Pacific") {
+            sorted.reverse();
+        }
+        return sorted;
+    };
+
     return (
         <div className="flex min-h-screen bg-gray-100">
             <div className="flex-1 p-6 bg-white shadow-md border border-gray-200 rounded-md m-4">
                 <div className="flex justify-between items-center mb-4 border-b border-gray-200 pb-4">
                     <div>
                         <h1 className="text-xl font-bold text-gray-800">Sector Analysis</h1>
-                        <h2 className="text-lg font-medium text-gray-700">Retail Mega Trends Heatmap</h2>
+                        <h2 className="text-lg font-medium text-gray-700">Automobile Mega Trends Heatmap</h2>
                     </div>
                     <div className="flex space-x-2 items-center">
                         <div className="bg-yellow-100 p-2 rounded-full border border-yellow-200">
@@ -143,21 +231,71 @@ export const RetailMegaTrendsHeatmap = () => {
                 </div>
 
                 <div className="flex space-x-4 mb-6 mt-4">
-                    <div className="flex items-center">
-                        <span className="text-sm text-gray-600 mr-2">Time Period:</span>
-                        <button className="flex items-center space-x-1 text-sm bg-white border border-gray-300 rounded px-3 py-1 shadow-sm hover:bg-gray-50 transition-colors">
-                            <span>Last 12 Months</span>
-                            <ChevronDown size={16} />
-                        </button>
+                    <div className="relative">
+                        <div className="flex items-center">
+                            <span className="text-sm text-gray-600 mr-2">Time Period:</span>
+                            <button
+                                onClick={toggleTimeDropdown}
+                                className="flex items-center justify-between w-48 text-sm bg-white border border-gray-300 rounded px-3 py-1 shadow-sm hover:bg-gray-50 transition-colors"
+                            >
+                                <span>{selectedTime}</span>
+                                <ChevronDown size={16} className={`transition-transform ${timeDropdownOpen ? 'rotate-180' : ''}`} />
+                            </button>
+                        </div>
+
+                        {timeDropdownOpen && (
+                            <div className="absolute mt-1 w-48 bg-white border border-gray-200 rounded shadow-lg z-10">
+                                <ul className="py-1">
+                                    {timeOptions.map((option) => (
+                                        <li
+                                            key={option}
+                                            className={`px-3 py-2 text-sm cursor-pointer hover:bg-blue-50 ${selectedTime === option ? 'bg-blue-100' : ''}`}
+                                            onClick={() => handleTimeSelect(option)}
+                                        >
+                                            {option}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </div>
 
-                    <div className="flex items-center">
-                        <span className="text-sm text-gray-600 mr-2">Region:</span>
-                        <button className="flex items-center space-x-1 text-sm bg-white border border-gray-300 rounded px-3 py-1 shadow-sm hover:bg-gray-50 transition-colors">
-                            <span>Global</span>
-                            <ChevronDown size={16} />
-                        </button>
+                    {/* Region Dropdown */}
+                    <div className="relative">
+                        <div className="flex items-center">
+                            <span className="text-sm text-gray-600 mr-2">Region:</span>
+                            <button
+                                onClick={toggleRegionDropdown}
+                                className="flex items-center justify-between w-48 text-sm bg-white border border-gray-300 rounded px-3 py-1 shadow-sm hover:bg-gray-50 transition-colors"
+                            >
+                                <span>{selectedRegion}</span>
+                                <ChevronDown size={16} className={`transition-transform ${regionDropdownOpen ? 'rotate-180' : ''}`} />
+                            </button>
+                        </div>
+
+                        {regionDropdownOpen && (
+                            <div className="absolute mt-1 w-48 bg-white border border-gray-200 rounded shadow-lg z-10">
+                                <ul className="py-1">
+                                    {regionOptions.map((option) => (
+                                        <li
+                                            key={option}
+                                            className={`px-3 py-2 text-sm cursor-pointer hover:bg-blue-50 ${selectedRegion === option ? 'bg-blue-100' : ''}`}
+                                            onClick={() => handleRegionSelect(option)}
+                                        >
+                                            {option}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </div>
+
+                    {(timeDropdownOpen || regionDropdownOpen) && (
+                        <div
+                            className="fixed inset-0 z-0"
+                            onClick={closeDropdowns}
+                        />
+                    )}
 
                     <div className="ml-auto">
                         <button className="flex items-center space-x-1 text-sm bg-white border border-gray-300 rounded px-3 py-1 shadow-sm hover:bg-gray-50 transition-colors">
@@ -168,7 +306,7 @@ export const RetailMegaTrendsHeatmap = () => {
                 </div>
 
                 <div className="mb-4 border-b border-gray-200 pb-2">
-                    <h3 className="text-base font-medium">Top 10 Mega Trends in Retail</h3>
+                    <h3 className="text-base font-medium">Top 10 Mega Trends in Automobile</h3>
                     <div className="flex items-center text-xs text-gray-500 mt-1 mb-3">
                         <Info size={14} className="mr-1" />
                         <span>Updated: July 2023</span>
@@ -197,7 +335,7 @@ export const RetailMegaTrendsHeatmap = () => {
 
                     {/* Heatmap Rows */}
                     <div className="mt-4">
-                        {trendData.map((trend) => (
+                        {getSortedTrendData().map((trend,index) => (
                             <div
                                 key={trend.id}
                                 className={`grid grid-cols-7 mb-4 p-2 rounded-md transition-all duration-150 ${trend.id === selectedTrend.id ? 'bg-blue-50 border border-blue-200' : 'hover:bg-blue-50 hover:border hover:border-blue-100 border border-transparent'}`}
@@ -206,7 +344,7 @@ export const RetailMegaTrendsHeatmap = () => {
                             >
                                 <div className="col-span-2 flex items-center">
                                     <div className="w-6 h-6 rounded-full bg-white border border-gray-300 flex items-center justify-center text-xs mr-2 shadow-sm">
-                                        {trend.rank}
+                                        {index+1}
                                     </div>
                                     <div className="text-sm font-medium">{trend.name}</div>
                                 </div>
@@ -249,38 +387,6 @@ export const RetailMegaTrendsHeatmap = () => {
                                         )}
                                     </div>
                                 </div>
-
-                                {/* Handle specific position cases */}
-                                {trend.marketMaturity === 'Medium' && trend.growthPotential === 'Very High' && (
-                                    <div className="absolute ml-[520px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                        {trend.rank}
-                                    </div>
-                                )}
-                                {trend.marketMaturity === 'Medium' && trend.growthPotential === 'High' && (
-                                    <div className="absolute ml-[452px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                        {trend.rank}
-                                    </div>
-                                )}
-                                {trend.marketMaturity === 'High' && trend.growthPotential === 'Medium' && (
-                                    <div className="absolute ml-[384px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                        {trend.rank}
-                                    </div>
-                                )}
-                                {trend.marketMaturity === 'Low' && trend.growthPotential === 'Very High' && (
-                                    <div className="absolute ml-[520px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                        {trend.rank}
-                                    </div>
-                                )}
-                                {trend.marketMaturity === 'Low' && trend.growthPotential === 'High' && (
-                                    <div className="absolute ml-[452px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                        {trend.rank}
-                                    </div>
-                                )}
-                                {trend.marketMaturity === 'Low' && trend.growthPotential === 'Medium' && (
-                                    <div className="absolute ml-[384px] mt-[12px] w-5 h-5 rounded-full bg-white flex items-center justify-center text-xs font-medium shadow-sm">
-                                        {trend.rank}
-                                    </div>
-                                )}
 
                                 <div className="col-span-2"></div>
                                 <div className="col-span-5 mt-2">
@@ -338,7 +444,7 @@ export const RetailMegaTrendsHeatmap = () => {
                             </button>
                         </div>
                         <p className="text-xs text-gray-600 mb-3">
-                            This heatmap plots each mega trend in retail according to two dimensions:
+                            This heatmap plots each mega trend in Automobile according to two dimensions:
                         </p>
                         <ul className="list-disc list-inside text-xs text-gray-600 mb-3">
                             <li>Horizontal axis: Market maturity (showing potential market size and growth)</li>
@@ -354,6 +460,9 @@ export const RetailMegaTrendsHeatmap = () => {
                     <h3 className="text-sm font-medium mb-2 text-blue-600">{selectedTrend.name}</h3>
                     <p className="text-xs text-gray-600 mb-3 leading-relaxed">
                         {selectedTrend.description || "No description available."}
+                    </p>
+                    <p className="text-xs text-gray-600 mb-3 leading-relaxed">
+                        Comment: {selectedTrend.comments || "No description available."}
                     </p>
                 </div>
 
@@ -389,9 +498,9 @@ export const RetailMegaTrendsHeatmap = () => {
                     <h3 className="text-sm font-medium mb-3">Year-over-Year Trend Movement</h3>
                     <div className="bg-white p-3 rounded-lg border border-gray-200">
                         {[
-                            { name: 'E-commerce 2.0', change: 4.5 },
-                            { name: 'Personalization AI', change: 7.2 },
-                            { name: 'Smart Stores', change: -2 }
+                            { name: 'Electric Vehicles (EVs)', change: 4.5 },
+                            { name: 'Autonomous Driving (ADAS/AV)', change: 7.2 },
+                            { name: 'Software-Defined Vehicles (SDV)', change: -2 }
                         ].map((item, index) => (
                             <div key={index} className="flex justify-between items-center mb-2 text-xs">
                                 <span className="text-gray-600 font-medium">{item.name}</span>

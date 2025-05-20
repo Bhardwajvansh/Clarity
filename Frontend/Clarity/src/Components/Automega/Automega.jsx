@@ -1,8 +1,11 @@
-import React from 'react';
-import { ChevronRight, Download, Expand } from 'lucide-react';
+import { useState } from 'react';
+import { Download, Expand, X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 
 export default function Automega() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const pdfUrl = "/assets/Global-Connected-Vehicles-Industry-Thought-Leadership-Report.pdf";
     const navigate = useNavigate();
     const COLORS = [
         '#8A4FFF',
@@ -40,15 +43,20 @@ export default function Automega() {
                         <div className="bg-blue-500 text-white p-3 font-semibold flex items-center justify-between">
                             <span>Connected Vehicles</span>
                             <div className="flex gap-2">
-                                <a
-                                    href="/assets/Global-Connected-Vehicles-Industry-Thought-Leadership-Report.pdf"
-                                    download
+                                <button
+                                    onClick={() => window.open(pdfUrl, '_blank')}
+                                    className="flex items-center text-white hover:text-blue-100 transition-colors"
+                                    aria-label="Download PDF"
                                 >
-                                    <Download className="w-4 h-4 mr-2 hover:opacity-80" />
-                                </a>
-                                <a href="/src/assets/Global-Connected-Vehicles-Industry-Thought-Leadership-Report.pdf" target="_blank" rel="noopener noreferrer" title="View PDF">
-                                    <Expand className="w-4 h-4 hover:opacity-80" />
-                                </a>
+                                    <Download className="w-4 h-4" />
+                                </button>
+                                <button
+                                    onClick={() => setIsModalOpen(true)}
+                                    className="flex items-center text-white hover:text-blue-100 transition-colors"
+                                    aria-label="View PDF"
+                                >
+                                    <Expand className="w-4 h-4" />
+                                </button>
                             </div>
                         </div>
                         <div className="p-4">
@@ -59,7 +67,6 @@ export default function Automega() {
                                 </div>
                                 <div className="text-sm text-gray-700 ml-5">$250B potential by 2030</div>
                             </div>
-
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
                                     <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
@@ -67,7 +74,6 @@ export default function Automega() {
                                 </div>
                                 <div className="text-sm text-gray-700 ml-5">$26.4B by 2030 (13.3% CAGR)</div>
                             </div>
-
                             <div className="mb-4">
                                 <div className="flex items-center mb-1">
                                     <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
@@ -77,6 +83,71 @@ export default function Automega() {
                             </div>
                         </div>
                     </div>
+
+                    {/* PDF Modal */}
+                    <AnimatePresence>
+                        {isModalOpen && (
+                            <motion.div
+                                className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={() => setIsModalOpen(false)}
+                            >
+                                <motion.div
+                                    className="bg-white rounded-lg shadow-xl max-w-6xl w-full min-h-screen flex flex-col overflow-hidden"
+                                    initial={{ scale: 0.9, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    exit={{ scale: 0.9, opacity: 0 }}
+                                    transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <div className="bg-blue-500 text-white p-4 flex items-center justify-between">
+                                        <h3 className="font-semibold">Global Connected Vehicles Industry Report</h3>
+                                        <button
+                                            onClick={() => setIsModalOpen(false)}
+                                            className="text-white hover:text-blue-100 transition-colors"
+                                            aria-label="Close modal"
+                                        >
+                                            <X className="w-5 h-5" />
+                                        </button>
+                                    </div>
+
+                                    <div className="flex-1 p-0 flex justify-center bg-gray-100">
+                                        <iframe
+                                            src={`${pdfUrl}#toolbar=0&navpanes=0`}
+                                            className="w-full border-0"
+                                            title="Global Connected Vehicles Industry Report"
+                                            aria-label="PDF Document"
+                                        />
+                                    </div>
+
+                                    <div className="p-4 border-t border-gray-200 flex justify-between items-center bg-gray-50">
+                                        <div className="flex items-center space-x-4">
+                                            <a
+                                                href={pdfUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="px-3 py-1.5 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition-colors flex items-center"
+                                            >
+                                                <Expand className="w-4 h-4 mr-1.5" />
+                                                <span>Open Full Screen</span>
+                                            </a>
+
+                                            <a
+                                                href={pdfUrl}
+                                                download
+                                                className="px-3 py-1.5 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors flex items-center"
+                                            >
+                                                <Download className="w-4 h-4 mr-1.5" />
+                                                <span>Download</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
                     {/* Autonomous Vehicles */}
                     <div className="bg-gray-50 rounded-lg shadow-sm overflow-hidden">
